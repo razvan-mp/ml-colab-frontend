@@ -47,7 +47,7 @@
 .card-content {
     background-image: radial-gradient(rgba(255, 255, 255, 0.2) 8%,
             transparent 8%);
-    background-position: 0% 0%;
+    background-position: 0 0;
     background-size: 2vmin 2vmin;
     height: calc(100% - 7vmin);
     padding: 3vmin;
@@ -76,7 +76,7 @@
 
 .card-subtitle-word {
     display: inline-block;
-    margin: 0vmin 0.3vmin;
+    margin: 0 0.3vmin;
     opacity: 0;
     position: relative;
     transform: translateY(40%);

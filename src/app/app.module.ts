@@ -8,6 +8,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { Id3Component } from './id3/id3.component';
 import {NgxGraphModule} from "@swimlane/ngx-graph";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserAnimationsModule,
     AppRoutingModule,
     NgxTypedJsModule,
-    NgxGraphModule
+    NgxGraphModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]
