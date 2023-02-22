@@ -9,7 +9,7 @@ import {MessageService} from "primeng/api";
   selector: 'app-id3',
   templateUrl: './id3.component.html',
   providers: [MessageService],
-  styleUrls: ['./id3.component.css']
+  styleUrls: ['./id3.component.scss']
 })
 export class Id3Component implements OnInit {
 
@@ -24,7 +24,6 @@ export class Id3Component implements OnInit {
     orientation: 'TB',
     nodePadding: '10',
   };
-
   layout: string | Layout = 'dagre';
   curve: any = shape.curveBundle.beta(1);
   draggingEnabled: boolean = true;
@@ -58,9 +57,40 @@ export class Id3Component implements OnInit {
       });
   }
 
+  checkData(data: any): boolean {
+    if (data === '') {
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Data is empty'});
+      return false;
+    }
+    const dataArr = data.split('\n');
+    const desiredLength = dataArr[0].split(',').length;
+    for (let subarray of dataArr) {
+      if (subarray.split(',').length !== desiredLength) {
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Data is not in correct format'});
+        return false;
+      }
+    }
+    return true;
+  }
+
   submitGraphValues($event: any, graphValues: any) {
     $event.preventDefault();
-    const values = Object.fromEntries(new FormData(graphValues as any) as any);
-    console.log(values);
+    const data = Object.fromEntries(new FormData(graphValues as any) as any)['data'];
+    if (!this.checkData(data)) return;
+    this.messageService.add({severity:'info', summary:'Success', detail:'Sending data to server'})
+    axios.post("http://localhost:8000/api/id3/", data)
+    .then((res) => {
+      this.nodes = res.data['nodes'];
+      this.edges = res.data['edges'];
+      this.messageService.add({severity:'success', summary:'Success', detail:'Data loaded successfully. Updating graph...'});
+      setTimeout(() => {
+        this.update$.next(true);
+        this.center$.next(true);
+        this.zoomToFit$.next(true);
+      }, 500);
+    })
+    .catch((error) => {
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Error getting ID3 tree data'});
+    })
   }
 }

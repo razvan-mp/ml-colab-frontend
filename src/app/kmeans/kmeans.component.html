@@ -1,0 +1,17 @@
+<p-toast></p-toast>
+
+<div class="main-content">
+    <div class="graph">
+     <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+    </div>
+
+    <div>
+        <form #kmeansInput class="form" (submit)="updateData($event, kmeansInput)">
+            <label class="p-checkbox-label">Centroids</label>
+            <textarea class="input" name="centroids"></textarea>
+            <label class="p-checkbox-label">Points</label>
+            <textarea class="input" name="points"></textarea>
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+</div>
