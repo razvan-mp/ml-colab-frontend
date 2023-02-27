@@ -15,6 +15,7 @@ import { PageforbiddenComponent } from './pageforbidden/pageforbidden.component'
 import {PlotlyModule} from "angular-plotly.js";
 import * as PlotlyJS from 'plotly.js-dist-min';
 import {CommonModule} from "@angular/common";
+import { HclusteringComponent } from './hclustering/hclustering.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -25,7 +26,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     Id3Component,
     KmeansComponent,
     PagenotfoundComponent,
-    PageforbiddenComponent
+    PageforbiddenComponent,
+    HclusteringComponent
   ],
   imports: [
     BrowserModule,

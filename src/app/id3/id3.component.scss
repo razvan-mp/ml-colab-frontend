@@ -1,81 +1,63 @@
 .graph-display {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.2) 8%,
-    transparent 8%);
-    background-position: 0 0;
-    background-size: 2vmin 2vmin;
-    position: relative;
-    transition: background-position 350ms ease;
-    z-index: 2;
-    height: 50vh;
-    width: 50vw;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 8%,
+    transparent 8%
+  );
+  background-position: 0 0;
+  background-size: 2vmin 2vmin;
+  width: 75%;
 }
 
 .button {
-    padding: 5px;
-    color: white;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 5px;
+  color: white;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .buttons {
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    position: absolute;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: absolute;
 }
 
-textarea {
-    font-size: 1rem;
-    height: 100%;
-    padding: 5px;
+form {
+  width: 45%;
+  height: 48vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-toast {
+  .p-toast-message {
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+  }
 }
 
-textarea:focus {
-    outline: none;
-}
-
-form {
-    width: 45%;
-    height: 48vh;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: absolute;
-}
-
-.content-wrapper {
-    padding: 32px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-}
-
-:host ::ng-deep .p-toast {
-    .p-toast-message {
-        background: rgba(255, 255, 255, 0.25);
-        box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        border-radius: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-    }
+.node {
+  display: flex;
+  flex-direction: column;
 }

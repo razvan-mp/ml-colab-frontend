@@ -1,20 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as shape from 'd3-shape';
 import { Edge, Node, Layout } from '@swimlane/ngx-graph';
-import axios, {GenericHTMLFormElement} from "axios";
+import axios, { GenericHTMLFormElement } from 'axios';
 import { Subject } from 'rxjs';
-import {MessageService} from "primeng/api";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-id3',
   templateUrl: './id3.component.html',
   providers: [MessageService],
-  styleUrls: ['./id3.component.scss']
+  styleUrls: ['./id3.component.scss'],
 })
 export class Id3Component implements OnInit {
-
-  constructor(private messageService: MessageService) {
-  }
+  constructor(private messageService: MessageService) {}
 
   nodes: Node[] = [];
   edges: Edge[] = [];
@@ -42,7 +40,8 @@ export class Id3Component implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
 
   ngOnInit(): void {
-    axios.get("http://localhost:8000/api/get_example_id3")
+    axios
+      .get('http://localhost:8000/api/get_example_id3')
       .then((response) => {
         this.nodes = response.data['nodes'];
         this.edges = response.data['edges'];
@@ -50,7 +49,11 @@ export class Id3Component implements OnInit {
           this.center$.next(true);
           this.zoomToFit$.next(true);
         }, 500);
-        this.messageService.add({severity:'info', summary:'Success', detail:'Data loaded successfully'});
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Success',
+          detail: 'Data loaded successfully',
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -59,14 +62,22 @@ export class Id3Component implements OnInit {
 
   checkData(data: any): boolean {
     if (data === '') {
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Data is empty'});
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Data is empty',
+      });
       return false;
     }
     const dataArr = data.split('\n');
     const desiredLength = dataArr[0].split(',').length;
     for (let subarray of dataArr) {
       if (subarray.split(',').length !== desiredLength) {
-        this.messageService.add({severity:'error', summary: 'Error', detail: 'Data is not in correct format'});
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Data is not in correct format',
+        });
         return false;
       }
     }
@@ -75,22 +86,37 @@ export class Id3Component implements OnInit {
 
   submitGraphValues($event: any, graphValues: any) {
     $event.preventDefault();
-    const data = Object.fromEntries(new FormData(graphValues as any) as any)['data'];
+    const data = Object.fromEntries(new FormData(graphValues as any) as any)[
+      'data'
+    ];
     if (!this.checkData(data)) return;
-    this.messageService.add({severity:'info', summary:'Success', detail:'Sending data to server'})
-    axios.post("http://localhost:8000/api/id3/", data)
-    .then((res) => {
-      this.nodes = res.data['nodes'];
-      this.edges = res.data['edges'];
-      this.messageService.add({severity:'success', summary:'Success', detail:'Data loaded successfully. Updating graph...'});
-      setTimeout(() => {
-        this.update$.next(true);
-        this.center$.next(true);
-        this.zoomToFit$.next(true);
-      }, 500);
-    })
-    .catch((error) => {
-      this.messageService.add({severity:'error', summary: 'Error', detail: 'Error getting ID3 tree data'});
-    })
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'Sending data to server',
+    });
+    axios
+      .post('http://localhost:8000/api/id3/', data)
+      .then((res) => {
+        this.nodes = res.data['nodes'];
+        this.edges = res.data['edges'];
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Data loaded successfully. Updating graph...',
+        });
+        setTimeout(() => {
+          this.update$.next(true);
+          this.center$.next(true);
+          this.zoomToFit$.next(true);
+        }, 500);
+      })
+      .catch((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error getting ID3 tree data',
+        });
+      });
   }
 }

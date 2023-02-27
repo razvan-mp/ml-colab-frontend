@@ -15,3 +15,40 @@ form {
   flex-direction: column;
   gap: 10px;
 }
+
+.centroid-checkbox {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.centroids-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.options-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.suboptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.random-kmeans {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
