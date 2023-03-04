@@ -6,6 +6,7 @@ import { KmeansComponent } from './kmeans/kmeans.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PageforbiddenComponent } from './pageforbidden/pageforbidden.component';
 import { HclusteringComponent } from './hclustering/hclustering.component';
+import { KnnComponent } from './knn/knn.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'id3', component: Id3Component },
   { path: 'kmeans', component: KmeansComponent },
   { path: 'hclustering', component: HclusteringComponent },
+  { path: 'knn', component: KnnComponent},
   { path: '404', component: PagenotfoundComponent },
   { path: '403', component: PageforbiddenComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' },

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { MessageService } from 'primeng/api';
+import { AppComponent } from '../app.component';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 
 @Component({
@@ -35,7 +36,7 @@ export class HclusteringComponent implements OnInit {
 
   constructor(private messageService: MessageService) {}
 
-  ngOnInit() {
+  ngOnInit() { 
     this.initPage();
   }
 
@@ -48,7 +49,7 @@ export class HclusteringComponent implements OnInit {
     axios.get('http://localhost:8000/api/get_example_hclustering').then((response) => {
       this.updateGraphData(response.data);
       this.messageService.add({
-        severity: 'success',
+        severity: 'info',
         summary: 'Success',
         detail: 'Data loaded successfully',
       });
@@ -60,7 +61,7 @@ export class HclusteringComponent implements OnInit {
         detail: 'Error while getting data',
         });
     });
-    this.hidePlotly();
+    AppComponent.hidePlotly();
   }
 
   updateData($event: SubmitEvent, HClusteringForm: HTMLFormElement) {
@@ -75,16 +76,5 @@ export class HclusteringComponent implements OnInit {
         detail: 'Data updated successfully',
       });
     });
-  }
-
-  hidePlotly(): void {
-    setTimeout(() => {
-      const aTagsWithHref = document.querySelectorAll('a[href]');
-      aTagsWithHref.forEach((aTag) => {
-        if (aTag!.getAttribute('href')!.includes('plotly')) {
-          aTag.remove();
-        }
-      });
-    }, 100);
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MessageService} from "primeng/api";
 import axios from "axios";
 import {KmeansEnvironmentVars} from "../vars/kmeans-environment-vars";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-kmeans',
@@ -35,7 +36,7 @@ export class KmeansComponent implements OnInit {
         const data = JSON.parse(response.data);
         this.updateGraphData(data);
       });
-    this.hidePlotly();
+    AppComponent.hidePlotly();
   }
 
   updateGraphData(data: any) {
@@ -73,17 +74,6 @@ export class KmeansComponent implements OnInit {
         });
       }
     }
-  }
-
-  hidePlotly(): void {
-    setTimeout(() => {
-      const aTagsWithHref = document.querySelectorAll('a[href]');
-      aTagsWithHref.forEach((aTag) => {
-        if (aTag!.getAttribute('href')!.includes('plotly')) {
-          aTag.remove();
-        }
-      });
-    }, 100);
   }
 
   updateData($event: SubmitEvent, kmeansInput: HTMLFormElement) {

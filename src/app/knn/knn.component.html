@@ -1,0 +1,13 @@
+<p-toast></p-toast>
+
+<div class="content-wrapper">
+    <div class="graph-display">
+        <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+    </div>
+    <div class="controls-display">
+        <form #kNNForm (submit)="updateData($event, kNNForm)">
+            <textarea name="points" id="hclustering-points"></textarea>
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
