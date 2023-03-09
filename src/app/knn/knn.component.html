@@ -7,6 +7,8 @@
     <div class="controls-display">
         <form #kNNForm (submit)="updateData($event, kNNForm)">
             <textarea name="points" id="hclustering-points"></textarea>
+            <label for="k">K</label>
+            <input type="number" name="k" id="k" min="1" max="10" value="3">
             <button class="button" type="submit">Submit</button>
         </form>
     </div>
