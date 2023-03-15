@@ -46,7 +46,7 @@ export class HclusteringComponent implements OnInit {
   }
 
   initPage() {
-    axios.get('http://localhost:8000/api/get_example_hclustering').then((response) => {
+    axios.get(`${AppComponent.BACKEND_URL}api/get_example_hclustering`).then((response) => {
       this.updateGraphData(response.data);
       this.messageService.add({
         severity: 'info',
@@ -68,7 +68,7 @@ export class HclusteringComponent implements OnInit {
     $event.preventDefault();
 
     const payload = Object.fromEntries(new FormData(HClusteringForm as any) as any);
-    axios.post('http://localhost:8000/api/get_hclustering_response/', payload).then((response) => {
+    axios.post(`${AppComponent.BACKEND_URL}api/get_hclustering_response/`, payload).then((response) => {
       this.updateGraphData(response.data);
       this.messageService.add({
         severity: 'success',

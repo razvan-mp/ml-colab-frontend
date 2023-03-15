@@ -1,0 +1,64 @@
+<div class="toolbar flex flex-row justify-content-between">
+    <div class="start">
+        ML Colab
+    </div>
+
+    <div class="center flex flex-row">
+        <p routerLink="/home" routerLinkActive="active" class="m-2 cursor-pointer">Home</p>
+        <p routerLink="/news" routerLinkActive="active" class="m-2 cursor-pointer">News</p>
+    </div>
+
+    <div class="end">
+        <button pButton type="button" label="Login" (click)="displayModal = true" class="m-2"></button>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayModal" [modal]="true" [dismissableMask]="true" [draggable]="false" [resizable]="false"
+    class="dialog">
+    <p-tabView [(activeIndex)]="tabViewIndex">
+        <p-tabPanel header="Log in">
+            <div class="content flex flex-column align-items-center">
+                <p>Welcome back!</p>
+                <p>Please log in to continue.</p>
+                <form #loginForm (submit)="loginUser($event, loginForm)" class="flex flex-column">
+                    <span class="p-float-label">
+                        <input id="email-input" name="email" type="text" pInputText>
+                        <label for="email-input">E-mail</label>
+                    </span>
+                    <span class="p-float-label">
+                        <input type="password" name="password" pInputText inputId="password-input">
+                        <label for="password-input">Password</label>
+                    </span>
+                    <button pButton type="submit" label="Login" class="m-2"></button>
+                </form>
+                <p>Are you new here? <span class="signup-url" (click)="setIndex(1)">Sign up!</span></p>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Sign up">
+            <div class="content flex flex-column align-items-center">
+                <p>Welcome aboard!</p>
+                <p>Fill out the form below to sign up.</p>
+                <form #registerForm (submit)="registerUser($event, registerForm)" class="flex flex-column">
+                    <span class="p-float-label">
+                        <input id="name-input" name="username" type="text" pInputText>
+                        <label for="name-input">Username</label>
+                    </span>
+                    <span class="p-float-label">
+                        <input id="email-signup-input" name="email" type="text" pInputText>
+                        <label for="email-signup-input">E-mail</label>
+                    </span>
+                    <span class="p-float-label">
+                        <p-password [(ngModel)]="password" name="password" inputId="password-input"></p-password>
+                        <label for="password-input">Password</label>
+                    </span>
+                    <span class="p-float-label">
+                        <p-password (change)="validatePassConfirm()" name="password-confirm" inputId="password-confirm-input" [(ngModel)]="passwordConfirm"></p-password>
+                        <label for="password-input">Confirm Password</label>
+                    </span>
+                    <button pButton type="submit" label="Sign up" class="m-2"></button>
+                </form>
+                <p>Already have an account? <span class="signup-url" (click)="setIndex(0)">Log in!</span></p>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-dialog>

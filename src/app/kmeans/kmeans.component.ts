@@ -31,7 +31,7 @@ export class KmeansComponent implements OnInit {
   }
 
   initPage() {
-    axios.get("http://localhost:8000/api/get_example_k_means")
+    axios.get(`${AppComponent.BACKEND_URL}/api/get_example_k_means`)
       .then(response => {
         const data = JSON.parse(response.data);
         this.updateGraphData(data);
@@ -82,7 +82,7 @@ export class KmeansComponent implements OnInit {
     const centroids = data.centroids;
     const points = data.points;
 
-    axios.post('http://localhost:8000/api/get_k_means_response/', data).then((res) => {
+    axios.post(`${AppComponent.BACKEND_URL}/api/get_k_means_response/`, data).then((res) => {
       const data = JSON.parse(res.data);
       this.updateGraphData(data);
     }).catch((err) => {
@@ -157,7 +157,7 @@ export class KmeansComponent implements OnInit {
       points: points
     };
 
-    axios.post('http://localhost:8000/api/get_k_means_response/', data).then((res) => {
+    axios.post(`${AppComponent.BACKEND_URL}api/get_k_means_response/`, data).then((res) => {
       const data = JSON.parse(res.data);
       this.updateGraphData(data);
     }).catch((err) => {

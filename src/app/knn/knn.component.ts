@@ -75,7 +75,7 @@ export class KnnComponent implements OnInit {
   initPage(): void {
     AppComponent.hidePlotly();
     axios
-      .get('http://localhost:8000/api/get_knn_example')
+      .get(`${AppComponent.BACKEND_URL}api/get_knn_example`)
       .then((res) => {
         const data = res.data;
         this.updateGraphData(data);
@@ -171,7 +171,7 @@ export class KnnComponent implements OnInit {
     }
 
     axios
-      .post('http://localhost:8000/api/get_knn_response/', data)
+      .post(`${AppComponent.BACKEND_URL}/api/get_knn_response/`, data)
       .then((res) => {
         const data = res.data;
         this.updateGraphData(data);

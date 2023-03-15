@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import * as shape from 'd3-shape';
 import { Edge, Node, Layout } from '@swimlane/ngx-graph';
-import axios, { GenericHTMLFormElement } from 'axios';
 import { Subject } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { AlgorithmsService } from '../services/algorithms.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-id3',
   templateUrl: './id3.component.html',
-  providers: [MessageService],
+  providers: [MessageService, AlgorithmsService],
   styleUrls: ['./id3.component.scss'],
 })
 export class Id3Component implements OnInit {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private algorithmsService: AlgorithmsService
+  ) {}
 
   nodes: Node[] = [];
   edges: Edge[] = [];
@@ -40,23 +44,33 @@ export class Id3Component implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
 
   ngOnInit(): void {
-    axios
-      .get('http://localhost:8000/api/get_example_id3')
-      .then((response) => {
-        this.nodes = response.data['nodes'];
-        this.edges = response.data['edges'];
-        setTimeout(() => {
-          this.center$.next(true);
-          this.zoomToFit$.next(true);
-        }, 500);
+    this.algorithmsService
+      .getExampleId3()
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error loading example data',
+          });
+          return err;
+        })
+      )
+      .subscribe((data: any) => {
+        this.nodes = data['nodes'];
+        this.edges = data['edges'];
+
         this.messageService.add({
-          severity: 'info',
+          severity: 'success',
           summary: 'Success',
           detail: 'Data loaded successfully',
         });
-      })
-      .catch((error) => {
-        console.log(error);
+
+        setTimeout(() => {
+          this.update$.next(true);
+          this.center$.next(true);
+          this.zoomToFit$.next(true);
+        }, 500);
       });
   }
 
@@ -95,11 +109,21 @@ export class Id3Component implements OnInit {
       summary: 'Success',
       detail: 'Sending data to server',
     });
-    axios
-      .post('http://localhost:8000/api/id3/', data)
-      .then((res) => {
-        this.nodes = res.data['nodes'];
-        this.edges = res.data['edges'];
+    this.algorithmsService
+      .updateId3Data(data)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error sending data to server',
+          });
+          return err;
+        })
+      )
+      .subscribe((res) => {
+        this.nodes = res['nodes'];
+        this.edges = res['edges'];
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -110,13 +134,6 @@ export class Id3Component implements OnInit {
           this.center$.next(true);
           this.zoomToFit$.next(true);
         }, 500);
-      })
-      .catch((error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error getting ID3 tree data',
-        });
       });
   }
 }
