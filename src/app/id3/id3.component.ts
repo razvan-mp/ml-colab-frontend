@@ -67,19 +67,28 @@ export class Id3Component implements OnInit {
         });
 
         setTimeout(() => {
+          this.zoomToFit$.next(true);
           this.update$.next(true);
           this.center$.next(true);
-          this.zoomToFit$.next(true);
         }, 500);
       });
   }
 
   checkData(data: any): boolean {
+    if (data === undefined) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Data is undefined',
+      });
+      return false;
+    }
+
     if (data === '') {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Data is empty',
+        detail: 'Data cannot be empty',
       });
       return false;
     }
@@ -130,9 +139,9 @@ export class Id3Component implements OnInit {
           detail: 'Data loaded successfully. Updating graph...',
         });
         setTimeout(() => {
+          this.zoomToFit$.next(true);
           this.update$.next(true);
           this.center$.next(true);
-          this.zoomToFit$.next(true);
         }, 500);
       });
   }

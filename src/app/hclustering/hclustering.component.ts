@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
 import { MessageService } from 'primeng/api';
+import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
+import { AlgorithmsService } from '../services/algorithms.service';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 
 @Component({
@@ -34,9 +35,12 @@ export class HclusteringComponent implements OnInit {
     },
   };
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private algorithmsService: AlgorithmsService
+  ) {}
 
-  ngOnInit() { 
+  ngOnInit() {
     this.initPage();
   }
 
@@ -46,35 +50,55 @@ export class HclusteringComponent implements OnInit {
   }
 
   initPage() {
-    axios.get(`${AppComponent.BACKEND_URL}api/get_example_hclustering`).then((response) => {
-      this.updateGraphData(response.data);
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Success',
-        detail: 'Data loaded successfully',
-      });
-    })
-    .catch((error) => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Error while getting data',
+    this.algorithmsService
+      .getExampleHclustering()
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error getting example data',
+          });
+          return error;
+        })
+      )
+      .subscribe((data: any) => {
+        this.updateGraphData(data);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Success',
+          detail: 'Data loaded successfully',
         });
-    });
+      });
     AppComponent.hidePlotly();
   }
 
   updateData($event: SubmitEvent, HClusteringForm: HTMLFormElement) {
     $event.preventDefault();
 
-    const payload = Object.fromEntries(new FormData(HClusteringForm as any) as any);
-    axios.post(`${AppComponent.BACKEND_URL}api/get_hclustering_response/`, payload).then((response) => {
-      this.updateGraphData(response.data);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Data updated successfully',
+    const data = Object.fromEntries(
+      new FormData(HClusteringForm as any) as any
+    );
+
+    this.algorithmsService
+      .updateHclusteringData(data)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error updating data',
+          });
+          return error;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(data);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Data updated successfully',
+        });
       });
-    });
   }
 }

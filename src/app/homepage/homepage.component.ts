@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
-import { MessageService } from 'primeng/api';
-import { catchError } from 'rxjs/operators';
-import { AppComponent } from '../app.component';
-import { AuthService } from '../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {NewsItem} from '../models/NewsItem';
 
 @Component({
   selector: 'app-homepage',
@@ -14,50 +11,55 @@ import { AuthService } from '../services/auth.service';
 export class HomepageComponent implements OnInit {
   displayModal: boolean = false;
 
+  responsiveOptions: any = [
+    {
+      breakpoint: '1024px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
+
+  newsItems: NewsItem[] = [
+    {
+      title: 'News item 1',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      source: 'https://www.google.com',
+      image: 'https://source.unsplash.com/random/1500x300?sig=1',
+    },
+    {
+      title: 'News item 2',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      source: 'https://www.google.com',
+      image: 'https://source.unsplash.com/random/1500x300?sig=2',
+    },
+    {
+      title: 'News item 3',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      source: 'https://www.google.com',
+      image: 'https://source.unsplash.com/random/1500x300?sig=3',
+    },
+  ];
+
   constructor(
     private messageService: MessageService,
-    private authService: AuthService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    AppComponent.refreshUserData();
   }
 
-  checkUserExists(): void {
-    AppComponent.refreshUserData();
-    const username = (document.getElementById('username') as HTMLInputElement)
-      .value;
-    const input = document.getElementById('username') as HTMLInputElement;
-    if (AppComponent.usernames.includes(username)) {
-      input.classList.add('ng-invalid');
-      input.classList.add('ng-dirty');
-    } else {
-      input.classList.remove('ng-invalid');
-      input.classList.remove('ng-dirty');
-    }
-  }
-
-  registerUser($event: SubmitEvent, userDataForm: HTMLFormElement): void {
-    $event.preventDefault();
-    const data = Object.fromEntries(new FormData(userDataForm as any) as any);
-    this.authService
-      .registerUser(data)
-      .pipe(
-        catchError((err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error registering user',
-          });
-          return err;
-        })
-      )
-      .subscribe((data: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'User registered successfully',
-        });
-      });
+  scroll(target: string) {
+    const el = document.getElementById(target)!;
+    el.scrollIntoView({behavior: 'smooth'});
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
 import { MessageService } from 'primeng/api';
+import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
+import { AlgorithmsService } from '../services/algorithms.service';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 
 @Component({
@@ -66,7 +67,10 @@ export class KnnComponent implements OnInit {
     },
   };
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private algorithmsService: AlgorithmsService
+  ) {}
 
   ngOnInit(): void {
     this.initPage();
@@ -74,20 +78,25 @@ export class KnnComponent implements OnInit {
 
   initPage(): void {
     AppComponent.hidePlotly();
-    axios
-      .get(`${AppComponent.BACKEND_URL}api/get_knn_example`)
-      .then((res) => {
-        const data = res.data;
-        this.updateGraphData(data);
+    this.algorithmsService.getExampleKnn()
+    .pipe(
+      catchError((err) => {
         this.messageService.add({
-          severity: 'info',
-          summary: 'Success',
-          detail: 'Loaded data successfully!',
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Example data could not be loaded',
         });
+        return err;
       })
-      .catch((err) => {
-        console.log(err);
+    )
+    .subscribe(data => {
+      this.updateGraphData(data);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Example data loaded',
       });
+    })
   }
 
   updateGraphData(data: any) {
@@ -170,25 +179,25 @@ export class KnnComponent implements OnInit {
       return;
     }
 
-    axios
-      .post(`${AppComponent.BACKEND_URL}/api/get_knn_response/`, data)
-      .then((res) => {
-        const data = res.data;
-        this.updateGraphData(data);
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Success',
-          detail: 'Data updated successfully!',
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    this.algorithmsService.updateKnnData(data)
+    .pipe(
+      catchError((err) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Serverside error',
+          detail: 'Data could not be updated',
         });
+        return err;
+      })
+    )
+    .subscribe(data => {
+      this.updateGraphData(data);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Data updated',
       });
+    });
     return;
   }
 }

@@ -29,6 +29,8 @@ import { HeaderComponent } from './header/header.component';
 import { PasswordModule } from 'primeng/password';
 import { TabViewModule } from 'primeng/tabview';
 import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { CardModule } from 'primeng/card';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -64,6 +66,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     PasswordModule,
     TabViewModule,
     FormsModule,
+    CarouselModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

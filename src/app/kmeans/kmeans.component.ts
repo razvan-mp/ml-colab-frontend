@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "primeng/api";
-import axios from "axios";
-import {KmeansEnvironmentVars} from "../vars/kmeans-environment-vars";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 import { AppComponent } from '../app.component';
+import { AlgorithmsService } from '../services/algorithms.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-kmeans',
   providers: [MessageService],
   templateUrl: './kmeans.component.html',
-  styleUrls: ['./kmeans.component.scss']
+  styleUrls: ['./kmeans.component.scss'],
 })
 export class KmeansComponent implements OnInit {
   public graph = {
@@ -19,22 +20,40 @@ export class KmeansComponent implements OnInit {
         family: KmeansEnvironmentVars.fontFamily,
         size: KmeansEnvironmentVars.fontSize,
       },
-    }
+    },
   };
 
   public customCentroids: boolean = true;
 
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private messageService: MessageService,
+    private algorithmsService: AlgorithmsService
+  ) {}
 
   ngOnInit(): void {
     this.initPage();
   }
 
   initPage() {
-    axios.get(`${AppComponent.BACKEND_URL}/api/get_example_k_means`)
-      .then(response => {
-        const data = JSON.parse(response.data);
-        this.updateGraphData(data);
+    this.algorithmsService
+      .getExampleKmeans()
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error getting example data',
+          });
+          return error;
+        })
+      )
+      .subscribe((data: any) => {
+        this.updateGraphData(JSON.parse(data));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Example data loaded',
+        });
       });
     AppComponent.hidePlotly();
   }
@@ -53,8 +72,8 @@ export class KmeansComponent implements OnInit {
         r: 20,
         type: 'scatter',
         mode: 'markers',
-        marker: {color: color, size: 20, line: {color: 'black', width: 2}},
-        name: 'Centroid ' + (centroidIndex + 1)
+        marker: { color: color, size: 20, line: { color: 'black', width: 2 } },
+        name: 'Centroid ' + (centroidIndex + 1),
       });
 
       const points = centroid.points;
@@ -63,14 +82,18 @@ export class KmeansComponent implements OnInit {
         const point = points[pointIndex];
         const x = point.x;
         const y = point.y;
-  
+
         this.graph.data.push({
           x: [x],
           y: [y],
           type: 'scatter',
           mode: 'markers',
-          marker: {color: `${color}`, size: 10, line: {color: 'black', width: 2}},
-          name: 'Point ' + (pointIndex + 1)
+          marker: {
+            color: `${color}`,
+            size: 10,
+            line: { color: 'black', width: 2 },
+          },
+          name: 'Point ' + (pointIndex + 1),
         });
       }
     }
@@ -82,12 +105,26 @@ export class KmeansComponent implements OnInit {
     const centroids = data.centroids;
     const points = data.points;
 
-    axios.post(`${AppComponent.BACKEND_URL}/api/get_k_means_response/`, data).then((res) => {
-      const data = JSON.parse(res.data);
-      this.updateGraphData(data);
-    }).catch((err) => {
-      console.log(err);
-    })
+    this.algorithmsService
+      .updateKmeansData(data)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error getting example data',
+          });
+          return error;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(JSON.parse(data));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Example data loaded',
+        });
+      });
   }
 
   updateUseCentroidOption() {
@@ -99,17 +136,15 @@ export class KmeansComponent implements OnInit {
 
   addRandomPoints() {
     for (let pointIndex = 0; pointIndex < 15; pointIndex++) {
-      this.graph.data.push(
-        {
-          x: [Math.floor(Math.random() * 200) - 100],
-          y: [Math.floor(Math.random() * 200) - 100],
-          r: 10,
-          type: 'scatter',
-          mode: 'markers',
-          marker: {color: 'white', size: 10},
-          name: 'Point'
-        }
-      )
+      this.graph.data.push({
+        x: [Math.floor(Math.random() * 200) - 100],
+        y: [Math.floor(Math.random() * 200) - 100],
+        r: 10,
+        type: 'scatter',
+        mode: 'markers',
+        marker: { color: 'white', size: 10 },
+        name: 'Point',
+      });
     }
   }
 
@@ -127,8 +162,12 @@ export class KmeansComponent implements OnInit {
         r: 20,
         type: 'scatter',
         mode: 'markers',
-        marker: {color: 'white', size: 20, line: {color: 'black', width: 2}},
-        name: 'Centroid'
+        marker: {
+          color: 'white',
+          size: 20,
+          line: { color: 'black', width: 2 },
+        },
+        name: 'Centroid',
       });
     }
   }
@@ -140,28 +179,48 @@ export class KmeansComponent implements OnInit {
   }
 
   runKmeans() {
-    const points = this.graph.data.filter((data: any) => {
-      return data.name.includes('Point');
-    }).map((data: any) => {
-      return data.x[0] + ',' + data.y[0];
-    }).join('\n');
+    const points = this.graph.data
+      .filter((data: any) => {
+        return data.name.includes('Point');
+      })
+      .map((data: any) => {
+        return data.x[0] + ',' + data.y[0];
+      })
+      .join('\n');
 
-    const centroids = this.graph.data.filter((data: any) => {
-      return data.name.includes('Centroid');
-    }).map((data: any) => {
-      return data.x[0] + ',' + data.y[0];
-    }).join('\n');
+    const centroids = this.graph.data
+      .filter((data: any) => {
+        return data.name.includes('Centroid');
+      })
+      .map((data: any) => {
+        return data.x[0] + ',' + data.y[0];
+      })
+      .join('\n');
 
     const data = {
       centroids: centroids,
-      points: points
+      points: points,
     };
 
-    axios.post(`${AppComponent.BACKEND_URL}api/get_k_means_response/`, data).then((res) => {
-      const data = JSON.parse(res.data);
-      this.updateGraphData(data);
-    }).catch((err) => {
-      console.log(err);
-    })
+    this.algorithmsService
+      .updateKmeansData(data)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error running algorithm',
+          });
+          return error;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(JSON.parse(data));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Updated graph data',
+        });
+      });
   }
 }

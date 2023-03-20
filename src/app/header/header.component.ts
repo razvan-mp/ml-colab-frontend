@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -6,13 +6,16 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   displayModal: boolean = false;
   tabViewIndex: number = 0;
   password: any;
   passwordConfirm: any;
 
   constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+  }
 
   loginUser($event: SubmitEvent, loginForm: HTMLFormElement): void {
     $event.preventDefault();
@@ -44,5 +47,10 @@ export class HeaderComponent {
       element?.classList.remove('ng-invalid');
       element?.classList.remove('ng-dirty');
     }
+  }
+
+  showMenu(): void {
+    const menu = document.getElementById('algo-menu');
+    menu?.classList.toggle('hidden');
   }
 }

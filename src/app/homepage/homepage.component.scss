@@ -1,3 +1,167 @@
+// primeng overrides
+:host ::ng-deep {
+  .p-link {
+    border-radius: 50% !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .p-card {
+    margin: 5px !important;
+  }
+}
+
 .flex-gap-1 {
-    gap: 1rem;
+  gap: 1rem;
+}
+
+.carousel-container {
+  width: 70%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.backdrop-image {
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.app-title {
+  font-size: 7rem;
+  font-weight: 600;
+}
+
+#ml {
+  font-weight: 900;
+  color: #8900ac;
+}
+
+.hero-anim {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 7fr 4fr;
+  grid-column-gap: 1.875rem;
+  padding: 6rem;
+}
+
+.hero-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 3px solid #8900ac;
+  background: #090909;
+  transition: all 300ms;
+}
+
+.link-button:hover {
+  background: #8900ac;
+  transform: scale(1.25);
+}
+
+.separator-link {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator {
+  position: absolute;
+  width: 80%;
+  border-top: 3px dashed;
+  border-color: #8900ac;
+  background: #8900ac;
+  margin: 0 1rem;
+  z-index: -1;
+  box-shadow: inset 0 10px 10px #090909;
+}
+
+.app-subtitle {
+  font-size: 1.5rem;
+  margin-top: -1.5rem;
+}
+
+.typing {
+  color: #8900ac;
+  font-weight: 600;
+}
+
+.news-container {
+  margin-top: 80px;
+}
+
+.carousel-title {
+  width: max-content;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: linear-gradient(0deg, #e0dbff, #ffe7e7) no-repeat right bottom /
+    0 var(--bg-h);
+  transition: background-size 350ms, color 350ms;
+  padding-bottom: 2px;
+  --bg-h: 2px;
+  margin-left: 3.25rem;
+}
+
+.carousel-title:where(:hover, :focus-visible) {
+  background-size: 100% var(--bg-h);
+  background-position-x: left;
+}
+
+#hero-section {
+  height: 100vh;
+}
+
+#detail-section {
+  height: 100vh;
+}
+
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns:7fr 3fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-grid {
+    grid-template-columns:repeat(1, 1fr);
+    grid-row-gap: 2.5rem;
+  }
 }

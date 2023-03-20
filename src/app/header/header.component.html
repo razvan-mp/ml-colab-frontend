@@ -1,22 +1,35 @@
-<div class="toolbar flex flex-row justify-content-between">
+<div class="toolbar select-none" id="header">
     <div class="start">
         ML Colab
     </div>
 
-    <div class="center flex flex-row">
-        <p routerLink="/home" routerLinkActive="active" class="m-2 cursor-pointer">Home</p>
-        <p routerLink="/news" routerLinkActive="active" class="m-2 cursor-pointer">News</p>
+    <div class="center">
+        <p routerLink="/home" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">Home</p>
+        <p routerLink="/news" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">News</p>
+        <div class="ml-2 mr-2 cursor-pointer toolbar-item" (click)="showMenu()">
+            Algorithms <i class="pi pi-chevron-down algo-chevron"></i>
+            <div id="algo-menu" class="algo-menu hidden">
+                <p class="cursor-pointer algo-menu-item m-0 mb-2" routerLink="/id3">ID3</p>
+                <div class="separator"></div>
+                <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/knn">K-NN</p>
+                <div class="separator"></div>
+                <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/hclustering">Hierarchical Clustering</p>
+                <div class="separator"></div>
+                <p class="cursor-pointer algo-menu-item m-0 mt-2" routerLink="/kmeans">K-Means</p>
+            </div>
+        </div>
     </div>
 
     <div class="end">
-        <button pButton type="button" label="Login" (click)="displayModal = true" class="m-2"></button>
+        <button pButton pRipple class="p-button-outlined p-button-sm" type="button" (click)="displayModal = true"
+            label="Log in"></button>
     </div>
 </div>
 
 <p-dialog [(visible)]="displayModal" [modal]="true" [dismissableMask]="true" [draggable]="false" [resizable]="false"
     class="dialog">
     <p-tabView [(activeIndex)]="tabViewIndex">
-        <p-tabPanel header="Log in">
+        <p-tabPanel class="tab-panel" header="Log in">
             <div class="content flex flex-column align-items-center">
                 <p>Welcome back!</p>
                 <p>Please log in to continue.</p>
@@ -34,7 +47,7 @@
                 <p>Are you new here? <span class="signup-url" (click)="setIndex(1)">Sign up!</span></p>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Sign up">
+        <p-tabPanel class="tab-panel" header="Sign up">
             <div class="content flex flex-column align-items-center">
                 <p>Welcome aboard!</p>
                 <p>Fill out the form below to sign up.</p>
@@ -52,7 +65,8 @@
                         <label for="password-input">Password</label>
                     </span>
                     <span class="p-float-label">
-                        <p-password (change)="validatePassConfirm()" name="password-confirm" inputId="password-confirm-input" [(ngModel)]="passwordConfirm"></p-password>
+                        <p-password (change)="validatePassConfirm()" name="password-confirm"
+                            inputId="password-confirm-input" [(ngModel)]="passwordConfirm"></p-password>
                         <label for="password-input">Confirm Password</label>
                     </span>
                     <button pButton type="submit" label="Sign up" class="m-2"></button>

@@ -1,24 +1,146 @@
 :host ::ng-deep {
-    .p-dialog, .p-dialog .p-dialog-content, .p-dialog .p-dialog-footer, .p-dialog .p-dialog-header {
-        opacity: 1;
-    }
-    .p-dialog .p-dialog-header {
-        display: none;
-    }
+  .p-dialog,
+  .p-dialog .p-dialog-content,
+  .p-dialog .p-dialog-footer,
+  .p-dialog .p-dialog-header {
+    width: 95%;
+    height: 80%;
+    align-self: center;
+  }
+  .p-dialog .p-dialog-header {
+    display: none;
+  }
 
-    .p-tabview-nav {
-        display: none;
-    }
+  .p-tabview-nav {
+    display: none;
+  }
+}
+
+.algo-chevron {
+  font-size: 10px;
+  transition: all 350ms;
 }
 
 form {
-    gap: 10px;
+  gap: 10px;
 }
 
 .signup-url {
-    color: lightblue;
-    text-decoration: underline dotted;
-    text-underline-offset: 3px;
-    cursor: pointer;
+  color: lightblue;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 
+.toolbar-item {
+  font-size: 1rem !important;
+  font-weight: 600;
+  background: linear-gradient(0deg, slateblue, slateblue) no-repeat right bottom /
+    0 var(--bg-h);
+  transition: background-size 350ms, color 350ms;
+  padding-bottom: 2px;
+  --bg-h: 2px;
+}
+
+.toolbar-item:where(:hover, :focus-visible) {
+  background-size: 100% var(--bg-h);
+  background-position-x: left;
+  color: slateblue;
+}
+
+.toolbar-item:where(:hover, :focus-visible) > .algo-chevron {
+  color: slateblue;
+}
+
+.algo-menu-item {
+  transition: 350ms;
+}
+
+.algo-menu-item:hover {
+  color: slateblue;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #1f1f1f;
+  margin: 0;
+}
+
+.algo-menu {
+  position: absolute;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #090909;
+  border-radius: 10px;
+  border: 2px solid #1f1f1f;
+  padding: 1rem;
+  line-height: 1;
+  animation: slide-in 350ms, slide-out 350ms;
+
+  p {
+    width: 100%;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding-inline: 1rem;
+  background-color: #090909;
+  border-bottom: 1px solid #1f1f1f;
+  border-radius: 0 0 10px 10px;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  background-color: #f2c5ff;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 350ms, color 350ms;
+}
+
+.login-button:where(:hover, :focus-visible) {
+  background-color: #1f1f1f;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  :host ::ng-deep {
+    .p-dialog,
+    .p-dialog .p-dialog-content,
+    .p-dialog .p-dialog-footer,
+    .p-dialog .p-dialog-header {
+      width: 95%;
+      height: 80%;
+      align-self: center;
+    }
+  }
 }
