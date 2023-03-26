@@ -67,7 +67,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     TabViewModule,
     FormsModule,
     CarouselModule,
-    CardModule
+    CardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

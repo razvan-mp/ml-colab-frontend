@@ -8,9 +8,8 @@ describe('KmeansComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KmeansComponent ]
-    })
-    .compileComponents();
+      declarations: [KmeansComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(KmeansComponent);
     component = fixture.componentInstance;

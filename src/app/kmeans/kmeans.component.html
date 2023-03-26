@@ -1,41 +1,62 @@
 <p-toast></p-toast>
 
 <div class="main-content">
-    <div class="graph">
-     <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  <div class="graph">
+    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  </div>
+
+  <div class="options">
+    <div class="options-item">
+      <form
+        #kmeansInput
+        class="form"
+        (submit)="updateData($event, kmeansInput)"
+      >
+        <label class="p-checkbox-label">Points</label>
+        <textarea id="point-input" class="input" name="points"></textarea>
+        <div class="centroid-checkbox">
+          <input
+            type="checkbox"
+            name="centroid_option"
+            (change)="this.updateUseCentroidOption()"
+            checked
+          />
+          <label for="centroid_option">Use custom centroids</label>
+        </div>
+        <div class="centroids-label-group" *ngIf="this.customCentroids">
+          <label class="p-checkbox-label">Centroids</label>
+          <textarea
+            id="centroid-input"
+            class="input"
+            name="centroids"
+          ></textarea>
+        </div>
+        <button type="submit" class="button">Submit</button>
+      </form>
     </div>
 
-    <div class="options">
-        <div class="options-item">
-            <form #kmeansInput class="form" (submit)="updateData($event, kmeansInput)">
-                <label class="p-checkbox-label">Points</label>
-                <textarea id="point-input" class="input" name="points"></textarea>
-                <div class="centroid-checkbox">
-                    <input type="checkbox" name="centroid_option" (change)="this.updateUseCentroidOption()" checked>
-                    <label for="centroid_option">Use custom centroids</label>
-                </div>
-                <div class="centroids-label-group" *ngIf="this.customCentroids">
-                    <label class="p-checkbox-label">Centroids</label>
-                    <textarea id="centroid-input" class="input" name="centroids"></textarea>
-                </div>
-                <button type="submit" class="button">Submit</button>
-            </form>
+    <div class="random-kmeans">
+      <div class="options-item">
+        <div class="suboptions">
+          <label>Points</label>
+          <button class="button" (click)="addRandomPoints()">
+            Add random points
+          </button>
+          <button class="button" (click)="removeAllPoints()">
+            Remove all points
+          </button>
         </div>
-
-        <div class="random-kmeans">
-            <div class="options-item">
-                <div class="suboptions">
-                    <label>Points</label>
-                    <button class="button" (click)="addRandomPoints()">Add random points</button>
-                    <button class="button" (click)="removeAllPoints()">Remove all points</button>
-                </div>
-                <div class="suboptions">
-                    <label>Centroids</label>
-                    <button class="button" (click)="addRandomCentroids()">Add random centroids</button>
-                    <button class="button" (click)="removeAllCentroids()">Remove all centroids</button>
-                </div>
-            </div>
-            <button class="button" (click)="runKmeans()">Run K-Means</button>
+        <div class="suboptions">
+          <label>Centroids</label>
+          <button class="button" (click)="addRandomCentroids()">
+            Add random centroids
+          </button>
+          <button class="button" (click)="removeAllCentroids()">
+            Remove all centroids
+          </button>
         </div>
+      </div>
+      <button class="button" (click)="runKmeans()">Run K-Means</button>
     </div>
+  </div>
 </div>

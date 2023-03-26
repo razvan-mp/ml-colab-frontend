@@ -8,9 +8,8 @@ describe('HclusteringComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HclusteringComponent ]
-    })
-    .compileComponents();
+      declarations: [HclusteringComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HclusteringComponent);
     component = fixture.componentInstance;

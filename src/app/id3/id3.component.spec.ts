@@ -8,9 +8,8 @@ describe('Id3Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Id3Component ]
-    })
-    .compileComponents();
+      declarations: [Id3Component],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Id3Component);
     component = fixture.componentInstance;

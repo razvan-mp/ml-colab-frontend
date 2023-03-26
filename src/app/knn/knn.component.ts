@@ -78,25 +78,26 @@ export class KnnComponent implements OnInit {
 
   initPage(): void {
     AppComponent.hidePlotly();
-    this.algorithmsService.getExampleKnn()
-    .pipe(
-      catchError((err) => {
+    this.algorithmsService
+      .getExampleKnn()
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Example data could not be loaded',
+          });
+          return err;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(data);
         this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Example data could not be loaded',
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Example data loaded',
         });
-        return err;
-      })
-    )
-    .subscribe(data => {
-      this.updateGraphData(data);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Example data loaded',
       });
-    })
   }
 
   updateGraphData(data: any) {
@@ -179,25 +180,26 @@ export class KnnComponent implements OnInit {
       return;
     }
 
-    this.algorithmsService.updateKnnData(data)
-    .pipe(
-      catchError((err) => {
+    this.algorithmsService
+      .updateKnnData(data)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Data could not be updated',
+          });
+          return err;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(data);
         this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Data could not be updated',
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Data updated',
         });
-        return err;
-      })
-    )
-    .subscribe(data => {
-      this.updateGraphData(data);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Data updated',
       });
-    });
     return;
   }
 }

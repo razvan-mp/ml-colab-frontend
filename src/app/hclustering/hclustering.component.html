@@ -1,13 +1,13 @@
 <p-toast></p-toast>
 
 <div class="content-wrapper">
-    <div class="graph-display">
-        <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
-    </div>
-    <div class="controls-display">
-        <form #HClusteringForm (submit)="updateData($event, HClusteringForm)">
-            <textarea name="points" id="hclustering-points"></textarea>
-            <button class="button" type="submit">Submit</button>
-        </form>
-    </div>
+  <div class="graph-display">
+    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  </div>
+  <div class="controls-display">
+    <form #HClusteringForm (submit)="updateData($event, HClusteringForm)">
+      <textarea name="points" id="hclustering-points"></textarea>
+      <button class="button" type="submit">Submit</button>
+    </form>
+  </div>
 </div>

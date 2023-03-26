@@ -8,9 +8,8 @@ describe('KnnComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KnnComponent ]
-    })
-    .compileComponents();
+      declarations: [KnnComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(KnnComponent);
     component = fixture.componentInstance;

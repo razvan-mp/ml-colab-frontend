@@ -1,25 +1,101 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  BACKEND_URL = AppComponent.BACKEND_URL + "api/auth";
-  private accessToken: string = '';
-  private refreshToken: string = '';
-  constructor(
-    private httpClient: HttpClient,
-    ) {}
+  BACKEND_URL = AppComponent.BACKEND_URL + 'api/management/auth';
+  constructor(private httpClient: HttpClient) {}
 
-
-  registerUser(payload: any): Observable<any> {
-    return this.httpClient.post(`${this.BACKEND_URL}/register/`, payload) as Observable<any>;
+  getSession(): void {
+    this.httpClient
+      .get(`${this.BACKEND_URL}/session/`, {
+        withCredentials: true,
+        observe: 'response',
+      })
+      .pipe(
+        catchError((error) => {
+          return error;
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.body['isAuthenticated'] && localStorage.getItem('csrfToken')) {
+          AppComponent.loggedIn = true;
+        } else {
+          AppComponent.loggedIn = false;
+          this.getCSRF();
+        }
+      });
   }
-  
-  loginUser(payload: any): Observable<any> {
-    return this.httpClient.post(`${this.BACKEND_URL}/login/`, payload) as Observable<any>;
+
+  getCSRF(): void {
+    this.httpClient
+      .get(`${this.BACKEND_URL}/csrf/`, {
+        withCredentials: true,
+        observe: 'response',
+      })
+      .pipe(
+        catchError((error) => {
+          return error;
+        })
+      )
+      .subscribe((res: any) => {
+        const csrfToken = res.headers.get('X-CSRFToken');
+        AppComponent.csrfToken = csrfToken;
+        localStorage.setItem('csrfToken', csrfToken);
+      });
+  }
+
+  login(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    });
+    const body = JSON.stringify({ username, password });
+    return this.httpClient.post(`${this.BACKEND_URL}/login/`, body, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    }) as Observable<any>;
+  }
+
+  logout(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    });
+    return this.httpClient.get(`${this.BACKEND_URL}/logout/`, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    }) as Observable<any>;
+  }
+
+  whoami(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    });
+    return this.httpClient.get(`${this.BACKEND_URL}/whoami/`, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    }) as Observable<any>;
+  }
+
+  register(username: string, email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    });
+    const body = JSON.stringify({ username, email, password });
+    return this.httpClient.post(`${this.BACKEND_URL}/register/`, body, {
+      headers,
+      withCredentials: true,
+      observe: 'response',
+    }) as Observable<any>;
   }
 }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {NewsItem} from '../models/NewsItem';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { NewsItem } from '../models/NewsItem';
 
 @Component({
   selector: 'app-homepage',
@@ -50,16 +50,12 @@ export class HomepageComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private messageService: MessageService,
-  ) {
-  }
+  constructor(private messageService: MessageService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   scroll(target: string) {
     const el = document.getElementById(target)!;
-    el.scrollIntoView({behavior: 'smooth'});
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 }

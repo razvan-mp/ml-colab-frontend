@@ -1,23 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
 import { PrimeNGConfig } from 'primeng/api';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'front-end';
-  static readonly BACKEND_URL: string = "http://localhost:8000/";
-
+  static readonly BACKEND_URL: string = 'http://localhost:8000/';
+  static loggedIn: boolean = false;
   static usernames: string[] = [];
   static emails: string[] = [];
+  static csrfToken: any;
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    AppComponent.csrfToken = localStorage.getItem('csrfToken');
     this.primengConfig.ripple = true;
+    this.authService.getSession();
+  }
+
+  get loggedIn(): boolean {
+    return AppComponent.loggedIn;
   }
 
   static hidePlotly(): void {
@@ -29,12 +39,5 @@ export class AppComponent implements OnInit {
         }
       });
     }, 100);
-  }
-
-  static refreshUserData(): void {
-    axios.get(`${this.BACKEND_URL}api/auth/get_existing_user_data`).then((response) => {
-      this.usernames = response.data.usernames;
-      this.emails = response.data.emails;
-    });
   }
 }

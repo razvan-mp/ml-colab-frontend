@@ -11,9 +11,30 @@
     display: none;
   }
 
+  .p-dialog .p-dialog-content {
+    padding: 0 !important;
+  }
+
   .p-tabview-nav {
     display: none;
   }
+
+  .p-tabview-panels {
+    padding: 0 !important;
+  }
+
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+}
+
+#welcome-back {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
 }
 
 .algo-chevron {
@@ -130,6 +151,10 @@ form {
 .login-button:where(:hover, :focus-visible) {
   background-color: #1f1f1f;
   color: #fff;
+}
+
+.graphic-section {
+  background: linear-gradient(0deg, slateblue, slateblue) no-repeat right bottom;
 }
 
 @media screen and (max-width: 768px) {

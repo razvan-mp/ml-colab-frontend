@@ -8,9 +8,8 @@ describe('PageforbiddenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageforbiddenComponent ]
-    })
-    .compileComponents();
+      declarations: [PageforbiddenComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PageforbiddenComponent);
     component = fixture.componentInstance;

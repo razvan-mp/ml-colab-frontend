@@ -1,15 +1,15 @@
 <p-toast></p-toast>
 
 <div class="content-wrapper">
-    <div class="graph-display">
-        <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
-    </div>
-    <div class="controls-display">
-        <form #kNNForm (submit)="updateData($event, kNNForm)">
-            <textarea name="points" id="hclustering-points"></textarea>
-            <label for="k">K</label>
-            <input type="number" name="k" id="k" min="1" max="10" value="3">
-            <button class="button" type="submit">Submit</button>
-        </form>
-    </div>
+  <div class="graph-display">
+    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  </div>
+  <div class="controls-display">
+    <form #kNNForm (submit)="updateData($event, kNNForm)">
+      <textarea name="points" id="hclustering-points"></textarea>
+      <label for="k">K</label>
+      <input type="number" name="k" id="k" min="1" max="10" value="3" />
+      <button class="button" type="submit">Submit</button>
+    </form>
+  </div>
 </div>

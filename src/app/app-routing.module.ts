@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'id3', component: Id3Component },
   { path: 'kmeans', component: KmeansComponent },
   { path: 'hclustering', component: HclusteringComponent },
-  { path: 'knn', component: KnnComponent},
+  { path: 'knn', component: KnnComponent },
   { path: '404', component: PagenotfoundComponent },
   { path: '403', component: PageforbiddenComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' },
