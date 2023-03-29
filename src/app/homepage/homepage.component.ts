@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { NewsItem } from '../models/NewsItem';
+import { NewsService } from '../services/news.service';
 
 @Component({
   selector: 'app-homepage',
@@ -31,31 +32,43 @@ export class HomepageComponent implements OnInit {
 
   newsItems: NewsItem[] = [
     {
-      title: 'News item 1',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      source: 'https://www.google.com',
-      image: 'https://source.unsplash.com/random/1500x300?sig=1',
+      title: 'Test',
+      hyperlink: 'https://www.google.com',
+      image: 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
+      source: 'Google',
     },
     {
-      title: 'News item 2',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      source: 'https://www.google.com',
-      image: 'https://source.unsplash.com/random/1500x300?sig=2',
+      title: 'Test',
+      hyperlink: 'https://www.google.com',
+      image: 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
+      source: 'Google',
     },
     {
-      title: 'News item 3',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      source: 'https://www.google.com',
-      image: 'https://source.unsplash.com/random/1500x300?sig=3',
-    },
+      title: 'Test',
+      hyperlink: 'https://www.google.com',
+      image: 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
+      source: 'Google',
+    }
   ];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private newsService: NewsService
+    ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.newsService.fetchNews().subscribe((res: any) => {
+      console.log(res);
+      this.newsItems = res;
+    });
+  }
 
   scroll(target: string) {
     const el = document.getElementById(target)!;
     el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  openLink(hyperlink: string): void {
+    window.open(hyperlink, '_blank');
   }
 }

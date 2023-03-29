@@ -26,6 +26,14 @@ export class HeaderComponent implements OnInit {
     setInterval(() => {
       this.isLoggedIn = AppComponent.loggedIn;
     });
+
+    window.addEventListener('click', (event) => {
+      const menu = document.getElementById('algo-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      if (event.target !== menu && event.target !== menuToggle) {
+        menu?.classList.add('hidden');
+      }
+    });
   }
 
   loginUser($event: SubmitEvent, loginForm: HTMLFormElement) {
@@ -136,28 +144,29 @@ export class HeaderComponent implements OnInit {
       return;
     }
 
-    this.authService.register(username, email, this.password)
-    .subscribe((res: any) => {
-      const status = res['status'];
-      let detail = '';
-      if (res.body['detail'] !== undefined) {
-        detail = res.body['detail'] as string;
-      }
+    this.authService
+      .register(username, email, this.password)
+      .subscribe((res: any) => {
+        const status = res['status'];
+        let detail = '';
+        if (res.body['detail'] !== undefined) {
+          detail = res.body['detail'] as string;
+        }
 
-      if (status === 200 && detail === 'Successfully registered.') {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: detail,
-        });
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: detail,
-        });
-      }
-    })
+        if (status === 200 && detail === 'Successfully registered.') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: detail,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: detail,
+          });
+        }
+      });
   }
 
   setIndex(index: number): void {
