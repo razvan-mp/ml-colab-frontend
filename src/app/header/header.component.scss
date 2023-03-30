@@ -28,6 +28,18 @@
       background: #9fa8da;
     }
   }
+
+  .p-sidebar {
+    background: #090909;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    .p-sidebar-header {
+      border-radius: 15px;
+      background: #090909;
+    }
+  }
 }
 
 #welcome-back {

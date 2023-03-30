@@ -11,6 +11,6 @@ export class NewsService {
   constructor(private httpClient: HttpClient) {}
 
   fetchNews() {
-    return this.httpClient.get(`${this.BACKEND_API}/get_news/`) as Observable<any>;
+    return this.httpClient.get(`${this.BACKEND_API}/`) as Observable<any>;
   }
 }

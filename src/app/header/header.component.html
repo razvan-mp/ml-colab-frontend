@@ -1,21 +1,18 @@
 <p-toast></p-toast>
 
+<p-sidebar [(visible)]="displaySidebar" position="right">
+  <button *ngIf="isLoggedIn" pButton pRipple class="p-button p-button-danger" type="button" (click)="logoutUser()"
+    label="Log out"></button>
+</p-sidebar>
+
 <div class="toolbar select-none" id="header">
   <div class="start">ML Colab</div>
 
   <div class="center">
-    <p
-      routerLink="/home"
-      routerLinkActive="active"
-      class="ml-2 mr-2 cursor-pointer toolbar-item"
-    >
+    <p routerLink="/home" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">
       Home
     </p>
-    <p
-      routerLink="/news"
-      routerLinkActive="active"
-      class="ml-2 mr-2 cursor-pointer toolbar-item"
-    >
+    <p routerLink="/news" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">
       News
     </p>
     <div id="menu-toggle" class="ml-2 mr-2 cursor-pointer toolbar-item" (click)="showMenu()">
@@ -25,17 +22,11 @@
           ID3
         </p>
         <div class="separator"></div>
-        <p
-          class="cursor-pointer algo-menu-item m-0 mb-2 mt-2"
-          routerLink="/knn"
-        >
+        <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/knn">
           K-NN
         </p>
         <div class="separator"></div>
-        <p
-          class="cursor-pointer algo-menu-item m-0 mb-2 mt-2"
-          routerLink="/hclustering"
-        >
+        <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/hclustering">
           Hierarchical Clustering
         </p>
         <div class="separator"></div>
@@ -47,85 +38,31 @@
   </div>
 
   <div class="end">
-    <button
-      *ngIf="!isLoggedIn"
-      pButton
-      pRipple
-      class="p-button-outlined p-button-sm"
-      type="button"
-      (click)="displayModal = true; setIndex(0)"
-      label="Log in"
-    ></button>
-    <button
-      *ngIf="isLoggedIn"
-      pButton
-      pRipple
-      class="p-button-outlined p-button-sm"
-      type="button"
-      (click)="whoAmI()"
-      label="Who Am I?"
-    ></button>
-    <button
-      *ngIf="isLoggedIn"
-      pButton
-      pRipple
-      class="p-button-outlined p-button-sm"
-      type="button"
-      (click)="logoutUser()"
-      label="Log out"
-    ></button>
+    <button *ngIf="!isLoggedIn" pButton pRipple icon="pi pi-user" class="p-button-outlined p-button-sm" type="button"
+      (click)="displayModal = true; setIndex(0)" label="Log in"></button>
+    <p-button *ngIf="isLoggedIn" pRipple icon="pi pi-bars" styleClass="p-button-rounded p-button-text" (click)="openSidebar()"></p-button>
   </div>
 </div>
 
-<p-dialog
-  [(visible)]="displayModal"
-  [modal]="true"
-  [dismissableMask]="true"
-  [draggable]="false"
-  [resizable]="false"
-  class="dialog"
->
+<p-dialog [(visible)]="displayModal" [modal]="true" [dismissableMask]="true" [draggable]="false" [resizable]="false"
+  class="dialog">
   <p-tabView [(activeIndex)]="tabViewIndex">
     <p-tabPanel class="tab-panel" header="Log in">
-      <div
-        class="content flex flex-row justify-content-between align-items-center"
-      >
+      <div class="content flex flex-row justify-content-between align-items-center">
         <div class="graphic-section">ceva</div>
-        <div
-          class="form-section p-6 flex flex-column align-items-center justify-content-center"
-        >
+        <div class="form-section p-6 flex flex-column align-items-center justify-content-center">
           <p id="welcome-back">Welcome back!</p>
           <p>Please log in to continue.</p>
-          <form
-            #loginForm
-            (submit)="loginUser($event, loginForm)"
-            class="flex flex-column"
-          >
+          <form #loginForm (submit)="loginUser($event, loginForm)" class="flex flex-column">
             <span class="p-float-label">
-              <input
-                id="username-input"
-                name="username"
-                type="text"
-                pInputText
-              />
+              <input id="username-input" name="username" type="text" pInputText />
               <label for="username-input">Username</label>
             </span>
             <span class="p-float-label">
-              <input
-                type="password"
-                name="password"
-                pInputText
-                inputId="password-input"
-              />
+              <input type="password" name="password" pInputText inputId="password-input" />
               <label for="password-input">Password</label>
             </span>
-            <button
-              pRipple
-              pButton
-              type="submit"
-              label="Login"
-              class="m-2"
-            ></button>
+            <button pRipple pButton type="submit" label="Login" class="m-2"></button>
           </form>
           <p class="mt-3">
             Are you new here?
@@ -144,39 +81,20 @@
             <label for="name-input">Username</label>
           </span>
           <span class="p-float-label">
-            <input
-              id="email-signup-input"
-              name="email"
-              type="text"
-              pInputText
-            />
+            <input id="email-signup-input" name="email" type="text" pInputText />
             <label for="email-signup-input">E-mail</label>
           </span>
           <span class="p-float-label">
-            <p-password
-              id="password-input"
-              [(ngModel)]="password"
-              name="password"
-              inputId="password-input"
-            ></p-password>
+            <p-password id="password-input" [(ngModel)]="password" name="password"
+              inputId="password-input"></p-password>
             <label for="password-input">Password</label>
           </span>
           <span class="p-float-label">
-            <p-password
-              name="password-confirm"
-              id="password-confirm-input"
-              inputId="password-confirm-input"
-              [(ngModel)]="passwordConfirm"
-            ></p-password>
+            <p-password name="password-confirm" id="password-confirm-input" inputId="password-confirm-input"
+              [(ngModel)]="passwordConfirm"></p-password>
             <label for="password-input">Confirm Password</label>
           </span>
-          <button
-            pRipple
-            pButton
-            type="submit"
-            label="Sign up"
-            class="m-2"
-          ></button>
+          <button pRipple pButton type="submit" label="Sign up" class="m-2"></button>
         </form>
         <p>
           Already have an account?

@@ -11,7 +11,7 @@ export class AlgorithmsService {
   private BACKEND_API = AppComponent.BACKEND_URL + 'api/algorithms';
 
   getExampleId3() {
-    return this.httpClient.get(`${this.BACKEND_API}/get_example_id3/`);
+    return this.httpClient.get(`${this.BACKEND_API}/id3/`);
   }
 
   updateId3Data(payload: any): Observable<any> {
@@ -22,34 +22,34 @@ export class AlgorithmsService {
   }
 
   getExampleKnn() {
-    return this.httpClient.get(`${this.BACKEND_API}/get_knn_example/`);
+    return this.httpClient.get(`${this.BACKEND_API}/knn/`);
   }
 
   updateKnnData(payload: any): Observable<any> {
     return this.httpClient.post(
-      `${this.BACKEND_API}/get_knn_response/`,
+      `${this.BACKEND_API}/knn/`,
       payload
     ) as Observable<any>;
   }
 
   getExampleKmeans() {
-    return this.httpClient.get(`${this.BACKEND_API}/get_example_k_means/`);
+    return this.httpClient.get(`${this.BACKEND_API}/kmeans/`);
   }
 
   updateKmeansData(payload: any): Observable<any> {
     return this.httpClient.post(
-      `${this.BACKEND_API}/get_k_means_response/`,
+      `${this.BACKEND_API}/kmeans/`,
       payload
     ) as Observable<any>;
   }
 
   getExampleHclustering() {
-    return this.httpClient.get(`${this.BACKEND_API}/get_example_hclustering/`);
+    return this.httpClient.get(`${this.BACKEND_API}/hclustering/`);
   }
 
   updateHclusteringData(payload: any): Observable<any> {
     return this.httpClient.post(
-      `${this.BACKEND_API}/get_hclustering_response/`,
+      `${this.BACKEND_API}/hclustering/`,
       payload
     ) as Observable<any>;
   }

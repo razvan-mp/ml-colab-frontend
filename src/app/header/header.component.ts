@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { catchError } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../services/auth.service';
 
@@ -12,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   displayModal: boolean = false;
+  displaySidebar: boolean = false;
   tabViewIndex: number = 0;
   password: string = '';
   passwordConfirm: string = '';
@@ -44,26 +45,26 @@ export class HeaderComponent implements OnInit {
       .login(formData['username'] as string, formData['password'] as string)
       .pipe(
         catchError((error) => {
-          return error;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.detail,
+          });
+          return '';
         })
       )
       .subscribe((res: any) => {
         if (res['status'] === 200) {
           AppComponent.loggedIn = true;
+          console.log(res);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'You have successfully logged in!',
           });
           this.displayModal = false;
-        } else {
-          AppComponent.loggedIn = false;
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Invalid username or password. Please try again.',
-          });
         }
+        loginForm.reset();
       });
   }
 
@@ -72,12 +73,14 @@ export class HeaderComponent implements OnInit {
       if (res['status'] === 200) {
         AppComponent.loggedIn = false;
         localStorage.removeItem('csrfToken');
+        localStorage.removeItem('username');
+        localStorage.removeItem('user_id');
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'You have successfully logged out!',
         });
-
+        this.hideSidebar();
         this.authService.getSession();
       }
     });
@@ -103,6 +106,8 @@ export class HeaderComponent implements OnInit {
             summary: 'Success',
             detail: `You are logged in as ${res.body['username']}`,
           });
+          localStorage.setItem('username', res.body['username']);
+          localStorage.setItem('user_id', res.body['user_id']);
         }
       });
   }
@@ -176,5 +181,13 @@ export class HeaderComponent implements OnInit {
   showMenu(): void {
     const menu = document.getElementById('algo-menu');
     menu?.classList.toggle('hidden');
+  }
+
+  openSidebar(): void {
+    this.displaySidebar = true;
+  }
+
+  hideSidebar(): void {
+    this.displaySidebar = false;
   }
 }
