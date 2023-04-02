@@ -7,7 +7,7 @@ import { catchError, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  BACKEND_URL = AppComponent.BACKEND_URL + 'api/management/auth';
+  BACKEND_URL = AppComponent.BACKEND_URL + 'api/auth';
   constructor(private httpClient: HttpClient) {}
 
   getSession(): void {

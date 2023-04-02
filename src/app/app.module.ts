@@ -20,7 +20,7 @@ import { KnnComponent } from './knn/knn.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from './login/login.component';
@@ -31,6 +31,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -68,6 +69,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     FormsModule,
     CarouselModule,
     CardModule,
+    CheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

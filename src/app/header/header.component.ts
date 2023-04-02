@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { catchError, of } from 'rxjs';
 import { AppComponent } from '../app.component';
+import { Note } from '../models/Note';
 import { AuthService } from '../services/auth.service';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +14,22 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   displayModal: boolean = false;
+  displayCreateNoteModal: boolean = false;
   displaySidebar: boolean = false;
+  displayDeleteModal: boolean = false;
   tabViewIndex: number = 0;
   password: string = '';
   passwordConfirm: string = '';
   isLoggedIn: boolean = false;
+  createNoteCheckbox: boolean = false;
+  selectedNote: any = -1;
+
+  notes: Note[] = [];
 
   constructor(
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private noteService: NoteService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +65,8 @@ export class HeaderComponent implements OnInit {
       .subscribe((res: any) => {
         if (res['status'] === 200) {
           AppComponent.loggedIn = true;
-          console.log(res);
+          localStorage.setItem('username', formData['username'] as string);
+          localStorage.setItem('user_id', res.body['user_id']);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -185,9 +195,135 @@ export class HeaderComponent implements OnInit {
 
   openSidebar(): void {
     this.displaySidebar = true;
+    this.noteService
+      .fetchNotes()
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error fetching notes',
+          });
+          return of(error);
+        })
+      )
+      .subscribe((res: any) => {
+        this.notes = res;
+        console.log(this.notes);
+      });
+  }
+
+  createNote($event: SubmitEvent, createNoteForm: HTMLFormElement): void {
+    $event.preventDefault();
+    const formData = Object.fromEntries(
+      new FormData(createNoteForm as any) as any
+    );
+    if (this.onAlgorithmPage() && this.createNoteCheckbox) {
+      const page =
+        window.location.pathname.split('/')[
+          window.location.pathname.split('/').length - 1
+        ];
+      switch (page) {
+        case 'id3':
+          const data = {
+            edges: localStorage.getItem('id3Edges') as string,
+            nodes: localStorage.getItem('id3Nodes') as string,
+          };
+          const payload = {
+            title: formData['title'] as string,
+            content: formData['content'] as string,
+            graph_data: JSON.stringify(data),
+            page: page,
+          };
+          this.noteService.createNote(payload).subscribe((res: any) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Successfully created note',
+            });
+            this.hideCreateNoteModal();
+          });
+      }
+    } else {
+      const payload = {
+        title: formData['title'] as string,
+        content: formData['content'] as string,
+      };
+      this.noteService.createNote(payload).subscribe((res: any) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successfully created note',
+        });
+        this.hideCreateNoteModal();
+      });
+    }
+  }
+
+  deleteNoteDiv(noteId: number): void {
+    const note = document.getElementById(`note-${noteId}`);
+    note?.remove();
+  }
+
+  deleteNote(noteId: any): void {
+    this.noteService.deleteNote({ id: noteId }).subscribe((res: any) => {
+      this.selectedNote = -1;
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Successfully deleted note',
+      });
+      this.hideDeleteModal();
+      this.noteService
+        .fetchNotes()
+        .pipe(
+          catchError((error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error fetching notes',
+            });
+            return of(error);
+          })
+        )
+        .subscribe((res: any) => {
+          this.notes = res;
+        });
+    });
   }
 
   hideSidebar(): void {
     this.displaySidebar = false;
+  }
+
+  showCreateNoteModal(): void {
+    this.displaySidebar = false;
+    this.displayCreateNoteModal = true;
+  }
+
+  hideCreateNoteModal(): void {
+    this.displayCreateNoteModal = false;
+    this.openSidebar();
+  }
+
+  getUser(): string {
+    return localStorage.getItem('username') as string;
+  }
+
+  onAlgorithmPage(): boolean {
+    const pathSplit = window.location.pathname.split('/');
+    const path = pathSplit[pathSplit.length - 1];
+    return ['knn', 'id3', 'kmeans', 'hclustering'].includes(path);
+  }
+
+  hideDeleteModal(): void {
+    this.displayDeleteModal = false;
+    this.selectedNote = -1;
+    this.openSidebar();
+  }
+
+  showDeleteModal(): void {
+    this.displayDeleteModal = true;
+    this.hideSidebar();
   }
 }

@@ -1,17 +1,27 @@
 :host ::ng-deep {
   .p-dialog,
-  .p-dialog .p-dialog-content,
-  .p-dialog .p-dialog-footer,
-  .p-dialog .p-dialog-header {
+  .p-dialog .p-dialog-content {
     width: 95%;
     height: 80%;
     align-self: center;
   }
+
+  .p-dialog .p-dialog-footer {
+    width: 95%;
+    align-self: center;
+  }
+
+  .p-dialog {
+    border-radius: 15px;
+  }
+
   .p-dialog .p-dialog-header {
     display: none;
   }
 
   .p-dialog .p-dialog-content {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     padding: 0 !important;
   }
 
@@ -30,14 +40,19 @@
   }
 
   .p-sidebar {
-    background: #090909;
+    width: 50%;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
-    .p-sidebar-header {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    .p-sidebar-header,
+    .p-sidebar-content,
+    .p-sidebar-footer {
       border-radius: 15px;
-      background: #090909;
     }
   }
 }
@@ -73,6 +88,7 @@ form {
   transition: background-size 350ms, color 350ms;
   padding-bottom: 2px;
   --bg-h: 2px;
+  position: relative;
 }
 
 .toolbar-item:where(:hover, :focus-visible) {
@@ -87,6 +103,7 @@ form {
 
 .algo-menu-item {
   transition: 350ms;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .algo-menu-item:hover {
@@ -96,26 +113,26 @@ form {
 .separator {
   width: 100%;
   height: 1px;
-  background-color: #1f1f1f;
+  background-color: rgba(255, 255, 255, 0.2);
   margin: 0;
 }
 
 .algo-menu {
+  width: max-content;
   position: absolute;
-  top: 60px;
+  top: 35px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #090909;
   border-radius: 10px;
-  border: 2px solid #1f1f1f;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 1rem;
   line-height: 1;
   animation: slide-in 350ms, slide-out 350ms;
-
-  p {
-    width: 100%;
-  }
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @keyframes slide-in {
@@ -138,9 +155,11 @@ form {
   top: 0;
   z-index: 1000;
   padding-inline: 1rem;
-  background-color: #090909;
-  border-bottom: 1px solid #1f1f1f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .center {
@@ -152,7 +171,7 @@ form {
 
 .login-button {
   background-color: #f2c5ff;
-  border: 1px solid #1f1f1f;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 0.5rem 1rem;
   color: #fff;
@@ -161,7 +180,7 @@ form {
 }
 
 .login-button:where(:hover, :focus-visible) {
-  background-color: #1f1f1f;
+  background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
@@ -169,15 +188,93 @@ form {
   background: linear-gradient(0deg, slateblue, slateblue) no-repeat right bottom;
 }
 
+.header-content {
+  width: 100%;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+  grid-gap: 15px 15px;
+}
+
+.note {
+  background: #313131;
+  border-radius: 10px;
+  height: 200px;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.note-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.create-note-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.note-edit-input {
+  all: unset;
+}
+
+.note-edit-input-title {
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom:1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.note-edit-input-content {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: 400;
+  height: 100%;
+}
+
+.note-form {
+  height: 100%;
+}
+
+.form-inputs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.button-pair {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 1rem;
+}
+
+.delete-dialog-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   :host ::ng-deep {
-    .p-dialog,
-    .p-dialog .p-dialog-content,
-    .p-dialog .p-dialog-footer,
-    .p-dialog .p-dialog-header {
-      width: 95%;
-      height: 80%;
-      align-self: center;
+    .p-sidebar {
+      width: 100%;
     }
   }
 }

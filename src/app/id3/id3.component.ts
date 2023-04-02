@@ -59,7 +59,7 @@ export class Id3Component implements OnInit {
       .subscribe((data: any) => {
         this.nodes = data['nodes'];
         this.edges = data['edges'];
-
+        this.updateLocalStorage();
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -72,6 +72,11 @@ export class Id3Component implements OnInit {
           this.center$.next(true);
         }, 500);
       });
+  }
+
+  updateLocalStorage(): void {
+    localStorage.setItem('id3Nodes', JSON.stringify(this.nodes));
+    localStorage.setItem('id3Edges', JSON.stringify(this.edges));
   }
 
   checkData(data: any): boolean {
@@ -133,6 +138,7 @@ export class Id3Component implements OnInit {
       .subscribe((res) => {
         this.nodes = res['nodes'];
         this.edges = res['edges'];
+        this.updateLocalStorage();
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
