@@ -58,7 +58,6 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     this.newsService.fetchNews().subscribe((res: any) => {
-      console.log(res);
       this.newsItems = res;
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as shape from 'd3-shape';
 import { Edge, Node, Layout } from '@swimlane/ngx-graph';
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
   providers: [MessageService, AlgorithmsService],
   styleUrls: ['./id3.component.scss'],
 })
-export class Id3Component implements OnInit {
+export class Id3Component implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private algorithmsService: AlgorithmsService
@@ -44,6 +44,28 @@ export class Id3Component implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
 
   ngOnInit(): void {
+    if (this.dataInLocalStorage()) {
+      this.nodes = JSON.parse(localStorage.getItem('id3Nodes') as string);
+      this.edges = JSON.parse(localStorage.getItem('id3Edges') as string);
+    } else {
+      this.loadExampleData();
+    }
+  }
+
+  ngOnDestroy(): void {
+      this.nodes = [];
+      this.edges = [];
+      this.updateLocalStorage();
+  }
+
+  dataInLocalStorage(): boolean {
+    return (
+      localStorage.getItem('id3Nodes') !== '[]' &&
+      localStorage.getItem('id3Edges') !== '[]'
+    );
+  }
+
+  loadExampleData(): void {
     this.algorithmsService
       .getExampleId3()
       .pipe(

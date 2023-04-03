@@ -68,4 +68,23 @@ export class NoteService {
       }
     ) as Observable<any>;
   }
+
+  editNote(payload: any) {
+    this.authService.getCSRF();
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    };
+    const options = {
+      headers,
+      withCredentials: true,
+    };
+
+    return this.httpClient.put(
+      `${this.BACKEND_API}/note/`,
+      payload,
+      options
+    ) as Observable<any>;
+  }
 }

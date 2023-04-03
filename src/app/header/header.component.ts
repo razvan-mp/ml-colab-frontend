@@ -17,12 +17,16 @@ export class HeaderComponent implements OnInit {
   displayCreateNoteModal: boolean = false;
   displaySidebar: boolean = false;
   displayDeleteModal: boolean = false;
+  displayEditNoteModal: boolean = false;
   tabViewIndex: number = 0;
   password: string = '';
   passwordConfirm: string = '';
   isLoggedIn: boolean = false;
   createNoteCheckbox: boolean = false;
   selectedNote: any = -1;
+
+  noteTitle: string = '';
+  noteContent: string = '';
 
   notes: Note[] = [];
 
@@ -209,7 +213,6 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.notes = res;
-        console.log(this.notes);
       });
   }
 
@@ -298,6 +301,57 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  editNote($event: SubmitEvent, editNoteForm: HTMLFormElement): void {
+    $event.preventDefault();
+    const formData = Object.fromEntries(new FormData(editNoteForm as any) as any);
+    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    const payload = {
+      id: this.selectedNote,
+      title: formData['title'] as string,
+      content: formData['content'] as string,
+      graph_data: selectedNoteObject.graph_data,
+      page: selectedNoteObject.page,
+    }
+    
+    this.noteService.editNote(payload).subscribe((res: any) => {
+      this.hideEditNoteModal();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successfully edited note',
+        });
+      }, 100);
+      this.noteService
+        .fetchNotes()
+        .pipe(
+          catchError((error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error fetching notes',
+            });
+            return of(error);
+          })
+        )
+        .subscribe((res: any) => {
+          this.notes = res;
+        });
+    });
+  }
+
+  loadNote(): void {
+    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    const page = selectedNoteObject.page;
+    let graphData = JSON.parse(selectedNoteObject.graph_data);
+    switch (page) {
+      case 'id3':
+        localStorage.setItem('id3Edges', graphData['edges']);
+        localStorage.setItem('id3Nodes', graphData['nodes']);
+        window.location.href = '/id3';
+    }
+  }
+
   hideSidebar(): void {
     this.displaySidebar = false;
   }
@@ -331,5 +385,18 @@ export class HeaderComponent implements OnInit {
   showDeleteModal(): void {
     this.displayDeleteModal = true;
     this.hideSidebar();
+  }
+
+  showEditNoteModal(): void {
+    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    this.noteTitle = selectedNoteObject.title as string;
+    this.noteContent = selectedNoteObject.content as string;
+    this.displayEditNoteModal = true;
+    this.hideSidebar();
+  }
+
+  hideEditNoteModal(): void {
+    this.displayEditNoteModal = false;
+    this.openSidebar();
   }
 }
