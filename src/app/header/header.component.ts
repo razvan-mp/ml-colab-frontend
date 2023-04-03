@@ -236,12 +236,14 @@ export class HeaderComponent implements OnInit {
             page: page,
           };
           this.noteService.createNote(payload).subscribe((res: any) => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Successfully created note',
-            });
             this.hideCreateNoteModal();
+            setTimeout(() => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Successfully created note',
+              });
+            }, 100);
           });
       }
     } else {
@@ -250,12 +252,14 @@ export class HeaderComponent implements OnInit {
         content: formData['content'] as string,
       };
       this.noteService.createNote(payload).subscribe((res: any) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Successfully created note',
-        });
         this.hideCreateNoteModal();
+        setTimeout(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Successfully created note',
+          });
+        }, 100);
       });
     }
   }
@@ -268,12 +272,14 @@ export class HeaderComponent implements OnInit {
   deleteNote(noteId: any): void {
     this.noteService.deleteNote({ id: noteId }).subscribe((res: any) => {
       this.selectedNote = -1;
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Successfully deleted note',
-      });
       this.hideDeleteModal();
+      setTimeout(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successfully deleted note',
+        });
+      }, 100);
       this.noteService
         .fetchNotes()
         .pipe(
