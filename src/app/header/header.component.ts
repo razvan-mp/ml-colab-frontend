@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-    private noteService: NoteService
+    private noteService: NoteService,
   ) {}
 
   ngOnInit(): void {
@@ -303,16 +303,20 @@ export class HeaderComponent implements OnInit {
 
   editNote($event: SubmitEvent, editNoteForm: HTMLFormElement): void {
     $event.preventDefault();
-    const formData = Object.fromEntries(new FormData(editNoteForm as any) as any);
-    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    const formData = Object.fromEntries(
+      new FormData(editNoteForm as any) as any
+    );
+    const selectedNoteObject = this.notes.find(
+      (note: Note) => note.id === this.selectedNote
+    )!;
     const payload = {
       id: this.selectedNote,
       title: formData['title'] as string,
       content: formData['content'] as string,
       graph_data: selectedNoteObject.graph_data,
       page: selectedNoteObject.page,
-    }
-    
+    };
+
     this.noteService.editNote(payload).subscribe((res: any) => {
       this.hideEditNoteModal();
       setTimeout(() => {
@@ -341,7 +345,9 @@ export class HeaderComponent implements OnInit {
   }
 
   loadNote(): void {
-    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    const selectedNoteObject = this.notes.find(
+      (note: Note) => note.id === this.selectedNote
+    )!;
     const page = selectedNoteObject.page;
     let graphData = JSON.parse(selectedNoteObject.graph_data);
     switch (page) {
@@ -388,7 +394,9 @@ export class HeaderComponent implements OnInit {
   }
 
   showEditNoteModal(): void {
-    const selectedNoteObject = this.notes.find((note: Note) => note.id === this.selectedNote)!;
+    const selectedNoteObject = this.notes.find(
+      (note: Note) => note.id === this.selectedNote
+    )!;
     this.noteTitle = selectedNoteObject.title as string;
     this.noteContent = selectedNoteObject.content as string;
     this.displayEditNoteModal = true;
