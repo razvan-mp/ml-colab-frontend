@@ -23,7 +23,6 @@ import { RippleModule } from 'primeng/ripple';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
-import { LoginComponent } from './login/login.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { HeaderComponent } from './header/header.component';
 import { PasswordModule } from 'primeng/password';
@@ -47,7 +46,6 @@ PlotlyModule.plotlyjs = PlotlyJS;
     PageforbiddenComponent,
     HclusteringComponent,
     KnnComponent,
-    LoginComponent,
     HeaderComponent,
     SidebarComponent,
     AuthDialogComponent,

@@ -1,5 +1,9 @@
-// primeng overrides
 :host ::ng-deep {
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
   .p-link {
     border-radius: 50% !important;
     width: 15px !important;

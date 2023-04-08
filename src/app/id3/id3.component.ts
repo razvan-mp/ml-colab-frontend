@@ -85,7 +85,7 @@ export class Id3Component implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Data loaded successfully',
+          detail: 'Example data loaded successfully',
         });
 
         setTimeout(() => {

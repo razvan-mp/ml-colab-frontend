@@ -1,14 +1,14 @@
-body {
-  display: flex;
-  justify-content: flex-end;
-}
-
 :host ::ng-deep {
   .p-toast {
     .p-toast-message {
       background: #9fa8da;
     }
   }
+}
+
+body {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .algo-chevron {

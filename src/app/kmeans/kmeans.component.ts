@@ -60,7 +60,7 @@ export class KmeansComponent implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Example data loaded',
+          detail: 'Example data loaded successfully',
         });
       });
     AppComponent.hidePlotly();

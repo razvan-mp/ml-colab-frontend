@@ -76,9 +76,9 @@ export class HclusteringComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         this.updateGraphData(data);
         this.messageService.add({
-          severity: 'info',
+          severity: 'success',
           summary: 'Success',
-          detail: 'Data loaded successfully',
+          detail: 'Example data loaded successfully',
         });
       });
     AppComponent.hidePlotly();

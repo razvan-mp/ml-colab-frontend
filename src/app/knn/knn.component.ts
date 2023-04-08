@@ -103,7 +103,7 @@ export class KnnComponent implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Example data loaded',
+          detail: 'Example data loaded successfully',
         });
       });
   }
