@@ -1,0 +1,72 @@
+:host ::ng-deep {
+  .p-dialog .p-dialog-footer {
+    align-self: center;
+  }
+
+  .p-dialog .p-dialog-content {
+    width: 100%;
+  }
+
+  .p-dialog {
+    width: 80%;
+    border-radius: 15px;
+  }
+
+  .p-dialog .p-dialog-header {
+    display: none;
+  }
+
+  .p-dialog .p-dialog-content {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 !important;
+  }
+
+  .p-tabview-nav {
+    display: none;
+  }
+
+  .p-tabview-panels {
+    padding: 0 !important;
+  }
+
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+}
+
+#welcome-back {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+
+form {
+  gap: 10px;
+}
+
+.signup-url {
+  color: lightblue;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.login-button {
+  background-color: #f2c5ff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 350ms, color 350ms;
+}
+
+.login-button:where(:hover, :focus-visible) {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}

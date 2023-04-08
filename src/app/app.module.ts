@@ -32,6 +32,8 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -47,6 +49,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     KnnComponent,
     LoginComponent,
     HeaderComponent,
+    SidebarComponent,
+    AuthDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 import { AppComponent } from '../app.component';
@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
   templateUrl: './kmeans.component.html',
   styleUrls: ['./kmeans.component.scss'],
 })
-export class KmeansComponent implements OnInit {
+export class KmeansComponent implements OnInit, OnDestroy {
   public graph = {
     data: [] as any,
     layout: {
@@ -31,7 +31,15 @@ export class KmeansComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initPage();
+    if (localStorage.getItem('kmeans')) {
+      this.graph.data = JSON.parse(localStorage.getItem('kmeans') as string);
+    } else {
+      this.initPage();
+    }
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('kmeans');
   }
 
   initPage() {
@@ -97,6 +105,7 @@ export class KmeansComponent implements OnInit {
         });
       }
     }
+    localStorage.setItem('kmeans', JSON.stringify(this.graph.data));
   }
 
   updateData($event: SubmitEvent, kmeansInput: HTMLFormElement) {

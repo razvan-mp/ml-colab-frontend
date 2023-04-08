@@ -11,8 +11,6 @@ export class AppComponent implements OnInit {
   title = 'front-end';
   static readonly BACKEND_URL: string = 'http://localhost:8000/';
   static loggedIn: boolean = false;
-  static usernames: string[] = [];
-  static emails: string[] = [];
   static csrfToken: any;
 
   constructor(
@@ -24,6 +22,19 @@ export class AppComponent implements OnInit {
     AppComponent.csrfToken = localStorage.getItem('csrfToken');
     this.primengConfig.ripple = true;
     this.authService.getSession();
+
+    const blob = document.getElementById('blob');
+    window.onpointermove = event => {
+      const {clientX, clientY} = event;
+
+      blob?.animate({
+        left: `${clientX}px`,
+        top: `${clientY}px`,
+      }, {
+        duration: 3000,
+        fill: 'forwards',
+      })
+    };
   }
 
   get loggedIn(): boolean {

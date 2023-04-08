@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
@@ -11,7 +11,7 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
   templateUrl: './knn.component.html',
   styleUrls: ['./knn.component.scss'],
 })
-export class KnnComponent implements OnInit {
+export class KnnComponent implements OnInit, OnDestroy {
   public graph = {
     data: [
       {
@@ -73,7 +73,15 @@ export class KnnComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initPage();
+    if (localStorage.getItem('knn')) {
+      this.updateGraphData(JSON.parse(localStorage.getItem('knn') as string));
+    } else {
+      this.initPage();
+    }
+  }
+
+  ngOnDestroy(): void {
+      localStorage.removeItem('knn');
   }
 
   initPage(): void {
@@ -107,6 +115,7 @@ export class KnnComponent implements OnInit {
     this.graph.data[1].x = data.contour_x;
     this.graph.data[1].y = data.contour_y;
     this.graph.data[1].z = data.z;
+    localStorage.setItem('knn', JSON.stringify(data));
   }
 
   validateInput(points: any, k: any): boolean {
@@ -193,6 +202,7 @@ export class KnnComponent implements OnInit {
         })
       )
       .subscribe((data) => {
+        localStorage.setItem('knn', JSON.stringify(data));
         this.updateGraphData(data);
         this.messageService.add({
           severity: 'success',

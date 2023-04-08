@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
@@ -11,7 +11,7 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
   templateUrl: './hclustering.component.html',
   styleUrls: ['./hclustering.component.scss'],
 })
-export class HclusteringComponent implements OnInit {
+export class HclusteringComponent implements OnInit, OnDestroy {
   public graph = {
     data: [] as any,
     layout: {
@@ -41,12 +41,21 @@ export class HclusteringComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initPage();
+    if (localStorage.getItem('hclustering')) {
+      this.updateGraphData(JSON.parse(localStorage.getItem('hclustering') as string));
+    } else {
+      this.initPage();
+    }
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('hclustering');
   }
 
   updateGraphData(data: any) {
     this.graph.data = data['data'];
     this.graph.layout.xaxis.ticktext = data['tickvals'];
+    localStorage.setItem('hclustering', JSON.stringify(data));
   }
 
   initPage() {
