@@ -7,10 +7,12 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PageforbiddenComponent } from './pageforbidden/pageforbidden.component';
 import { HclusteringComponent } from './hclustering/hclustering.component';
 import { KnnComponent } from './knn/knn.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
+  { path: 'news', component: NewsComponent },
   { path: 'id3', component: Id3Component },
   { path: 'kmeans', component: KmeansComponent },
   { path: 'hclustering', component: HclusteringComponent },

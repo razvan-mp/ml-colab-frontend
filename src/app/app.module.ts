@@ -33,6 +33,7 @@ import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { NewsComponent } from './news/news.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -49,6 +50,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     HeaderComponent,
     SidebarComponent,
     AuthDialogComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,

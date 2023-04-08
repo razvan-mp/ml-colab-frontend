@@ -447,8 +447,8 @@ export class KmeansEnvironmentVars {
       mapbox: {
         style: 'dark',
       },
-      paper_bgcolor: 'rgb(17,17,17)',
-      plot_bgcolor: 'rgb(17,17,17)',
+      paper_bgcolor: 'rgba(17,17,17,0.2)',
+      plot_bgcolor: 'rgba(17,17,17,0)',
       polar: {
         angularaxis: {
           gridcolor: '#506784',

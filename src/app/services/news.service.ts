@@ -13,4 +13,8 @@ export class NewsService {
   fetchNews() {
     return this.httpClient.get(`${this.BACKEND_API}/`) as Observable<any>;
   }
+
+  fetchAllNews() {
+    return this.httpClient.get(`${this.BACKEND_API}/get_all/`) as Observable<any>;
+  }
 }

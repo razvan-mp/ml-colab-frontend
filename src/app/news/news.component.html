@@ -1,0 +1,61 @@
+<p-toast position="bottom-left"></p-toast>
+
+<div class="content-wrapper">
+  <h1>Latest ML News</h1>
+
+  <div class="toolbar">
+    <div class="group">
+      <div class="title">Sorting</div>
+      <div class="content">
+        <p-button
+          [styleClass]="newestButton"
+          label="Newest"
+          (onClick)="sortNewsBy('newest')"
+        ></p-button>
+        <p-button
+          [styleClass]="oldestButton"
+          label="Oldest"
+          (onClick)="sortNewsBy('oldest')"
+        ></p-button>
+      </div>
+    </div>
+    <div class="group">
+      <div class="title right">View</div>
+      <div class="content">
+        <p-button
+          [styleClass]="gridButton"
+          icon="pi pi-th-large"
+          (onClick)="changeViewTo('grid')"
+          ></p-button>
+          <p-button
+          [styleClass]="listButton"
+          icon="pi pi-list"
+          (onClick)="changeViewTo('list')"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+
+  <div id="news-container" class="news-container">
+    <div
+      *ngFor="let newsItem of news"
+      class="news-item cursor-pointer"
+      (click)="redirectTo(newsItem.hyperlink)"
+    >
+      <div class="start">
+        <img src="{{ newsItem.image }}" />
+        <div class="title-container">
+          <p class="source">{{newsItem.source}}</p>
+          <p class="title">{{ newsItem.title }}</p>
+        </div>
+      </div>
+      <div class="end">
+        <p-button
+          icon="pi pi-chevron-right"
+          styleClass="p-button-rounded"
+          (onClick)="redirectTo(newsItem.hyperlink)"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</div>
