@@ -53,9 +53,9 @@ export class Id3Component implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.nodes = [];
-      this.edges = [];
-      this.updateLocalStorage();
+    this.nodes = [];
+    this.edges = [];
+    this.updateLocalStorage();
   }
 
   dataInLocalStorage(): boolean {

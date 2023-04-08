@@ -5,24 +5,42 @@
   <div class="start">ML Colab</div>
 
   <div class="center">
-    <p routerLink="/home" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">
+    <p
+      routerLink="/home"
+      routerLinkActive="active"
+      class="ml-2 mr-2 cursor-pointer toolbar-item"
+    >
       Home
     </p>
-    <p routerLink="/news" routerLinkActive="active" class="ml-2 mr-2 cursor-pointer toolbar-item">
+    <p
+      routerLink="/news"
+      routerLinkActive="active"
+      class="ml-2 mr-2 cursor-pointer toolbar-item"
+    >
       News
     </p>
-    <div id="menu-toggle" class="ml-2 mr-2 cursor-pointer toolbar-item" (click)="showMenu()">
+    <div
+      id="menu-toggle"
+      class="ml-2 mr-2 cursor-pointer toolbar-item"
+      (click)="showMenu()"
+    >
       Algorithms <i class="pi pi-chevron-down algo-chevron"></i>
       <div id="algo-menu" class="algo-menu hidden">
         <p class="cursor-pointer algo-menu-item m-0 mb-2" routerLink="/id3">
           ID3
         </p>
         <div class="separator"></div>
-        <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/knn">
+        <p
+          class="cursor-pointer algo-menu-item m-0 mb-2 mt-2"
+          routerLink="/knn"
+        >
           K-NN
         </p>
         <div class="separator"></div>
-        <p class="cursor-pointer algo-menu-item m-0 mb-2 mt-2" routerLink="/hclustering">
+        <p
+          class="cursor-pointer algo-menu-item m-0 mb-2 mt-2"
+          routerLink="/hclustering"
+        >
           Hierarchical Clustering
         </p>
         <div class="separator"></div>
@@ -33,12 +51,13 @@
     </div>
   </div>
 
-  <div class="end">
-
-  </div>
+  <div class="end"></div>
 </div>
 
 <app-sidebar class="is-toolbar-end-sidebar" *ngIf="isLoggedIn"></app-sidebar>
-<app-auth-dialog class="is-toolbar-end-login" *ngIf="!isLoggedIn"></app-auth-dialog>
+<app-auth-dialog
+  class="is-toolbar-end-login"
+  *ngIf="!isLoggedIn"
+></app-auth-dialog>
 
 <!-- login/signup dialog -->

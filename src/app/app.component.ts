@@ -24,16 +24,19 @@ export class AppComponent implements OnInit {
     this.authService.getSession();
 
     const blob = document.getElementById('blob');
-    window.onpointermove = event => {
-      const {clientX, clientY} = event;
+    window.onpointermove = (event) => {
+      const { clientX, clientY } = event;
 
-      blob?.animate({
-        left: `${clientX}px`,
-        top: `${clientY}px`,
-      }, {
-        duration: 3000,
-        fill: 'forwards',
-      })
+      blob?.animate(
+        {
+          left: `${clientX}px`,
+          top: `${clientY}px`,
+        },
+        {
+          duration: 3000,
+          fill: 'forwards',
+        }
+      );
     };
   }
 

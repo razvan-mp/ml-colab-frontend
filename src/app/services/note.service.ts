@@ -59,14 +59,10 @@ export class NoteService {
       withCredentials: true,
     };
 
-    return this.httpClient.request(
-      'delete',
-      `${this.BACKEND_API}/note/`,
-      {
-        body: payload,
-        ...options,
-      }
-    ) as Observable<any>;
+    return this.httpClient.request('delete', `${this.BACKEND_API}/note/`, {
+      body: payload,
+      ...options,
+    }) as Observable<any>;
   }
 
   editNote(payload: any) {

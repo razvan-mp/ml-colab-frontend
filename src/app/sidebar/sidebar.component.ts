@@ -1,15 +1,15 @@
-import {Component} from '@angular/core';
-import {catchError, of} from "rxjs";
-import {Note} from "../models/Note";
-import {MessageService} from "primeng/api";
-import {NoteService} from "../services/note.service";
-import {AppComponent} from "../app.component";
-import {AuthService} from "../services/auth.service";
+import { Component } from '@angular/core';
+import { catchError, of } from 'rxjs';
+import { Note } from '../models/Note';
+import { MessageService } from 'primeng/api';
+import { NoteService } from '../services/note.service';
+import { AppComponent } from '../app.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   displaySidebar: boolean = false;
@@ -23,10 +23,11 @@ export class SidebarComponent {
 
   notes: Note[] = [];
 
-  constructor(private messageService: MessageService,
-              private noteService: NoteService,
-              private authService: AuthService) {
-  }
+  constructor(
+    private messageService: MessageService,
+    private noteService: NoteService,
+    private authService: AuthService
+  ) {}
   showCreateNoteModal(): void {
     this.displaySidebar = false;
     this.displayCreateNoteModal = true;
@@ -82,8 +83,8 @@ export class SidebarComponent {
     if (this.onAlgorithmPage() && this.createNoteCheckbox) {
       const page =
         window.location.pathname.split('/')[
-        window.location.pathname.split('/').length - 1
-          ];
+          window.location.pathname.split('/').length - 1
+        ];
       let data = {};
       let payload = {};
       switch (page) {
@@ -351,5 +352,4 @@ export class SidebarComponent {
         this.notes = res;
       });
   }
-
 }

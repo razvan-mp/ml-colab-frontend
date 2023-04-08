@@ -42,7 +42,9 @@ export class HclusteringComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (localStorage.getItem('hclustering')) {
-      this.updateGraphData(JSON.parse(localStorage.getItem('hclustering') as string));
+      this.updateGraphData(
+        JSON.parse(localStorage.getItem('hclustering') as string)
+      );
     } else {
       this.initPage();
     }

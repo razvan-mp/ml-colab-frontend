@@ -8,11 +8,19 @@
           <span id="ml">ML</span><span id="colab">Colab</span>
         </div>
 
-        <ngx-typed-js class="align-self-start" [strings]="[
+        <ngx-typed-js
+          class="align-self-start"
+          [strings]="[
             ' share their work.',
             ' learn about algorithms.',
             ' find answers together.'
-          ]" [loop]="true" [typeSpeed]="40" [backDelay]="500" [showCursor]="false" [backSpeed]="50">
+          ]"
+          [loop]="true"
+          [typeSpeed]="40"
+          [backDelay]="500"
+          [showCursor]="false"
+          [backSpeed]="50"
+        >
           <div class="app-subtitle align-self-start">
             ML Colab is a platform for machine learning enthusiasts to
             collaborate and <span class="typing"></span>
@@ -21,30 +29,59 @@
       </div>
 
       <div class="hero-image">
-        <img width="1440" height="950" src="../../assets/images/homepage_anim.gif" muted autoplay loop playsinline
-          webkit-playsinline alt="Animation" class="hero-anim" />
+        <img
+          width="1440"
+          height="950"
+          src="../../assets/images/homepage_anim.gif"
+          muted
+          autoplay
+          loop
+          playsinline
+          webkit-playsinline
+          alt="Animation"
+          class="hero-anim"
+        />
       </div>
     </div>
 
     <div class="separator-link">
       <div class="separator"></div>
-      <div class="link-button pi pi-chevron-down" (click)="scroll('detail-section')"></div>
+      <div
+        class="link-button pi pi-chevron-down"
+        (click)="scroll('detail-section')"
+      ></div>
     </div>
   </section>
 
   <section id="detail-section">
     <div class="news-container">
-      <p class="carousel-title cursor-pointer" routerLink="/news" routerLinkActive="active">
+      <p
+        class="carousel-title cursor-pointer"
+        routerLink="/news"
+        routerLinkActive="active"
+      >
         Latest News from the ML Community
       </p>
       <div class="carousel-container">
-        <p-carousel [value]="newsItems" [numVisible]="1" [numScroll]="1" [circular]="true"
-          [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+        <p-carousel
+          [value]="newsItems"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          [autoplayInterval]="5000"
+        >
           <ng-template let-newsItem pTemplate="item">
-            <div class="card" [ngStyle]="{
+            <div
+              class="card"
+              [ngStyle]="{
                 backgroundImage:
-                  'linear-gradient(rgba(9, 9, 9, 0), rgba(9, 9, 9, 1)),url('+newsItem.image+')'
-              }" (click)="openLink(newsItem.hyperlink)">
+                  'linear-gradient(rgba(9, 9, 9, 0), rgba(9, 9, 9, 1)),url(' +
+                  newsItem.image +
+                  ')'
+              }"
+              (click)="openLink(newsItem.hyperlink)"
+            >
               <div class="source">
                 <span class="source-name">{{ newsItem.source }}</span>
               </div>

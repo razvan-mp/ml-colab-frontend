@@ -81,7 +81,7 @@ export class KnnComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      localStorage.removeItem('knn');
+    localStorage.removeItem('knn');
   }
 
   initPage(): void {

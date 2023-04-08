@@ -54,10 +54,4 @@ export class HeaderComponent implements OnInit {
     const menu = document.getElementById('algo-menu');
     menu?.classList.toggle('hidden');
   }
-
-
-
-
-
-
 }

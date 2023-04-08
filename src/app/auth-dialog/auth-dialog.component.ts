@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {catchError} from "rxjs";
-import {AppComponent} from "../app.component";
-import {MessageService} from "primeng/api";
+import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { catchError } from 'rxjs';
+import { AppComponent } from '../app.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-auth-dialog',
   templateUrl: './auth-dialog.component.html',
-  styleUrls: ['./auth-dialog.component.scss']
+  styleUrls: ['./auth-dialog.component.scss'],
 })
 export class AuthDialogComponent {
   displayModal: boolean = false;
@@ -18,8 +18,7 @@ export class AuthDialogComponent {
   constructor(
     private authService: AuthService,
     private messageService: MessageService
-  ) {
-  }
+  ) {}
 
   setIndex(index: number) {
     this.tabViewIndex = index;
