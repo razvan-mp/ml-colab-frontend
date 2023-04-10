@@ -1,0 +1,83 @@
+:host ::ng-deep {
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+
+  .p-dialog {
+    width: 80%;
+    height: 80%;
+
+    .p-dialog-header {
+      display: none;
+    }
+
+    .p-dialog-content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.create-note-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.note-edit-input {
+  all: unset;
+}
+
+.note-edit-input-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.note-edit-input-content {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  height: 80%;
+}
+
+.note-form {
+  height: 100%;
+}
+
+.form-inputs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.delete-dialog-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  justify-content: space-between;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.button-pair {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 1rem;
+}
+
+.modal-title {
+  padding-left: 10px;
+  padding-top: 25px;
+  margin: 0;
+}

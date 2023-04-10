@@ -1,0 +1,27 @@
+:host ::ng-deep {
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+  grid-gap: 15px 15px;
+}
+
+.note {
+  background: #313131;
+  border-radius: 10px;
+  height: 200px;
+  padding: 10px 10px 10px 20px;
+}
+
+.note-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}

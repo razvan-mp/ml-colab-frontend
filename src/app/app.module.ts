@@ -34,6 +34,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { NewsComponent } from './news/news.component';
+import { UserNotesComponent } from './user-notes/user-notes.component';
+import { UserNotesModalsComponent } from './user-notes-modals/user-notes-modals.component';
+import { DividerModule } from "primeng/divider";
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -51,6 +54,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
     SidebarComponent,
     AuthDialogComponent,
     NewsComponent,
+    UserNotesComponent,
+    UserNotesModalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +79,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     CarouselModule,
     CardModule,
     CheckboxModule,
+    DividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

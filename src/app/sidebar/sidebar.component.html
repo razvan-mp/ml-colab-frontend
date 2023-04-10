@@ -1,158 +1,16 @@
 <p-button
   icon="pi pi-bars"
   styleClass="p-button-rounded p-button-text"
-  (click)="openSidebar()"
+  (click)="displaySidebar = true"
 ></p-button>
-
-<!-- delete note modal -->
-<p-dialog
-  [style]="{ width: '300px', height: '230px' }"
-  [modal]="true"
-  [dismissableMask]="false"
-  [visible]="displayDeleteModal"
->
-  <div class="delete-dialog-content">
-    <h2>Are you sure?</h2>
-    <p>Keep in mind that deleted notes cannot be recovered</p>
-    <div class="button-pair justify-content-between">
-      <button
-        pButton
-        pRipple
-        class="p-button p-button-danger p-button-outlined"
-        type="button"
-        (click)="hideDeleteModal()"
-        label="Cancel"
-      ></button>
-      <button
-        pButton
-        pRipple
-        class="p-button p-button-success p-button-outlined"
-        type="button"
-        (click)="deleteNote(selectedNote)"
-        label="Delete"
-      ></button>
-    </div>
-  </div>
-</p-dialog>
-
-<!-- create note modal -->
-<p-dialog [(visible)]="displayCreateNoteModal" [modal]="true">
-  <ng-template pTemplate="content">
-    <form
-      id="create-note-form"
-      class="note-form"
-      #createNoteForm
-      (submit)="createNote($event, createNoteForm)"
-    >
-      <div class="form-inputs p-6">
-        <input
-          autocomplete="false"
-          class="note-edit-input note-edit-input-title"
-          type="text"
-          name="title"
-          placeholder="Note title"
-        />
-        <textarea
-          autocomplete="false"
-          class="note-edit-input note-edit-input-content"
-          name="content"
-          placeholder="Note content"
-        ></textarea>
-      </div>
-    </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <div class="button-pair justify-content-between">
-      <div>
-        <p-checkbox
-          id="create-note-form-include-graph-data"
-          *ngIf="onAlgorithmPage()"
-          label="Include graph data (and page)"
-          [binary]="true"
-          [(ngModel)]="createNoteCheckbox"
-        ></p-checkbox>
-      </div>
-      <div>
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-danger p-button-outlined"
-          type="button"
-          (click)="hideCreateNoteModal()"
-          label="Cancel"
-        ></button>
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-success p-button-outlined"
-          type="submit"
-          form="create-note-form"
-          label="Save"
-        ></button>
-      </div>
-    </div>
-  </ng-template>
-</p-dialog>
-
-<!-- edit note modal -->
-<p-dialog [(visible)]="displayEditNoteModal" [modal]="true">
-  <ng-template pTemplate="content">
-    <form
-      id="edit-note-form"
-      class="note-form"
-      #editNoteForm
-      (submit)="editNote($event, editNoteForm)"
-    >
-      <div class="form-inputs p-6">
-        <input
-          autocomplete="false"
-          class="note-edit-input note-edit-input-title"
-          type="text"
-          name="title"
-          placeholder="Note title"
-          [value]="noteTitle"
-        />
-        <textarea
-          autocomplete="false"
-          class="note-edit-input note-edit-input-content"
-          name="content"
-          placeholder="Note content"
-          [value]="noteContent"
-        ></textarea>
-      </div>
-    </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <div class="button-pair justify-content-between">
-      <div></div>
-      <div>
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-danger p-button-outlined"
-          type="button"
-          (click)="hideEditNoteModal()"
-          label="Discard"
-        ></button>
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-success p-button-outlined"
-          type="submit"
-          form="edit-note-form"
-          label="Save"
-        ></button>
-      </div>
-    </div>
-  </ng-template>
-</p-dialog>
 
 <p-sidebar [(visible)]="displaySidebar" position="right">
   <ng-template pTemplate="header">
     <div
       class="header-content flex flex-row justify-content-between align-items-center max-w-full"
     >
-      <h2 class="p-0 m-0">Your notes</h2>
+      <h2 class="p-0 m-0 sidebar-item text-indigo-300">Your notes</h2>
+      <h2 class="p-0 m-0 sidebar-item">Your teams</h2>
       <p-button
         icon="pi pi-cog"
         styleClass="p-button-rounded p-button-text"
@@ -160,53 +18,7 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <div class="sidebar-content-heading">
-      <p-button
-        icon="pi pi-plus"
-        styleClass="p-button-rounded p-button-text"
-        label="New"
-        (click)="showCreateNoteModal()"
-      ></p-button>
-    </div>
-    <div class="note-grid">
-      <div
-        *ngFor="let note of notes"
-        id="note-{{ note.id }}"
-        class="note relative"
-      >
-        <div
-          class="note-header flex flex-row justify-content-between align-items-center"
-        >
-          <p class="p-0 m-0 note-title">{{ note.title }}</p>
-          <div class="button-pair">
-            <p-button
-              *ngIf="note.page !== ''"
-              icon="pi pi-eye"
-              styleClass="p-button-rounded p-button-text"
-              (click)="selectedNote = note.id; loadNote()"
-            ></p-button>
-            <p-button
-              icon="pi pi-pencil"
-              styleClass="p-button-rounded p-button-text"
-              (click)="selectedNote = note.id; showEditNoteModal()"
-            ></p-button>
-            <p-button
-              icon="pi pi-trash"
-              styleClass="p-button-rounded p-button-text"
-              (click)="selectedNote = note.id; showDeleteModal()"
-            ></p-button>
-          </div>
-        </div>
-        <div class="note-content">
-          <p class="p-0 m-0">{{ note.content }}</p>
-        </div>
-        <div *ngIf="note.page !== ''" class="note-page bottom-0 absolute mb-3">
-          <p class="p-0 m-0 font-italic text-gray-400">
-            will redirect to /{{ note.page }}
-          </p>
-        </div>
-      </div>
-    </div>
+    <app-user-notes></app-user-notes>
   </ng-template>
   <ng-template pTemplate="footer">
     <div class="sidebar-content">
@@ -231,3 +43,5 @@
     </div>
   </ng-template>
 </p-sidebar>
+
+<app-user-notes-modals></app-user-notes-modals>
