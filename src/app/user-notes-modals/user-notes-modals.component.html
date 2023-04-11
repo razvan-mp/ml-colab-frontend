@@ -2,152 +2,154 @@
 
 <!-- delete note modal -->
 <p-dialog
-        [style]="{ width: '300px', height: '330px' }"
-        [modal]="true"
-        [dismissableMask]="false"
-        [visible]="displayDeleteModal"
+  [style]="{ width: '300px', height: '270px' }"
+  [modal]="true"
+  [dismissableMask]="false"
+  [visible]="displayDeleteModal"
 >
-    <div class="delete-dialog-content">
-        <h2>Delete note?</h2>
-        <p>Keep in mind that deleted notes cannot be recovered</p>
-        <p-divider></p-divider>
-        <div class="button-pair justify-content-between">
-            <button
-                    pButton
-                    pRipple
-                    class="p-button p-button-danger p-button-outlined"
-                    type="button"
-                    (click)="hideDeleteNoteModal()"
-                    label="Cancel"
-            ></button>
-            <button
-                    pButton
-                    pRipple
-                    class="p-button p-button-success p-button-outlined"
-                    type="button"
-                    (click)="deleteNote(selectedNote)"
-                    label="Delete"
-            ></button>
-        </div>
+  <ng-template pTemplate="content">
+    <h2>Delete note?</h2>
+    <p>Keep in mind that deleted notes cannot be recovered</p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-center">
+      <button
+        pButton
+        pRipple
+        class="p-button p-button-danger p-button-outlined"
+        type="button"
+        (click)="hideDeleteNoteModal()"
+        label="Cancel"
+      ></button>
+      <button
+        pButton
+        pRipple
+        class="p-button p-button-success p-button-outlined"
+        type="button"
+        (click)="deleteNote(selectedNote)"
+        label="Delete"
+      ></button>
     </div>
+  </ng-template>
 </p-dialog>
 
 <!-- create note modal -->
 <p-dialog [visible]="displayCreateNoteModal" [modal]="true">
-    <ng-template pTemplate="content">
-        <h2 class="modal-title">New note</h2>
+  <ng-template pTemplate="content">
+    <h2 class="modal-title">New note</h2>
+    <p-divider></p-divider>
+    <form
+      id="create-note-form"
+      class="note-form"
+      #createNoteForm
+      (submit)="createNote($event, createNoteForm)"
+    >
+      <div class="form-inputs p-5">
+        <input
+          autocomplete="false"
+          class="note-edit-input note-edit-input-title"
+          type="text"
+          name="title"
+          placeholder="Note title"
+        />
         <p-divider></p-divider>
-        <form
-                id="create-note-form"
-                class="note-form"
-                #createNoteForm
-                (submit)="createNote($event, createNoteForm)"
-        >
-            <div class="form-inputs p-5">
-                <input
-                        autocomplete="false"
-                        class="note-edit-input note-edit-input-title"
-                        type="text"
-                        name="title"
-                        placeholder="Note title"
-                />
-                <p-divider></p-divider>
-                <textarea
-                        autocomplete="false"
-                        class="note-edit-input note-edit-input-content"
-                        name="content"
-                        placeholder="Note content"
-                ></textarea>
-            </div>
-        </form>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <p-divider></p-divider>
-        <div class="button-pair justify-content-between">
-            <div>
-                <p-checkbox
-                        id="create-note-form-include-graph-data"
-                        *ngIf="onAlgorithmPage()"
-                        label="Include graph data (and page)"
-                        [binary]="true"
-                        [(ngModel)]="createNoteCheckbox"
-                ></p-checkbox>
-            </div>
-            <div>
-                <button
-                        pButton
-                        pRipple
-                        class="p-button p-button-danger p-button-outlined"
-                        type="button"
-                        (click)="hideCreateNoteModal()"
-                        label="Cancel"
-                ></button>
-                <button
-                        pButton
-                        pRipple
-                        class="p-button p-button-success p-button-outlined"
-                        type="submit"
-                        form="create-note-form"
-                        label="Save"
-                ></button>
-            </div>
-        </div>
-    </ng-template>
+        <textarea
+          autocomplete="false"
+          class="note-edit-input note-edit-input-content"
+          name="content"
+          placeholder="Note content"
+        ></textarea>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-between">
+      <div>
+        <p-checkbox
+          id="create-note-form-include-graph-data"
+          *ngIf="onAlgorithmPage()"
+          label="Include graph data (and page)"
+          [binary]="true"
+          [(ngModel)]="createNoteCheckbox"
+        ></p-checkbox>
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideCreateNoteModal()"
+          label="Cancel"
+        ></button>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="submit"
+          form="create-note-form"
+          label="Save"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
 </p-dialog>
 
 <!-- edit note modal -->
 <p-dialog [visible]="displayEditNoteModal" [modal]="true">
-    <ng-template pTemplate="content">
-        <h2 class="modal-title">Edit note</h2>
+  <ng-template pTemplate="content">
+    <h2 class="modal-title">Edit note</h2>
+    <p-divider></p-divider>
+    <form
+      id="edit-note-form"
+      class="note-form"
+      #editNoteForm
+      (submit)="editNote($event, editNoteForm)"
+    >
+      <div class="form-inputs p-5">
+        <input
+          autocomplete="false"
+          class="note-edit-input note-edit-input-title"
+          type="text"
+          name="title"
+          placeholder="Note title"
+          [value]="noteTitle"
+        />
         <p-divider></p-divider>
-        <form
-                id="edit-note-form"
-                class="note-form"
-                #editNoteForm
-                (submit)="editNote($event, editNoteForm)"
-        >
-            <div class="form-inputs p-5">
-                <input
-                        autocomplete="false"
-                        class="note-edit-input note-edit-input-title"
-                        type="text"
-                        name="title"
-                        placeholder="Note title"
-                        [value]="noteTitle"
-                />
-                <p-divider></p-divider>
-                <textarea
-                        autocomplete="false"
-                        class="note-edit-input note-edit-input-content"
-                        name="content"
-                        placeholder="Note content"
-                        [value]="noteContent"
-                ></textarea>
-            </div>
-        </form>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <p-divider></p-divider>
-        <div class="button-pair justify-content-between">
-            <div></div>
-            <div>
-                <button
-                        pButton
-                        pRipple
-                        class="p-button p-button-danger p-button-outlined"
-                        type="button"
-                        (click)="hideEditNoteModal()"
-                        label="Discard"
-                ></button>
-                <button
-                        pButton
-                        pRipple
-                        class="p-button p-button-success p-button-outlined"
-                        type="submit"
-                        form="edit-note-form"
-                        label="Save"
-                ></button>
-            </div>
-        </div>
-    </ng-template>
+        <textarea
+          autocomplete="false"
+          class="note-edit-input note-edit-input-content"
+          name="content"
+          placeholder="Note content"
+          [value]="noteContent"
+        ></textarea>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-between">
+      <div></div>
+      <div>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideEditNoteModal()"
+          label="Discard"
+        ></button>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="submit"
+          form="edit-note-form"
+          label="Save"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
 </p-dialog>

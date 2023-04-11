@@ -36,7 +36,9 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { NewsComponent } from './news/news.component';
 import { UserNotesComponent } from './user-notes/user-notes.component';
 import { UserNotesModalsComponent } from './user-notes-modals/user-notes-modals.component';
-import { DividerModule } from "primeng/divider";
+import { DividerModule } from 'primeng/divider';
+import { TooltipModule } from 'primeng/tooltip';
+import { UserTeamsComponent } from './user-teams/user-teams.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -56,6 +58,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     NewsComponent,
     UserNotesComponent,
     UserNotesModalsComponent,
+    UserTeamsComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     CardModule,
     CheckboxModule,
     DividerModule,
+    TooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

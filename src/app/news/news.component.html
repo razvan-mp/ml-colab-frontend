@@ -26,8 +26,8 @@
           [styleClass]="gridButton"
           icon="pi pi-th-large"
           (onClick)="changeViewTo('grid')"
-          ></p-button>
-          <p-button
+        ></p-button>
+        <p-button
           [styleClass]="listButton"
           icon="pi pi-list"
           (onClick)="changeViewTo('list')"
@@ -45,7 +45,7 @@
       <div class="start">
         <img src="{{ newsItem.image }}" />
         <div class="title-container">
-          <p class="source">{{newsItem.source}}</p>
+          <p class="source">{{ newsItem.source }}</p>
           <p class="title">{{ newsItem.title }}</p>
         </div>
       </div>

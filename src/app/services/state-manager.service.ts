@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Note} from "../models/Note";
+import { Note } from '../models/Note';
+import { Team } from '../models/Team';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StateManagerService {
   public displayCreateNoteModal: boolean = false;
@@ -12,8 +13,9 @@ export class StateManagerService {
   public selectedNote: any = -1;
   public noteTitle: string = '';
   public noteContent: string = '';
-  public displaySidebar: boolean = false;
-
+  public displaySidebar: boolean = true;
   public notes: Note[] = [];
-  constructor() { }
+  public teams: Team[] = [];
+  public userTeams: Team[] = [];
+  constructor() {}
 }

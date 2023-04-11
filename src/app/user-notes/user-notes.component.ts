@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "primeng/api";
-import {NoteService} from "../services/note.service";
-import {Note} from "../models/Note";
-import {StateManagerService} from "../services/state-manager.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { NoteService } from '../services/note.service';
+import { Note } from '../models/Note';
+import { StateManagerService } from '../services/state-manager.service';
 
 @Component({
   selector: 'app-user-notes',
   providers: [MessageService],
   templateUrl: './user-notes.component.html',
-  styleUrls: ['./user-notes.component.scss']
+  styleUrls: ['./user-notes.component.scss'],
 })
-export class UserNotesComponent implements OnInit {
+export class UserNotesComponent implements OnInit, OnDestroy {
   get notes(): Note[] {
     return this._state.notes;
   }
@@ -39,11 +39,14 @@ export class UserNotesComponent implements OnInit {
     private messageService: MessageService,
     private noteService: NoteService,
     private _state: StateManagerService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getNotes();
+  }
+
+  ngOnDestroy() {
+    this.notes = [];
   }
 
   getNotes(): void {
@@ -95,7 +98,7 @@ export class UserNotesComponent implements OnInit {
         this.noteTitle = note.title as string;
         this.noteContent = note.content as string;
       }
-    })
+    });
     this._state.displaySidebar = false;
     this._state.displayEditNoteModal = true;
   }

@@ -1,23 +1,22 @@
-import {Component} from '@angular/core';
-import {NoteService} from "../services/note.service";
-import {MessageService} from "primeng/api";
-import {StateManagerService} from "../services/state-manager.service";
-import {catchError, of} from "rxjs";
-import {Note} from "../models/Note";
+import { Component } from '@angular/core';
+import { NoteService } from '../services/note.service';
+import { MessageService } from 'primeng/api';
+import { StateManagerService } from '../services/state-manager.service';
+import { catchError, of } from 'rxjs';
+import { Note } from '../models/Note';
 
 @Component({
   selector: 'app-user-notes-modals',
   providers: [MessageService],
   templateUrl: './user-notes-modals.component.html',
-  styleUrls: ['./user-notes-modals.component.scss']
+  styleUrls: ['./user-notes-modals.component.scss'],
 })
 export class UserNotesModalsComponent {
   constructor(
     private noteService: NoteService,
     private messageService: MessageService,
     private _state: StateManagerService
-  ) {
-  }
+  ) {}
 
   set displaySidebar(value: boolean) {
     this._state.displaySidebar = value;
@@ -95,8 +94,8 @@ export class UserNotesModalsComponent {
     if (this.onAlgorithmPage() && this.createNoteCheckbox) {
       const page =
         window.location.pathname.split('/')[
-        window.location.pathname.split('/').length - 1
-          ];
+          window.location.pathname.split('/').length - 1
+        ];
       let data = {};
       let payload = {};
       switch (page) {
@@ -275,12 +274,10 @@ export class UserNotesModalsComponent {
     this._state.displaySidebar = true;
   }
 
-
   hideCreateNoteModal(): void {
     this._state.displayCreateNoteModal = false;
     this._state.displaySidebar = true;
   }
-
 
   hideEditNoteModal() {
     this._state.displayEditNoteModal = false;

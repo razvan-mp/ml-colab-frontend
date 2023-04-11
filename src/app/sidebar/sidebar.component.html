@@ -9,8 +9,22 @@
     <div
       class="header-content flex flex-row justify-content-between align-items-center max-w-full"
     >
-      <h2 class="p-0 m-0 sidebar-item text-indigo-300">Your notes</h2>
-      <h2 class="p-0 m-0 sidebar-item">Your teams</h2>
+      <div class="sidebar-items">
+        <h2
+          class="p-0 m-0 sidebar-item"
+          [style]="yourNotes"
+          (click)="setDisplay(0)"
+        >
+          Your notes
+        </h2>
+        <h2
+          class="p-0 m-0 sidebar-item"
+          [style]="yourTeams"
+          (click)="setDisplay(1)"
+        >
+          Your teams
+        </h2>
+      </div>
       <p-button
         icon="pi pi-cog"
         styleClass="p-button-rounded p-button-text"
@@ -18,7 +32,8 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <app-user-notes></app-user-notes>
+    <app-user-notes *ngIf="display === 0"></app-user-notes>
+    <app-user-teams *ngIf="display === 1"></app-user-teams>
   </ng-template>
   <ng-template pTemplate="footer">
     <div class="sidebar-content">

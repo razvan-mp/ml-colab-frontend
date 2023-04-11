@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthService } from './services/auth.service';
+import {StateManagerService} from "./services/state-manager.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
 
     const blob = document.getElementById('blob');
     window.onpointermove = (event) => {
-      const { clientX, clientY } = event;
+      const {clientX, clientY} = event;
 
       blob?.animate(
         {
@@ -38,10 +39,6 @@ export class AppComponent implements OnInit {
         }
       );
     };
-  }
-
-  get loggedIn(): boolean {
-    return AppComponent.loggedIn;
   }
 
   static hidePlotly(): void {
