@@ -6,6 +6,8 @@ import { Team } from '../models/Team';
   providedIn: 'root',
 })
 export class StateManagerService {
+  public displaySidebar: boolean = true;
+  public displayAuthModal: boolean = false;
   public displayCreateNoteModal: boolean = false;
   public displayDeleteModal: boolean = false;
   public displayEditNoteModal: boolean = false;
@@ -13,9 +15,14 @@ export class StateManagerService {
   public selectedNote: any = -1;
   public noteTitle: string = '';
   public noteContent: string = '';
-  public displaySidebar: boolean = true;
   public notes: Note[] = [];
   public teams: Team[] = [];
   public userTeams: Team[] = [];
+  public selectedTeam: any = -1;
+  public selectedTeamName: string = '';
+  public selectedTeamDescription: string = '';
+  public displayCreateTeamModal: boolean = false;
+  public displayDeleteTeamModal: boolean = false;
+  public displayTeamSidebar: boolean = false;
   constructor() {}
 }

@@ -1,9 +1,3 @@
-<p-button
-  icon="pi pi-bars"
-  styleClass="p-button-rounded p-button-text"
-  (click)="displaySidebar = true"
-></p-button>
-
 <p-sidebar [(visible)]="displaySidebar" position="right">
   <ng-template pTemplate="header">
     <div
@@ -24,6 +18,13 @@
         >
           Your teams
         </h2>
+        <h2
+          class="p-0 m-0 sidebar-item"
+          [style]="yourSocial"
+          (click)="setDisplay(2)"
+        >
+          Social
+        </h2>
       </div>
       <p-button
         icon="pi pi-cog"
@@ -34,6 +35,7 @@
   <ng-template pTemplate="content">
     <app-user-notes *ngIf="display === 0"></app-user-notes>
     <app-user-teams *ngIf="display === 1"></app-user-teams>
+    <app-user-socials *ngIf="display === 2"></app-user-socials>
   </ng-template>
   <ng-template pTemplate="footer">
     <div class="sidebar-content">

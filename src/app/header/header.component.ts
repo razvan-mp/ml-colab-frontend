@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { catchError, of } from 'rxjs';
 import { AppComponent } from '../app.component';
-import { Note } from '../models/Note';
-import { AuthService } from '../services/auth.service';
-import { NoteService } from '../services/note.service';
+import { StateManagerService } from '../services/state-manager.service';
 
 @Component({
   selector: 'app-header',
@@ -13,28 +10,9 @@ import { NoteService } from '../services/note.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  displayModal: boolean = false;
-  displayCreateNoteModal: boolean = false;
-  displaySidebar: boolean = false;
-  displayDeleteModal: boolean = false;
-  displayEditNoteModal: boolean = false;
-  tabViewIndex: number = 0;
-  password: string = '';
-  passwordConfirm: string = '';
   isLoggedIn: boolean = false;
-  createNoteCheckbox: boolean = false;
-  selectedNote: any = -1;
 
-  noteTitle: string = '';
-  noteContent: string = '';
-
-  notes: Note[] = [];
-
-  constructor(
-    private messageService: MessageService,
-    private authService: AuthService,
-    private noteService: NoteService
-  ) {}
+  constructor(private _state: StateManagerService) {}
 
   ngOnInit(): void {
     setInterval(() => {
@@ -53,5 +31,13 @@ export class HeaderComponent implements OnInit {
   showMenu(): void {
     const menu = document.getElementById('algo-menu');
     menu?.classList.toggle('hidden');
+  }
+
+  displaySidebar(): void {
+    this._state.displaySidebar = true;
+  }
+
+  displayAuthModal(): void {
+    this._state.displayAuthModal = true;
   }
 }

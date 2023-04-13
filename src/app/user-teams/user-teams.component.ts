@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TeamsService} from '../services/teams.service';
-import {MessageService} from 'primeng/api';
-import {StateManagerService} from '../services/state-manager.service';
-import {catchError} from "rxjs/operators";
-import {Team} from '../models/Team';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TeamsService } from '../services/teams.service';
+import { MessageService } from 'primeng/api';
+import { StateManagerService } from '../services/state-manager.service';
+import { catchError } from 'rxjs/operators';
+import { Team } from '../models/Team';
 
 @Component({
   selector: 'app-user-teams',
@@ -11,13 +11,12 @@ import {Team} from '../models/Team';
   templateUrl: './user-teams.component.html',
   styleUrls: ['./user-teams.component.scss'],
 })
-export class UserTeamsComponent implements OnInit, OnDestroy {
+export class UserTeamsComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private teamsService: TeamsService,
     private _state: StateManagerService
-  ) {
-  }
+  ) {}
 
   get teams() {
     return this._state.teams;
@@ -40,7 +39,8 @@ export class UserTeamsComponent implements OnInit, OnDestroy {
   }
 
   fetchTeams(): void {
-    this.teamsService.getTeams()
+    this.teamsService
+      .getTeams()
       .pipe(
         catchError((error) => {
           this.messageService.add({
@@ -53,8 +53,10 @@ export class UserTeamsComponent implements OnInit, OnDestroy {
       )
       .subscribe((res: any) => {
         this.teams = res;
-      })
-    this.teamsService.getUserTeams()
+        console.log(this.teams);
+      });
+    this.teamsService
+      .getUserTeams()
       .pipe(
         catchError((error) => {
           this.messageService.add({
@@ -67,10 +69,10 @@ export class UserTeamsComponent implements OnInit, OnDestroy {
       )
       .subscribe((res: any) => {
         this.userTeams = res;
-      })
+      });
   }
 
-  ngOnDestroy(): void {
-    this.teams = [];
+  fetchUsername(): string {
+    return localStorage.getItem('username') as string;
   }
 }

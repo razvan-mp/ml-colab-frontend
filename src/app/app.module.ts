@@ -39,6 +39,7 @@ import { UserNotesModalsComponent } from './user-notes-modals/user-notes-modals.
 import { DividerModule } from 'primeng/divider';
 import { TooltipModule } from 'primeng/tooltip';
 import { UserTeamsComponent } from './user-teams/user-teams.component';
+import { UserSocialsComponent } from './user-socials/user-socials.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -59,6 +60,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserNotesComponent,
     UserNotesModalsComponent,
     UserTeamsComponent,
+    UserSocialsComponent,
   ],
   imports: [
     BrowserModule,

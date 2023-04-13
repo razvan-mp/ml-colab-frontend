@@ -1,36 +1,40 @@
 .teams-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
-    grid-gap: 15px 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 350px));
+  grid-gap: 15px 15px;
 }
 
 .team-users {
-    padding-bottom: 5px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
+  padding-bottom: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
 }
 
 .team {
-    background: #313131;
-    width: 350px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 10px 10px 10px 20px;
-    border-radius: 10px;
+  background: #313131;
+  width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 10px 10px 10px 20px;
+  border-radius: 10px;
 }
 
 .user {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 50px;
-    background-color: #404040;
-    padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #404040;
+  padding-left: 15px;
+}
+
+.user-pending {
+  background-color: #d99e2b;
 }

@@ -56,4 +56,14 @@
       width: 100%;
     }
   }
+
+  .sidebar-items {
+    max-width: 50%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    .sidebar-item {
+      font-size: 1rem;
+    }
+  }
 }

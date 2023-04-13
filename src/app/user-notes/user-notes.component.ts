@@ -10,7 +10,7 @@ import { StateManagerService } from '../services/state-manager.service';
   templateUrl: './user-notes.component.html',
   styleUrls: ['./user-notes.component.scss'],
 })
-export class UserNotesComponent implements OnInit, OnDestroy {
+export class UserNotesComponent implements OnInit {
   get notes(): Note[] {
     return this._state.notes;
   }
@@ -43,10 +43,6 @@ export class UserNotesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getNotes();
-  }
-
-  ngOnDestroy() {
-    this.notes = [];
   }
 
   getNotes(): void {

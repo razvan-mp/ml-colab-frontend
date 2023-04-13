@@ -1,6 +1,6 @@
 export interface User {
-    id: number;
-    username: string;
-    isFriend: boolean;
-    isSelf: boolean;
+  request_status: string;
+  id: number;
+  username: string;
+  is_friend: boolean;
 }

@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
   };
   yourNotes: any = {};
   yourTeams: any = {};
+  yourSocial: any = {};
 
   get displaySidebar(): boolean {
     return this._state.displaySidebar;
@@ -35,24 +36,28 @@ export class SidebarComponent implements OnInit {
     if (localStorage.getItem('display')) {
       this.display = Number(localStorage.getItem('display'));
     }
-    if (this.display === 0) {
-      this.yourNotes = this.selectedItem;
-      this.yourTeams = {};
-    } else {
-      this.yourNotes = {};
-      this.yourTeams = this.selectedItem;
-    }
+    this.updateDisplay();
   }
 
   setDisplay(value: number): void {
     this.display = value;
     localStorage.setItem('display', value.toString());
+    this.updateDisplay();
+  }
+
+  updateDisplay(): void {
     if (this.display === 0) {
-      this.yourNotes = this.selectedItem;
       this.yourTeams = {};
+      this.yourSocial = {};
+      this.yourNotes = this.selectedItem;
+    } else if (this.display === 1) {
+      this.yourNotes = {};
+      this.yourSocial = {};
+      this.yourTeams = this.selectedItem;
     } else {
       this.yourNotes = {};
-      this.yourTeams = this.selectedItem;
+      this.yourTeams = {};
+      this.yourSocial = this.selectedItem;
     }
   }
 

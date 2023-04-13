@@ -51,13 +51,25 @@
     </div>
   </div>
 
-  <div class="end"></div>
+  <div class="end">
+    <p-button
+      *ngIf="isLoggedIn"
+      icon="pi pi-bars"
+      styleClass="p-button-rounded p-button-text"
+      (click)="displaySidebar()"
+    ></p-button>
+    <button
+      *ngIf="!isLoggedIn"
+      pButton
+      pRipple
+      icon="pi pi-user"
+      class="p-button-outlined p-button-sm"
+      type="button"
+      (click)="displayAuthModal()"
+      label="Log in"
+    ></button>
+  </div>
 </div>
 
-<app-sidebar class="is-toolbar-end-sidebar" *ngIf="isLoggedIn"></app-sidebar>
-<app-auth-dialog
-  class="is-toolbar-end-login"
-  *ngIf="!isLoggedIn"
-></app-auth-dialog>
-
-<!-- login/signup dialog -->
+<app-sidebar *ngIf="isLoggedIn"></app-sidebar>
+<app-auth-dialog *ngIf="!isLoggedIn"></app-auth-dialog>
