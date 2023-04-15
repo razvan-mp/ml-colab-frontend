@@ -61,4 +61,5 @@
   </ng-template>
 </p-sidebar>
 
-<app-user-notes-modals></app-user-notes-modals>
+<app-user-notes-modals *ngIf="display === 0 || display === 1"></app-user-notes-modals>
+<app-user-friends-modals *ngIf="display === 1 || display === 2"></app-user-friends-modals>

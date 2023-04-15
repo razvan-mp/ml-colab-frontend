@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { catchError } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { MessageService } from 'primeng/api';
-import {StateManagerService} from "../services/state-manager.service";
+import { StateManagerService } from '../services/state-manager.service';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -18,15 +18,15 @@ export class AuthDialogComponent {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
-    private _state: StateManagerService,
+    private state: StateManagerService
   ) {}
 
   get displayModal() {
-    return this._state.displayAuthModal;
+    return this.state.displayAuthModal;
   }
 
   set displayModal(value: boolean) {
-    this._state.displayAuthModal = value;
+    this.state.displayAuthModal = value;
   }
 
   setIndex(index: number) {

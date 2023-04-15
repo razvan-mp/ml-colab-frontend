@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { StateManagerService } from '../services/state-manager.service';
 import { catchError } from 'rxjs/operators';
 import { Team } from '../models/Team';
+import { FriendsService } from '../services/friends.service';
 
 @Component({
   selector: 'app-user-teams',
@@ -12,30 +13,40 @@ import { Team } from '../models/Team';
   styleUrls: ['./user-teams.component.scss'],
 })
 export class UserTeamsComponent implements OnInit {
+  menuOptions: any = [];
+
   constructor(
     private messageService: MessageService,
     private teamsService: TeamsService,
-    private _state: StateManagerService
+    private friendsService: FriendsService,
+    private state: StateManagerService
   ) {}
 
   get teams() {
-    return this._state.teams;
+    return this.state.teams;
   }
 
   set teams(value: Team[]) {
-    this._state.teams = value;
+    this.state.teams = value;
   }
 
   get userTeams() {
-    return this._state.userTeams;
+    return this.state.userTeams;
   }
 
   set userTeams(value: Team[]) {
-    this._state.userTeams = value;
+    this.state.userTeams = value;
   }
 
   ngOnInit(): void {
     this.fetchTeams();
+    this.startPolling();
+  }
+
+  startPolling() {
+    setInterval(() => {
+      this.fetchTeams();
+    }, 5000);
   }
 
   fetchTeams(): void {
@@ -74,5 +85,64 @@ export class UserTeamsComponent implements OnInit {
 
   fetchUsername(): string {
     return localStorage.getItem('username') as string;
+  }
+
+  cancelRequest(username: string) {
+    this.state.selectedFriend = username;
+    this.state.displayCancelRequestModal = true;
+  }
+
+  sendRequest(username: string) {
+    this.friendsService
+      .sendFriendRequest(username)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error while sending friend request',
+          });
+          throw error;
+        })
+      )
+      .subscribe((res) => {
+        this.fetchTeams();
+      });
+  }
+
+  acceptRequest(username: string) {
+    this.friendsService
+      .acceptFriendRequest(username)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error while accepting friend request',
+          });
+          throw error;
+        })
+      )
+      .subscribe((res) => {
+        this.fetchTeams();
+      });
+  }
+
+  declineRequest(username: string) {
+    this.friendsService
+      .declineFriendRequest(username)
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error while declining friend request',
+          });
+          throw error;
+        })
+      )
+      .subscribe((res) => {
+        this.fetchTeams();
+      });
   }
 }

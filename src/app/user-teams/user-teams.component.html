@@ -9,8 +9,8 @@
           <div class="flex flex-row justify-content-between">
             <p class="font-semibold pb-0 mb-0">{{ team.name }}</p>
             <p
-                *ngIf="team.admin !== fetchUsername()"
-                class="text-gray-200 pb-0 mb-0"
+              *ngIf="team.admin !== fetchUsername()"
+              class="text-gray-200 pb-0 mb-0"
             >
               Admin: {{ team.admin }}
             </p>
@@ -23,21 +23,69 @@
         </div>
         <div class="team-users">
           <div *ngFor="let user of team.users">
-            <div *ngIf="!user.is_friend && user.request_status === 'none'" class="user">
+            <!--     if there is no request between the users       -->
+            <div
+              *ngIf="!user.is_friend && user.request_status === 'none'"
+              class="user"
+            >
               <p>{{ user.username }}</p>
               <p-button
-                  icon="pi pi-user-plus"
-                  styleClass="p-button-text p-button-rounded p-button-sm"
-                  pTooltip="Add Friend" tooltipPosition="bottom"
+                icon="pi pi-user-plus"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Add Friend"
+                tooltipPosition="bottom"
+                (click)="sendRequest(user.username)"
               ></p-button>
             </div>
-            <div *ngIf="!user.is_friend && user.request_status === 'pending'" class="user user-pending">
+            <!--     if user is the sender of the request       -->
+            <div
+              *ngIf="
+                !user.is_friend &&
+                user.request_status === 'pending' &&
+                user.request_sender === fetchUsername()
+              "
+              class="user bg-yellow-600"
+            >
               <p>{{ user.username }}</p>
               <p-button
-                  icon="pi pi-times"
-                  styleClass="p-button-text p-button-rounded p-button-sm"
-                  pTooltip="Cancel Request" tooltipPosition="bottom"
+                icon="pi pi-times"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Cancel Request"
+                tooltipPosition="bottom"
+                (click)="cancelRequest(user.username)"
               ></p-button>
+            </div>
+            <!--     if user is the receiver of the request       -->
+            <div
+              *ngIf="
+                !user.is_friend &&
+                user.request_status === 'pending' &&
+                user.request_sender !== fetchUsername()
+              "
+              class="user bg-yellow-600"
+            >
+              <p>{{ user.username }}</p>
+              <p-button
+                icon="pi pi-check"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Accept Request"
+                tooltipPosition="bottom"
+                (click)="acceptRequest(user.username)"
+              ></p-button>
+              <p-button
+                icon="pi pi-times"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Decline Request"
+                tooltipPosition="bottom"
+                (click)="cancelRequest(user.username)"
+              ></p-button>
+            </div>
+            <!--     if the users are friends       -->
+            <div
+              *ngIf="user.is_friend && user.request_status === 'none'"
+              class="user bg-green-600 pr-3"
+            >
+              <p>{{ user.username }}</p>
             </div>
           </div>
         </div>
@@ -48,9 +96,9 @@
     <div class="flex flex-row align-items-center gap-3">
       <h3>Teams you manage</h3>
       <p-button
-          icon="pi pi-plus"
-          styleClass="p-button-text p-button-rounded p-button-sm"
-          label="New"
+        icon="pi pi-plus"
+        styleClass="p-button-text p-button-rounded p-button-sm"
+        label="New"
       ></p-button>
     </div>
     <div class="teams-grid">
@@ -59,9 +107,9 @@
           <div class="flex flex-row justify-content-between align-items-center">
             <p class="font-semibold mb-0 pb-0">{{ team.name }}</p>
             <p-button
-                icon="pi pi-cog"
-                styleClass="p-button-rounded p-button-text p-button-sm m-0 p-0"
-                pTooltip="Manage"
+              icon="pi pi-cog"
+              styleClass="p-button-rounded p-button-text p-button-sm m-0 p-0"
+              pTooltip="Manage"
             ></p-button>
           </div>
           <p-divider></p-divider>
@@ -75,8 +123,8 @@
             <div *ngIf="user.is_friend" class="user">
               <p>{{ user.username }}</p>
               <p-button
-                  icon="pi pi-user-minus"
-                  styleClass="p-button-text p-button-rounded p-button-sm"
+                icon="pi pi-user-minus"
+                styleClass="p-button-text p-button-rounded p-button-sm"
               ></p-button>
             </div>
           </div>

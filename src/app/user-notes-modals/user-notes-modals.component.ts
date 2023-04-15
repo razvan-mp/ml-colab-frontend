@@ -15,75 +15,75 @@ export class UserNotesModalsComponent {
   constructor(
     private noteService: NoteService,
     private messageService: MessageService,
-    private _state: StateManagerService
+    private state: StateManagerService
   ) {}
 
   set displaySidebar(value: boolean) {
-    this._state.displaySidebar = value;
+    this.state.displaySidebar = value;
   }
 
   get notes(): Note[] {
-    return this._state.notes;
+    return this.state.notes;
   }
 
   set notes(value: Note[]) {
-    this._state.notes = value;
+    this.state.notes = value;
   }
 
   get displayCreateNoteModal(): boolean {
-    return this._state.displayCreateNoteModal;
+    return this.state.displayCreateNoteModal;
   }
 
   set displayCreateNoteModal(value: boolean) {
-    this._state.displayCreateNoteModal = value;
+    this.state.displayCreateNoteModal = value;
   }
 
   get displayDeleteModal(): boolean {
-    return this._state.displayDeleteModal;
+    return this.state.displayDeleteModal;
   }
 
   set displayDeleteModal(value: boolean) {
-    this._state.displayDeleteModal = value;
+    this.state.displayDeleteModal = value;
   }
 
   get displayEditNoteModal(): boolean {
-    return this._state.displayEditNoteModal;
+    return this.state.displayEditNoteModal;
   }
 
   set displayEditNoteModal(value: boolean) {
-    this._state.displayEditNoteModal = value;
+    this.state.displayEditNoteModal = value;
   }
 
   get createNoteCheckbox(): boolean {
-    return this._state.createNoteCheckbox;
+    return this.state.createNoteCheckbox;
   }
 
   set createNoteCheckbox(value: boolean) {
-    this._state.createNoteCheckbox = value;
+    this.state.createNoteCheckbox = value;
   }
 
   get selectedNote(): any {
-    return this._state.selectedNote;
+    return this.state.selectedNote;
   }
 
   set selectedNote(value: any) {
-    this._state.selectedNote = value;
+    this.state.selectedNote = value;
   }
 
   get noteTitle(): string {
-    return this._state.noteTitle;
+    return this.state.noteTitle;
   }
 
   set noteTitle(value: string) {
-    this._state.noteTitle = value;
+    this.state.noteTitle = value;
   }
 
   get noteContent(): string {
-    return this._state.noteContent;
+    return this.state.noteContent;
   }
 
   set noteContent(value: string) {
-    this._state.noteContent = value;
+    this.state.noteContent = value;
   }
 
   createNote($event: SubmitEvent, createNoteForm: HTMLFormElement): void {
@@ -270,17 +270,17 @@ export class UserNotesModalsComponent {
   }
 
   hideDeleteNoteModal(): void {
-    this._state.displayDeleteModal = false;
-    this._state.displaySidebar = true;
+    this.state.displayDeleteModal = false;
+    this.state.displaySidebar = true;
   }
 
   hideCreateNoteModal(): void {
-    this._state.displayCreateNoteModal = false;
-    this._state.displaySidebar = true;
+    this.state.displayCreateNoteModal = false;
+    this.state.displaySidebar = true;
   }
 
   hideEditNoteModal() {
-    this._state.displayEditNoteModal = false;
-    this._state.displaySidebar = true;
+    this.state.displayEditNoteModal = false;
+    this.state.displaySidebar = true;
   }
 }

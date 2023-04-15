@@ -12,7 +12,7 @@ import { StateManagerService } from '../services/state-manager.service';
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  constructor(private _state: StateManagerService) {}
+  constructor(private state: StateManagerService) {}
 
   ngOnInit(): void {
     setInterval(() => {
@@ -34,10 +34,10 @@ export class HeaderComponent implements OnInit {
   }
 
   displaySidebar(): void {
-    this._state.displaySidebar = true;
+    this.state.displaySidebar = true;
   }
 
   displayAuthModal(): void {
-    this._state.displayAuthModal = true;
+    this.state.displayAuthModal = true;
   }
 }

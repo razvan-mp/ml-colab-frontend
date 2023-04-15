@@ -12,33 +12,33 @@ import { StateManagerService } from '../services/state-manager.service';
 })
 export class UserNotesComponent implements OnInit {
   get notes(): Note[] {
-    return this._state.notes;
+    return this.state.notes;
   }
 
   set notes(value: Note[]) {
-    this._state.notes = value;
+    this.state.notes = value;
   }
 
   set selectedNote(value: any) {
-    this._state.selectedNote = value;
+    this.state.selectedNote = value;
   }
 
   get selectedNote() {
-    return this._state.selectedNote;
+    return this.state.selectedNote;
   }
 
   set noteTitle(value: string) {
-    this._state.noteTitle = value;
+    this.state.noteTitle = value;
   }
 
   set noteContent(value: string) {
-    this._state.noteContent = value;
+    this.state.noteContent = value;
   }
 
   constructor(
     private messageService: MessageService,
     private noteService: NoteService,
-    private _state: StateManagerService
+    private state: StateManagerService
   ) {}
 
   ngOnInit(): void {
@@ -79,13 +79,13 @@ export class UserNotesComponent implements OnInit {
   }
 
   showCreateNoteModal(): void {
-    this._state.displaySidebar = false;
-    this._state.displayCreateNoteModal = true;
+    this.state.displaySidebar = false;
+    this.state.displayCreateNoteModal = true;
   }
 
   showDeleteNoteModal(): void {
-    this._state.displaySidebar = false;
-    this._state.displayDeleteModal = true;
+    this.state.displaySidebar = false;
+    this.state.displayDeleteModal = true;
   }
 
   showEditNoteModal(): void {
@@ -95,7 +95,7 @@ export class UserNotesComponent implements OnInit {
         this.noteContent = note.content as string;
       }
     });
-    this._state.displaySidebar = false;
-    this._state.displayEditNoteModal = true;
+    this.state.displaySidebar = false;
+    this.state.displayEditNoteModal = true;
   }
 }

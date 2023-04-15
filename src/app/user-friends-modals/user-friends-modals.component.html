@@ -1,0 +1,70 @@
+<p-toast position="bottom-left"></p-toast>
+
+<!-- delete friend modal -->
+<p-dialog
+    [style]="{ width: '300px', height: '270px' }"
+    [modal]="true"
+    [dismissableMask]="false"
+    [visible]="displayDeleteFriendModal"
+>
+  <ng-template pTemplate="content">
+    <h2>Delete friend?</h2>
+    <p>You (or them) will have to make a friend request again.</p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-center">
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideDeleteFriendModal()"
+          label="Cancel"
+      ></button>
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="button"
+          (click)="deleteFriend()"
+          label="Delete"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+<!-- cancel request modal -->
+<p-dialog
+    [style]="{ width: '300px', height: '270px' }"
+    [modal]="true"
+    [dismissableMask]="false"
+    [visible]="displayCancelRequestModal"
+>
+  <ng-template pTemplate="content">
+    <h2>Cancel request?</h2>
+    <p>You (or them) will have to make a friend request again.</p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-center">
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideCancelRequestModal()"
+          label="No"
+      ></button>
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="button"
+          (click)="cancelRequest()"
+          label="Yes"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>

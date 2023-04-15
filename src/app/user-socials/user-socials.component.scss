@@ -1,0 +1,33 @@
+:host ::ng-deep {
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+
+  .p-button {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
+
+.user-may-know {
+  border-radius: 10px;
+  background-color: #404040;
+}
+
+.friend-request {
+  width: 100%;
+  background: #404040;
+  border-radius: 50px;
+}
+
+.friend-container {
+  height: 260px;
+
+  .friend-container-component {
+    height: 100%;
+    overflow-y: auto;
+  }
+}

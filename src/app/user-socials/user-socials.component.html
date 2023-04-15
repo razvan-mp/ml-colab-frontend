@@ -1,1 +1,85 @@
 <p-toast position="bottom-left"></p-toast>
+
+<div>
+  <div class="flex sm:flex-row flex-column justify-content-between friend-container">
+    <div class="flex flex-column w-full gap-2">
+      <h3>Your friends</h3>
+      <p *ngIf="friends.length === 0" class="font-italic text-gray-200">
+        No friends yet
+      </p>
+      <div *ngIf="friends.length !== 0" class="friend-container-component flex flex-column gap-2">
+        <div
+            *ngFor="let friend of friends"
+            class="flex flex-row align-items-center friend-request justify-content-between"
+        >
+          <p class="pl-3">{{ friend.username }}</p>
+          <p-button
+              icon="pi pi-user-minus"
+              class="pr-1"
+              styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
+              pTooltip="Remove friend"
+              tooltipPosition="bottom"
+              (click)="removeFriend(friend.username)"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+    <p-divider layout="vertical" class="hidden sm:inline-block"></p-divider>
+    <div class="flex flex-column w-full">
+      <h3>Friend requests</h3>
+      <p *ngIf="friendRequests.length === 0" class="font-italic text-gray-200">
+        No friend requests
+      </p>
+      <div *ngIf="friendRequests.length !== 0" class="friend-container-component">
+        <div
+            *ngFor="let request of friendRequests"
+            class="flex sm:flex-row flex-column align-items-center friend-request justify-content-between"
+        >
+          <p class="pl-3">{{ request.sender }}</p>
+          <div class="flex flex-row gap-1">
+            <p-button
+                icon="pi pi-check"
+                styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Accept"
+                tooltipPosition="bottom"
+                (click)="acceptFriendRequest(request.sender)"
+            ></p-button>
+            <p-button
+                icon="pi pi-times"
+                styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
+                pTooltip="Decline"
+                tooltipPosition="bottom"
+                (click)="cancelRequest(request.sender)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h3>People you may know</h3>
+    <div class="flex flex-column gap-3">
+      <div
+        *ngFor="let user of users"
+        class="flex flex-column user-may-know pl-3 pr-2"
+      >
+        <div class="flex flex-row justify-content-between align-items-center">
+          <div class="flex flex-column">
+            <p>{{ user.username }}</p>
+            <div class="flex flex-row">
+              <p class="text-gray-200">Teams in common: &nbsp;</p>
+              <p class="text-gray-200">{{ user.teams_in_common }}</p>
+            </div>
+          </div>
+          <p-button
+            icon="pi pi-user-plus"
+            styleClass="p-button-rounded p-button-text"
+            label="Add friend"
+            (click)="addFriend(user.username)"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

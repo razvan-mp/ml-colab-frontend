@@ -40,6 +40,8 @@ import { DividerModule } from 'primeng/divider';
 import { TooltipModule } from 'primeng/tooltip';
 import { UserTeamsComponent } from './user-teams/user-teams.component';
 import { UserSocialsComponent } from './user-socials/user-socials.component';
+import { MenuModule } from 'primeng/menu';
+import { UserFriendsModalsComponent } from './user-friends-modals/user-friends-modals.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -61,6 +63,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserNotesModalsComponent,
     UserTeamsComponent,
     UserSocialsComponent,
+    UserFriendsModalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +89,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     CheckboxModule,
     DividerModule,
     TooltipModule,
+    MenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

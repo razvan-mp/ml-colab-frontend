@@ -21,15 +21,15 @@ export class SidebarComponent implements OnInit {
   yourSocial: any = {};
 
   get displaySidebar(): boolean {
-    return this._state.displaySidebar;
+    return this.state.displaySidebar;
   }
   set displaySidebar(value: any) {
-    this._state.displaySidebar = value;
+    this.state.displaySidebar = value;
   }
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-    private _state: StateManagerService
+    private state: StateManagerService
   ) {}
 
   ngOnInit(): void {
