@@ -98,4 +98,12 @@ export class UserNotesComponent implements OnInit {
     this.state.displaySidebar = false;
     this.state.displayEditNoteModal = true;
   }
+
+  trimContent(content: any) {
+    const maxLength = 75;
+    if (content.length > maxLength) {
+      return content.substring(0, maxLength) + '...';
+    }
+    return content;
+  }
 }

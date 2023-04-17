@@ -42,6 +42,8 @@ import { UserTeamsComponent } from './user-teams/user-teams.component';
 import { UserSocialsComponent } from './user-socials/user-socials.component';
 import { MenuModule } from 'primeng/menu';
 import { UserFriendsModalsComponent } from './user-friends-modals/user-friends-modals.component';
+import { UserTeamsModalsComponent } from './user-teams-modals/user-teams-modals.component';
+import {MultiSelectModule} from "primeng/multiselect";
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -64,6 +66,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserTeamsComponent,
     UserSocialsComponent,
     UserFriendsModalsComponent,
+    UserTeamsModalsComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     DividerModule,
     TooltipModule,
     MenuModule,
+    MultiSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

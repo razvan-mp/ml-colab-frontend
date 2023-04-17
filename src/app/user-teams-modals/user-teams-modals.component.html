@@ -1,0 +1,72 @@
+<p-toast position="bottom-left"></p-toast>
+
+<!-- create team modal -->
+<p-dialog [visible]="displayCreateTeamModal" [modal]="true">
+  <ng-template pTemplate="content">
+    <h2 class="modal-title">New team</h2>
+    <p-divider></p-divider>
+    <form
+        id="create-team-form"
+        class="team-form h-full"
+        #createTeamForm
+        (submit)="createTeam($event, createTeamForm)"
+    >
+      <div class="h-full flex justify-content-between p-5">
+        <div class="sm:col-9 col-12 h-full">
+          <input
+              autocomplete="false"
+              class="note-edit-input note-edit-input-title"
+              type="text"
+              name="name"
+              placeholder="Team name"
+          />
+          <p-divider></p-divider>
+          <textarea
+              autocomplete="false"
+              class="note-edit-input note-edit-input-content w-full"
+              name="description"
+              placeholder="Team description"
+          ></textarea>
+        </div>
+        <p-divider layout="vertical"></p-divider>
+        <div class="sm:col-3 col-12">
+          <div class="flex flex-column w-full">
+            <h3>Add users to your team</h3>
+            <p-multiSelect
+                [options]="friends"
+                [(ngModel)]="selectedUsers"
+                [ngModelOptions]="{standalone: true}"
+                defaultLabel="Select users"
+                optionLabel="username"
+                display="chip"
+                styleClass="w-full"
+            ></p-multiSelect>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-end">
+      <div>
+        <button
+            pButton
+            pRipple
+            class="p-button p-button-danger p-button-outlined"
+            type="button"
+            (click)="hideCreateTeamModal()"
+            label="Cancel"
+        ></button>
+        <button
+            pButton
+            pRipple
+            class="p-button p-button-success p-button-outlined"
+            type="submit"
+            form="create-team-form"
+            label="Create team"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

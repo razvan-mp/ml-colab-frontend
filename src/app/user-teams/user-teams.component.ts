@@ -5,6 +5,7 @@ import { StateManagerService } from '../services/state-manager.service';
 import { catchError } from 'rxjs/operators';
 import { Team } from '../models/Team';
 import { FriendsService } from '../services/friends.service';
+import {Friend} from "../models/Friend";
 
 @Component({
   selector: 'app-user-teams',
@@ -13,14 +14,20 @@ import { FriendsService } from '../services/friends.service';
   styleUrls: ['./user-teams.component.scss'],
 })
 export class UserTeamsComponent implements OnInit {
-  menuOptions: any = [];
-
   constructor(
     private messageService: MessageService,
     private teamsService: TeamsService,
     private friendsService: FriendsService,
     private state: StateManagerService
   ) {}
+
+  get friends() {
+    return this.state.friends;
+  }
+
+  set friends(value: Friend[]) {
+    this.state.friends = value;
+  }
 
   get teams() {
     return this.state.teams;
@@ -40,13 +47,19 @@ export class UserTeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTeams();
+    this.fetchFriends();
     this.startPolling();
   }
 
   startPolling() {
     setInterval(() => {
       this.fetchTeams();
+      this.fetchFriends();
     }, 5000);
+  }
+
+  fetchFriends(): void {
+    this.friendsService.getUserFriends().subscribe(res => this.friends = res);
   }
 
   fetchTeams(): void {
@@ -64,7 +77,6 @@ export class UserTeamsComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.teams = res;
-        console.log(this.teams);
       });
     this.teamsService
       .getUserTeams()
@@ -144,5 +156,10 @@ export class UserTeamsComponent implements OnInit {
       .subscribe((res) => {
         this.fetchTeams();
       });
+  }
+
+  displayCreateTeamModal() {
+    this.state.displaySidebar = false;
+    this.state.displayCreateTeamModal = true;
   }
 }
