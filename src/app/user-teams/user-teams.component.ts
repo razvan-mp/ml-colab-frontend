@@ -162,4 +162,13 @@ export class UserTeamsComponent implements OnInit {
     this.state.displaySidebar = false;
     this.state.displayCreateTeamModal = true;
   }
+
+  displayManageTeamModal(teamId: number) {
+    this.state.selectedTeam = teamId;
+    let tmp = this.userTeams.filter((team: Team) => team.id === teamId);
+    this.state.selectedTeamName = tmp[0].name;
+    this.state.selectedTeamDescription = tmp[0].description as string;
+    this.state.displaySidebar = false;
+    this.state.displayManageTeamModal = true;
+  }
 }

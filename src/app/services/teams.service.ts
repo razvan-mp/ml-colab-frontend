@@ -63,12 +63,8 @@ export class TeamsService {
     ) as Observable<any>;
   }
 
-  deleteTeam(teamId: number): Observable<any> {
+  deleteTeam(payload: any): Observable<any> {
     this.authService.getCSRF();
-
-    const payload = {
-      id: teamId,
-    };
 
     const options = {
       headers: {

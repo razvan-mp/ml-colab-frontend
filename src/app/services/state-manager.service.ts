@@ -27,6 +27,7 @@ export class StateManagerService {
   public selectedTeam: any = -1;
   public selectedTeamName: string = '';
   public selectedTeamDescription: string = '';
+  public displayManageTeamModal: boolean = false;
   public displayCreateTeamModal: boolean = false;
   public displayDeleteTeamModal: boolean = false;
   public displayTeamSidebar: boolean = false;
