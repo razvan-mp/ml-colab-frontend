@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import {AppComponent} from "../app.component";
+import { AppComponent } from '../app.component';
 
 @Injectable({
   providedIn: 'root',
@@ -129,6 +129,24 @@ export class TeamsService {
 
     return this.httpClient.post(
       `${this.BACKEND_API}team/remove_user/`,
+      payload,
+      options
+    ) as Observable<any>;
+  }
+
+  addUsersToTeam(payload: any): Observable<any> {
+    this.authService.getCSRF();
+
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': AppComponent.csrfToken,
+      },
+      withCredentials: true,
+    };
+
+    return this.httpClient.post(
+      `${this.BACKEND_API}team/add_users/`,
       payload,
       options
     ) as Observable<any>;

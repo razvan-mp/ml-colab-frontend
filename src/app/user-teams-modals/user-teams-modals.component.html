@@ -6,26 +6,26 @@
     <h2 class="modal-title">New team</h2>
     <p-divider></p-divider>
     <form
-        id="create-team-form"
-        class="team-form h-full"
-        #createTeamForm
-        (submit)="createTeam($event, createTeamForm)"
+      id="create-team-form"
+      class="team-form h-full"
+      #createTeamForm
+      (submit)="createTeam($event, createTeamForm)"
     >
       <div class="h-full flex justify-content-between p-5">
         <div class="sm:col-9 col-12 h-full">
           <input
-              autocomplete="false"
-              class="note-edit-input note-edit-input-title"
-              type="text"
-              name="name"
-              placeholder="Team name"
+            autocomplete="false"
+            class="note-edit-input note-edit-input-title"
+            type="text"
+            name="name"
+            placeholder="Team name"
           />
           <p-divider></p-divider>
           <textarea
-              autocomplete="false"
-              class="note-edit-input note-edit-input-content w-full"
-              name="description"
-              placeholder="Team description"
+            autocomplete="false"
+            class="note-edit-input note-edit-input-content w-full"
+            name="description"
+            placeholder="Team description"
           ></textarea>
         </div>
         <p-divider layout="vertical"></p-divider>
@@ -33,13 +33,13 @@
           <div class="flex flex-column w-full">
             <h3>Add users to your team</h3>
             <p-multiSelect
-                [options]="friends"
-                [(ngModel)]="selectedUsers"
-                [ngModelOptions]="{standalone: true}"
-                defaultLabel="Select users"
-                optionLabel="username"
-                display="chip"
-                styleClass="w-full"
+              [options]="friends"
+              [(ngModel)]="selectedUsers"
+              [ngModelOptions]="{ standalone: true }"
+              defaultLabel="Select users"
+              optionLabel="username"
+              display="chip"
+              styleClass="w-full"
             ></p-multiSelect>
           </div>
         </div>
@@ -51,20 +51,20 @@
     <div class="button-pair justify-content-end">
       <div>
         <button
-            pButton
-            pRipple
-            class="p-button p-button-danger p-button-outlined"
-            type="button"
-            (click)="hideCreateTeamModal()"
-            label="Cancel"
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideCreateTeamModal()"
+          label="Cancel"
         ></button>
         <button
-            pButton
-            pRipple
-            class="p-button p-button-success p-button-outlined"
-            type="submit"
-            form="create-team-form"
-            label="Create team"
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="submit"
+          form="create-team-form"
+          label="Create team"
         ></button>
       </div>
     </div>
@@ -76,107 +76,168 @@
   <ng-template pTemplate="content">
     <h2 class="modal-title">{{ selectedTeamName }}</h2>
     <p-divider></p-divider>
-    <div class="flex md:flex-row flex-column h-full w-full">
-      <div class="flex md:flex-column flex-row gap-1 md:col-2 col-12">
+    <div class="flex lg:flex-row flex-column w-full overflow-scroll" style="height: 80%">
+      <div class="flex lg:flex-column flex-row gap-1 lg:col-2 col-12">
         <p-button
-            icon="pi pi-pencil"
-            styleClass="p-button-text w-full"
-            label="Team details"
-            (onClick)="setDisplayItem(0)"
+          icon="pi pi-pencil"
+          styleClass="p-button-text w-full"
+          label="Team details"
+          (onClick)="setDisplayItem(0)"
         ></p-button>
         <p-button
-            icon="pi pi-users"
-            styleClass="p-button-text w-full"
-            label="Team members"
-            (onClick)="setDisplayItem(1)"
+          icon="pi pi-users"
+          styleClass="p-button-text w-full"
+          label="Team members"
+          (onClick)="setDisplayItem(1)"
         ></p-button>
         <p-button
-            icon="pi pi-trash"
-            styleClass="p-button-text w-full"
-            label="Delete team"
-            (onClick)="setDisplayItem(2)"
+          icon="pi pi-trash"
+          styleClass="p-button-text w-full"
+          label="Delete team"
+          (onClick)="setDisplayItem(2)"
         ></p-button>
       </div>
-      <p-divider layout="vertical" styleClass="hidden md:inline-block"></p-divider>
-      <!-- display 0 -->
+      <p-divider
+        layout="vertical"
+        styleClass="hidden lg:inline-block"
+      ></p-divider>
+      <!-- team edit option -->
       <div *ngIf="displayItem === 0" class="team-details w-full">
         <form
-            #changeDetailsForm
-            (submit)="updateTeamDetails($event, changeDetailsForm)"
+          #changeDetailsForm
+          (submit)="updateTeamDetails($event, changeDetailsForm)"
         >
           <input
-              id="manage-team-name"
-              autocomplete="false"
-              class="note-edit-input note-edit-input-title"
-              type="text"
-              name="name"
-              value="{{ selectedTeamName }}"
-              placeholder="Team Name"
+            id="manage-team-name"
+            autocomplete="false"
+            class="note-edit-input note-edit-input-title"
+            type="text"
+            name="name"
+            value="{{ selectedTeamName }}"
+            placeholder="Team Name"
           />
           <p-divider></p-divider>
           <textarea
-              id="manage-team-description"
-              autocomplete="false"
-              class="note-edit-input note-edit-input-content w-full"
-              name="description"
-              value="{{selectedTeamDescription}}"
-              placeholder="Team Description"
+            id="manage-team-description"
+            autocomplete="false"
+            class="note-edit-input note-edit-input-content w-full"
+            name="description"
+            value="{{ selectedTeamDescription }}"
+            placeholder="Team Description"
           ></textarea>
           <p-divider></p-divider>
           <div class="flex flex-row gap-2">
-            <p-button label="Reset" styleClass="p-button-outlined p-button-danger"
-                      (click)="resetTeamDetailForm()"></p-button>
-            <p-button label="Save" styleClass="bg-green-400" type="submit"></p-button>
+            <p-button
+              label="Reset"
+              styleClass="p-button-outlined p-button-danger"
+              (click)="resetTeamDetailForm()"
+            ></p-button>
+            <p-button
+              label="Save"
+              styleClass="bg-green-400"
+              type="submit"
+            ></p-button>
           </div>
         </form>
       </div>
-      <!-- display 1 -->
-      <div *ngIf="displayItem === 1" class="team-details w-full">
-        <form #changeDetailsForm (submit)="updateTeamDetails($event, changeDetailsForm)">
-          <input
-              autocomplete="false"
-              class="note-edit-input note-edit-input-title"
-              type="text"
-              name="name"
-              value="nu stiu"
-              placeholder="Team Name"
-          />
-          <p-divider></p-divider>
-          <textarea
-              autocomplete="false"
-              class="note-edit-input note-edit-input-content w-full"
-              name="description"
-              value="{{selectedTeamDescription}}"
-              placeholder="Team Description"
-          ></textarea>
-        </form>
+      <!-- user management section -->
+      <div
+        *ngIf="displayItem === 1"
+        class="team-details w-full h-full"
+      >
+        <div class="flex flex-column lg:flex-row w-full" style="height: 80%">
+          <div class="flex flex-column half">
+            <h3>Team members</h3>
+            <p-divider></p-divider>
+            <div *ngIf="selectedTeamUsers.length !== 0" class="flex flex-column gap-2 overflow-x-hidden overflow-scroll h-full">
+              <div
+                *ngFor="let user of selectedTeamUsers"
+              >
+                <div
+                  class="flex sm:flex-row flex-column pb-2 sm:pb-0 md:pb-0 lg:pb-0 xl:pb-0 sm:justify-content-between align-items-center user"
+                >
+                  <p>{{ user.username }}</p>
+                  <p-button
+                    icon="pi pi-times"
+                    styleClass="p-button-text p-button-rounded bg-red-400"
+                    (onClick)="showRemoveUserModal(user)"
+                    pTooltip="Remove user from team"
+                    tooltipPosition="top"
+                  >
+                  </p-button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedTeamUsers.length === 0">
+              <p class="font-italic text-gray-200">
+                Except for yourself, there are no users here.
+              </p>
+            </div>
+          </div>
+          <p-divider
+            layout="vertical"
+            class="hidden lg:inline-block"
+          ></p-divider>
+          <div class="flex flex-column half">
+            <h3>Add new users to the team</h3>
+            <p-divider></p-divider>
+            <p-multiSelect
+              [options]="filterExisting(friends)"
+              [(ngModel)]="selectedUsers"
+              [ngModelOptions]="{ standalone: true }"
+              defaultLabel="Select users"
+              optionLabel="username"
+              display="chip"
+              styleClass="w-full"
+            ></p-multiSelect>
+            <p-divider></p-divider>
+            <div class="flex">
+              <p-button
+                label="Add"
+                styleClass="bg-green-400"
+                (click)="addUsersToTeam()"
+              ></p-button>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- display 2 -->
-      <div *ngIf="displayItem === 2" class="team-details w-full">
+      <!-- delete team section -->
+      <div
+        *ngIf="displayItem === 2"
+        class="team-details w-full overflow-scroll"
+      >
         <form #deleteTeamForm (submit)="deleteTeam($event, deleteTeamForm)">
-          <p class="text-lg font-semibold">If you are sure you want to delete the team, type the team name and your password below and
-            press 'Delete'.</p>
-          <p class="text-red-500">*deleting a team deletes all notes associated with the team and no data can be
-            recovered.</p>
+          <p class="text-lg font-semibold">
+            If you are sure you want to delete the team, type the team name and
+            your password below and press 'Delete'.
+          </p>
+          <p class="text-red-500">
+            *deleting a team deletes all notes associated with the team and no
+            data can be recovered.
+          </p>
           <div class="flex flex-column">
             <input
-                autocomplete="false"
-                class="note-edit-input note-edit-input-content"
-                type="text"
-                name="name"
-                placeholder="Team Name"
+              autocomplete="false"
+              class="note-edit-input note-edit-input-content"
+              type="text"
+              name="name"
+              placeholder="Team Name"
             />
             <p-divider></p-divider>
             <input
-                autocomplete="false"
-                class="note-edit-input note-edit-input-content"
-                type="password"
-                name="password"
-                placeholder="Password"
+              autocomplete="false"
+              class="note-edit-input note-edit-input-content"
+              type="password"
+              name="password"
+              placeholder="Password"
             />
           </div>
           <p-divider></p-divider>
-          <p-button label="Delete" type="submit" styleClass="bg-red-500"></p-button>
+          <p-button
+            label="Delete"
+            type="submit"
+            styleClass="bg-red-500"
+          ></p-button>
         </form>
       </div>
     </div>
@@ -186,12 +247,53 @@
     <div class="button-pair justify-content-end">
       <div>
         <button
-            pButton
-            pRipple
-            class="p-button p-button-danger p-button-outlined"
-            type="button"
-            (click)="hideManageTeamModal()"
-            label="Exit"
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideManageTeamModal()"
+          label="Exit"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- remove user from team modal -->
+<p-dialog
+  [visible]="displayRemoveUserModal"
+  [modal]="true"
+  [style]="{ width: '300px', height: '360px' }"
+>
+  <ng-template pTemplate="content">
+    <h2 class="modal-title">Remove user</h2>
+    <p-divider></p-divider>
+    <p>
+      Are you sure you want to remove {{ selectedTeamUser.username }} from the
+      team?
+    </p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-end">
+      <div>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideRemoveUserModal()"
+          label="Cancel"
+        ></button>
+      </div>
+      <div>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-danger"
+          type="button"
+          (click)="removeUserFromTeam(selectedTeamUser)"
+          label="Remove"
         ></button>
       </div>
     </div>

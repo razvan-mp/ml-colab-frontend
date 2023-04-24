@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import {MessageService} from "primeng/api";
-import {FriendsService} from "../services/friends.service";
-import {StateManagerService} from "../services/state-manager.service";
-import {catchError} from "rxjs/operators";
-import {TeamsService} from "../services/teams.service";
+import { MessageService } from 'primeng/api';
+import { FriendsService } from '../services/friends.service';
+import { StateManagerService } from '../services/state-manager.service';
+import { catchError } from 'rxjs/operators';
+import { TeamsService } from '../services/teams.service';
 
 @Component({
   selector: 'app-user-friends-modals',
   providers: [MessageService],
   templateUrl: './user-friends-modals.component.html',
-  styleUrls: ['./user-friends-modals.component.scss']
+  styleUrls: ['./user-friends-modals.component.scss'],
 })
 export class UserFriendsModalsComponent {
   constructor(
@@ -52,17 +52,24 @@ export class UserFriendsModalsComponent {
   }
 
   deleteFriend() {
-    this.friendsService.removeFriend(this.selectedFriend)
+    this.friendsService
+      .removeFriend(this.selectedFriend)
       .pipe(
-        catchError(err => {
-          this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message,
+          });
           return err;
         })
       )
       .subscribe(() => {
         this.hideDeleteFriendModal();
         this.selectedFriend = '';
-        this.friendsService.getUserFriends().subscribe(friends => this.friends = friends);
+        this.friendsService
+          .getUserFriends()
+          .subscribe((friends) => (this.friends = friends));
       });
   }
 
@@ -77,18 +84,27 @@ export class UserFriendsModalsComponent {
   }
 
   cancelRequest() {
-    this.friendsService.cancelFriendRequest(this.selectedFriend)
+    this.friendsService
+      .cancelFriendRequest(this.selectedFriend)
       .pipe(
-        catchError(err => {
-          this.messageService.add({severity: 'error', summary: 'Error', detail: err.error.message});
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message,
+          });
           return err;
         })
       )
       .subscribe(() => {
         this.hideCancelRequestModal();
         this.selectedFriend = '';
-        this.friendsService.getUserFriends().subscribe(friends => this.friends = friends);
-        this.teamService.getTeams().subscribe(teams => this.state.teams = teams);
+        this.friendsService
+          .getUserFriends()
+          .subscribe((friends) => (this.friends = friends));
+        this.teamService
+          .getTeams()
+          .subscribe((teams) => (this.state.teams = teams));
       });
   }
 }

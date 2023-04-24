@@ -1,35 +1,35 @@
 <div class="sidebar-content-heading">
   <p-button
-      icon="pi pi-plus"
-      styleClass="p-button-rounded p-button-text mb-2"
-      label="New"
-      (click)="showCreateNoteModal()"
+    icon="pi pi-plus"
+    styleClass="p-button-rounded p-button-text mb-2"
+    label="New"
+    (click)="showCreateNoteModal()"
   ></p-button>
 </div>
 <div class="note-grid">
   <div *ngFor="let note of notes" id="note-{{ note.id }}" class="note relative">
     <div class="button-pair">
       <p-button
-          *ngIf="note.page !== ''"
-          icon="pi pi-eye"
-          styleClass="p-button-rounded p-button-text"
-          pTooltip="Load"
-          tooltipPosition="left"
-          (click)="selectedNote = note.id; loadNote()"
+        *ngIf="note.page !== ''"
+        icon="pi pi-eye"
+        styleClass="p-button-rounded p-button-text"
+        pTooltip="Load"
+        tooltipPosition="left"
+        (click)="selectedNote = note.id; loadNote()"
       ></p-button>
       <p-button
-          icon="pi pi-pencil"
-          styleClass="p-button-rounded p-button-text"
-          pTooltip="Edit"
-          tooltipPosition="left"
-          (click)="selectedNote = note.id; showEditNoteModal()"
+        icon="pi pi-pencil"
+        styleClass="p-button-rounded p-button-text"
+        pTooltip="Edit"
+        tooltipPosition="left"
+        (click)="selectedNote = note.id; showEditNoteModal()"
       ></p-button>
       <p-button
-          icon="pi pi-trash"
-          styleClass="p-button-rounded p-button-text"
-          pTooltip="Delete"
-          tooltipPosition="left"
-          (click)="selectedNote = note.id; showDeleteNoteModal()"
+        icon="pi pi-trash"
+        styleClass="p-button-rounded p-button-text"
+        pTooltip="Delete"
+        tooltipPosition="left"
+        (click)="selectedNote = note.id; showDeleteNoteModal()"
       ></p-button>
     </div>
     <p class="note-title">{{ note.title }}</p>

@@ -24,11 +24,14 @@ export class StateManagerService {
 
   public teams: Team[] = [];
   public userTeams: Team[] = [];
+  public selectedTeamUsers: User[] = [];
   public selectedTeam: any = -1;
   public selectedTeamName: string = '';
   public selectedTeamDescription: string = '';
   public displayManageTeamModal: boolean = false;
   public displayCreateTeamModal: boolean = false;
+  public displayRemoveUserModal: boolean = false;
+  public selectedTeamUser: any = null;
   public displayDeleteTeamModal: boolean = false;
   public displayTeamSidebar: boolean = false;
 

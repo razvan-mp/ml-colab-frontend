@@ -5,7 +5,8 @@ import { StateManagerService } from '../services/state-manager.service';
 import { catchError } from 'rxjs/operators';
 import { Team } from '../models/Team';
 import { FriendsService } from '../services/friends.service';
-import {Friend} from "../models/Friend";
+import { Friend } from '../models/Friend';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-user-teams',
@@ -59,7 +60,9 @@ export class UserTeamsComponent implements OnInit {
   }
 
   fetchFriends(): void {
-    this.friendsService.getUserFriends().subscribe(res => this.friends = res);
+    this.friendsService
+      .getUserFriends()
+      .subscribe((res) => (this.friends = res));
   }
 
   fetchTeams(): void {
@@ -166,6 +169,7 @@ export class UserTeamsComponent implements OnInit {
   displayManageTeamModal(teamId: number) {
     this.state.selectedTeam = teamId;
     let tmp = this.userTeams.filter((team: Team) => team.id === teamId);
+    this.state.selectedTeamUsers = tmp[0].users as User[];
     this.state.selectedTeamName = tmp[0].name;
     this.state.selectedTeamDescription = tmp[0].description as string;
     this.state.displaySidebar = false;
