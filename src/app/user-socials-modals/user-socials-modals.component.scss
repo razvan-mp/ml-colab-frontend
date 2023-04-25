@@ -1,0 +1,23 @@
+:host ::ng-deep {
+  .p-toast {
+    .p-toast-message {
+      background: #9fa8da;
+    }
+  }
+
+  .p-dialog {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .p-dialog-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    .p-dialog-footer {
+      border-radius: 0 0 10px 10px;
+    }
+  }
+}

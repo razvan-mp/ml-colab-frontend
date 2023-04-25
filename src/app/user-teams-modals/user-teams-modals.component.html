@@ -1,10 +1,23 @@
 <p-toast position="bottom-left"></p-toast>
 
 <!-- create team modal -->
-<p-dialog [visible]="displayCreateTeamModal" [modal]="true">
+<p-dialog
+  [visible]="displayCreateTeamModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideCreateTeamModal()"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h2 class="modal-title">New team</h2>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="content">
-    <h2 class="modal-title">New team</h2>
-    <p-divider></p-divider>
     <form
       id="create-team-form"
       class="team-form h-full"
@@ -72,11 +85,24 @@
 </p-dialog>
 
 <!-- team management modal -->
-<p-dialog [visible]="displayManageTeamModal" [modal]="true">
+<p-dialog
+  [visible]="displayManageTeamModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideManageTeamModal()"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h2 class="modal-title">{{ selectedTeamName }}</h2>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="content">
-    <h2 class="modal-title">{{ selectedTeamName }}</h2>
-    <p-divider></p-divider>
-    <div class="flex lg:flex-row flex-column w-full overflow-scroll" style="height: 80%">
+    <div class="flex lg:flex-row flex-column w-full">
       <div class="flex lg:flex-column flex-row gap-1 lg:col-2 col-12">
         <p-button
           icon="pi pi-pencil"
@@ -141,18 +167,16 @@
         </form>
       </div>
       <!-- user management section -->
-      <div
-        *ngIf="displayItem === 1"
-        class="team-details w-full h-full"
-      >
+      <div *ngIf="displayItem === 1" class="team-details w-full h-full">
         <div class="flex flex-column lg:flex-row w-full" style="height: 80%">
           <div class="flex flex-column half">
             <h3>Team members</h3>
             <p-divider></p-divider>
-            <div *ngIf="selectedTeamUsers.length !== 0" class="flex flex-column gap-2 overflow-x-hidden overflow-scroll h-full">
-              <div
-                *ngFor="let user of selectedTeamUsers"
-              >
+            <div
+              *ngIf="selectedTeamUsers.length !== 0"
+              class="flex flex-column gap-2 overflow-x-hidden overflow-scroll h-full"
+            >
+              <div *ngFor="let user of selectedTeamUsers">
                 <div
                   class="flex sm:flex-row flex-column pb-2 sm:pb-0 md:pb-0 lg:pb-0 xl:pb-0 sm:justify-content-between align-items-center user"
                 >
@@ -202,10 +226,7 @@
         </div>
       </div>
       <!-- delete team section -->
-      <div
-        *ngIf="displayItem === 2"
-        class="team-details w-full overflow-scroll"
-      >
+      <div *ngIf="displayItem === 2" class="team-details w-full">
         <form #deleteTeamForm (submit)="deleteTeam($event, deleteTeamForm)">
           <p class="text-lg font-semibold">
             If you are sure you want to delete the team, type the team name and
@@ -263,14 +284,32 @@
 <p-dialog
   [visible]="displayRemoveUserModal"
   [modal]="true"
-  [style]="{ width: '300px', height: '360px' }"
+  [style]="{
+    width: '400px',
+    height: 'auto',
+    'min-height': '200px',
+    overflow: 'auto'
+  }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideRemoveUserModal()"
 >
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h2 class="modal-title">Remove user</h2>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
   <ng-template pTemplate="content">
-    <h2 class="modal-title">Remove user</h2>
-    <p-divider></p-divider>
-    <p>
-      Are you sure you want to remove {{ selectedTeamUser.username }} from the
-      team?
+    <p class="font-semibold">
+      Are you sure you want to remove
+      <i>{{ selectedTeamUser.username }}</i> from the team?
+    </p>
+    <p class="text-red-500">
+      Be aware that removing a user from a team removes all notes associated
+      with the user.
     </p>
   </ng-template>
   <ng-template pTemplate="footer">

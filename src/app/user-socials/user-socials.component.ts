@@ -157,7 +157,7 @@ export class UserSocialsComponent implements OnInit {
           return error;
         })
       )
-      .subscribe((res) => this.initPage());
+      .subscribe(() => this.initPage());
   }
 
   acceptFriendRequest(username: any) {
@@ -173,7 +173,7 @@ export class UserSocialsComponent implements OnInit {
           return error;
         })
       )
-      .subscribe((res) => this.initPage());
+      .subscribe(() => this.initPage());
   }
 
   declineFriendRequest(username: any) {
@@ -189,7 +189,7 @@ export class UserSocialsComponent implements OnInit {
           return error;
         })
       )
-      .subscribe((res) => this.initPage());
+      .subscribe(() => this.initPage());
   }
 
   removeFriend(username: any) {
@@ -200,5 +200,16 @@ export class UserSocialsComponent implements OnInit {
   cancelRequest(username: any) {
     this.state.selectedFriend = username;
     this.state.displayCancelRequestModal = true;
+  }
+
+  openAddFriendDialog() {
+    this.state.displaySidebar = false;
+    this.state.displayAddFriendModal = true;
+  }
+
+  openDeclineRequestModal(sender: any) {
+    this.state.selectedFriend = sender;
+    this.state.displaySidebar = false;
+    this.state.displayDeleteRequestModal = true;
   }
 }

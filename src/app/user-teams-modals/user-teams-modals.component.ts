@@ -6,7 +6,7 @@ import { User } from '../models/User';
 import { TeamsService } from '../services/teams.service';
 import { catchError } from 'rxjs/operators';
 import { Friend } from '../models/Friend';
-import {Team} from "../models/Team";
+import { Team } from '../models/Team';
 
 @Component({
   selector: 'app-user-teams-modals',

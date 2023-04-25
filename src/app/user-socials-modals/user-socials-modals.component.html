@@ -1,0 +1,49 @@
+<p-dialog
+  [visible]="displayAddFriendModal"
+  [modal]="true"
+  [style]="{
+    width: '400px',
+    height: 'auto',
+    'min-height': '200px',
+    overflow: 'auto'
+  }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideAddFriendModal()"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column gap-0 w-full">
+      <h3>Add friend</h3>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <p>
+      Enter the username of a person below to send him/her a friend request.
+    </p>
+    <form
+      #addFriendForm
+      (submit)="sendFriendRequest($event, addFriendForm)"
+      class="flex flex-column gap-2"
+    >
+      <span class="p-float-label w-full">
+        <input id="form-username" pInputText name="username" class="w-full" />
+        <label htmlFor="form-username">Username</label>
+      </span>
+      <button pButton pRipple type="submit" label="Add"></button>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <p-button
+      label="Exit"
+      styleClass="p-button-outlined p-button-danger"
+      (click)="hideAddFriendModal()"
+    ></p-button>
+  </ng-template>
+</p-dialog>

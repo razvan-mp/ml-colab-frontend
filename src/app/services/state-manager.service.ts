@@ -32,8 +32,6 @@ export class StateManagerService {
   public displayCreateTeamModal: boolean = false;
   public displayRemoveUserModal: boolean = false;
   public selectedTeamUser: any = null;
-  public displayDeleteTeamModal: boolean = false;
-  public displayTeamSidebar: boolean = false;
 
   public friendRequests: FriendRequest[] = [];
   public sentFriendRequests: FriendRequest[] = [];
@@ -42,6 +40,8 @@ export class StateManagerService {
   public selectedFriend: string = '';
   public displayDeleteFriendModal: boolean = false;
   public displayCancelRequestModal: boolean = false;
+  public displayAddFriendModal: boolean = false;
+  public displayDeleteRequestModal: boolean = false;
 
   constructor() {}
 }

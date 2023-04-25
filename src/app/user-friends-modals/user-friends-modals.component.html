@@ -2,14 +2,28 @@
 
 <!-- delete friend modal -->
 <p-dialog
-  [style]="{ width: '300px', height: '270px' }"
+  [style]="{
+    width: '400px',
+    height: 'auto',
+    'min-height': '200px',
+    overflow: 'auto'
+  }"
   [modal]="true"
   [dismissableMask]="false"
   [visible]="displayDeleteFriendModal"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
 >
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h3>Delete friend</h3>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="content">
-    <h2>Delete friend?</h2>
-    <p>You (or them) will have to make a friend request again.</p>
+    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
@@ -36,14 +50,30 @@
 
 <!-- cancel request modal -->
 <p-dialog
-  [style]="{ width: '300px', height: '270px' }"
+  [style]="{
+    width: '400px',
+    height: 'auto',
+    'min-height': '200px',
+    overflow: 'auto'
+  }"
   [modal]="true"
   [dismissableMask]="false"
   [visible]="displayCancelRequestModal"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideCancelRequestModal()"
 >
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h3>Cancel request</h3>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="content">
-    <h2>Cancel request?</h2>
-    <p>You (or them) will have to make a friend request again.</p>
+    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
@@ -63,6 +93,55 @@
         type="button"
         (click)="cancelRequest()"
         label="Yes"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- decline request modal -->
+<p-dialog
+    [style]="{
+    width: '400px',
+    height: 'auto',
+    'min-height': '200px',
+    overflow: 'auto'
+  }"
+    [modal]="true"
+    [dismissableMask]="false"
+    [visible]="displayDeleteRequestModal"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+    [dismissableMask]="true"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h3>Decline request</h3>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-center">
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideDeclineRequestModal()"
+          label="No"
+      ></button>
+      <button
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="button"
+          (click)="declineRequest()"
+          label="Yes"
       ></button>
     </div>
   </ng-template>

@@ -57,7 +57,7 @@
               styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
               pTooltip="Decline"
               tooltipPosition="bottom"
-              (click)="declineFriendRequest(request.sender)"
+              (click)="openDeclineRequestModal(request.sender)"
             ></p-button>
           </div>
         </div>
@@ -66,8 +66,24 @@
   </div>
 
   <div class="flex flex-column">
-    <h3>People you may know</h3>
-    <div class="flex flex-column gap-3">
+    <div
+      class="flex md:flex-row flex-column md:gap-2 gap-1 md:align-items-center align-items-start"
+    >
+      <h3>People you may know</h3>
+      <p-button
+        icon="pi pi-plus"
+        label="Add manually"
+        pTooltip="Add friend by username"
+        tooltipPosition="top"
+        styleClass="p-button-text p-button-rounded"
+        (click)="openAddFriendDialog()"
+      >
+      </p-button>
+    </div>
+    <div *ngIf="users.length === 0">
+      <p class="font-italic text-gray-200">No available suggestions.</p>
+    </div>
+    <div *ngIf="users.length !== 0" class="flex flex-column gap-3">
       <div
         *ngFor="let user of users"
         class="flex flex-column user-may-know pl-3 pr-2"
@@ -94,11 +110,16 @@
   <div class="flex flex-column">
     <h3>Sent requests</h3>
     <div *ngIf="sentFriendRequests.length === 0">
-      <p class="font-italic text-gray-200">You did not send any friend requests yet.</p>
+      <p class="font-italic text-gray-200">
+        You did not send any friend requests yet.
+      </p>
     </div>
     <div *ngIf="sentFriendRequests.length !== 0">
-      <div *ngFor="let request of sentFriendRequests" class="flex flex-row w-full sent-request">
-        <p>{{request.receiver}}</p>
+      <div
+        *ngFor="let request of sentFriendRequests"
+        class="flex flex-row w-full sent-request"
+      >
+        <p>{{ request.receiver }}</p>
         <p-button
           icon="pi pi-times"
           styleClass="p-button-rounded p-button-text"

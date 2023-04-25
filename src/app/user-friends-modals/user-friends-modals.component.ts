@@ -19,6 +19,10 @@ export class UserFriendsModalsComponent {
     private state: StateManagerService
   ) {}
 
+  get displayDeleteRequestModal() {
+    return this.state.displayDeleteRequestModal;
+  }
+
   get selectedFriend() {
     return this.state.selectedFriend;
   }
@@ -98,6 +102,42 @@ export class UserFriendsModalsComponent {
       )
       .subscribe(() => {
         this.hideCancelRequestModal();
+        this.selectedFriend = '';
+        this.friendsService
+          .getUserFriends()
+          .subscribe((friends) => (this.friends = friends));
+        this.teamService
+          .getTeams()
+          .subscribe((teams) => (this.state.teams = teams));
+        this.friendsService.getUsers().subscribe((users) => {
+          this.state.users = users;
+          this.friendsService.getSentRequests().subscribe((requests) => {
+            this.state.sentFriendRequests = requests;
+          });
+        });
+      });
+  }
+
+  hideDeclineRequestModal() {
+    this.state.displayDeleteRequestModal = false;
+    this.displaySidebar = true;
+  }
+
+  declineRequest() {
+    this.friendsService
+      .declineFriendRequest(this.selectedFriend)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message,
+          });
+          return err;
+        })
+      )
+      .subscribe(() => {
+        this.hideDeclineRequestModal();
         this.selectedFriend = '';
         this.friendsService
           .getUserFriends()
