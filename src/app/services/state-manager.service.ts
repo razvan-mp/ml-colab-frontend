@@ -36,6 +36,7 @@ export class StateManagerService {
   public displayTeamSidebar: boolean = false;
 
   public friendRequests: FriendRequest[] = [];
+  public sentFriendRequests: FriendRequest[] = [];
   public users: User[] = [];
   public friends: Friend[] = [];
   public selectedFriend: string = '';

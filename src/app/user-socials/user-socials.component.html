@@ -1,8 +1,8 @@
 <p-toast position="bottom-left"></p-toast>
 
-<div>
+<div class="flex flex-column h-full md:gap-0 sm:gap-6 gap-6">
   <div
-    class="flex sm:flex-row flex-column justify-content-between friend-container"
+    class="flex md:flex-row flex-column justify-content-between friend-container"
   >
     <div class="flex flex-column w-full gap-2">
       <h3>Your friends</h3>
@@ -29,8 +29,8 @@
         </div>
       </div>
     </div>
-    <p-divider layout="vertical" class="hidden sm:inline-block"></p-divider>
-    <div class="flex flex-column w-full">
+    <p-divider layout="vertical" class="hidden md:inline-block"></p-divider>
+    <div class="flex flex-column gap-2 w-full">
       <h3>Friend requests</h3>
       <p *ngIf="friendRequests.length === 0" class="font-italic text-gray-200">
         No friend requests
@@ -57,7 +57,7 @@
               styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
               pTooltip="Decline"
               tooltipPosition="bottom"
-              (click)="cancelRequest(request.sender)"
+              (click)="declineFriendRequest(request.sender)"
             ></p-button>
           </div>
         </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="flex flex-column">
     <h3>People you may know</h3>
     <div class="flex flex-column gap-3">
       <div
@@ -87,6 +87,26 @@
             (click)="addFriend(user.username)"
           ></p-button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-column">
+    <h3>Sent requests</h3>
+    <div *ngIf="sentFriendRequests.length === 0">
+      <p class="font-italic text-gray-200">You did not send any friend requests yet.</p>
+    </div>
+    <div *ngIf="sentFriendRequests.length !== 0">
+      <div *ngFor="let request of sentFriendRequests" class="flex flex-row w-full sent-request">
+        <p>{{request.receiver}}</p>
+        <p-button
+          icon="pi pi-times"
+          styleClass="p-button-rounded p-button-text"
+          (click)="cancelRequest(request.receiver)"
+          pTooltip="Cancel request"
+          tooltipPosition="left"
+        >
+        </p-button>
       </div>
     </div>
   </div>

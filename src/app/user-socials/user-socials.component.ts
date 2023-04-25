@@ -27,6 +27,14 @@ export class UserSocialsComponent implements OnInit {
     this.state.friends = value;
   }
 
+  get sentFriendRequests() {
+    return this.state.sentFriendRequests;
+  }
+
+  set sentFriendRequests(value) {
+    this.state.sentFriendRequests = value;
+  }
+
   get friendRequests() {
     return this.state.friendRequests;
   }
@@ -52,6 +60,7 @@ export class UserSocialsComponent implements OnInit {
     this.fetchFriendRequests();
     this.fetchUsers();
     this.fetchFriends();
+    this.fetchSentFriendRequests();
   }
 
   startPolling() {
@@ -59,7 +68,26 @@ export class UserSocialsComponent implements OnInit {
       this.fetchFriendRequests();
       this.fetchUsers();
       this.fetchFriends();
+      this.fetchSentFriendRequests();
     }, 5000);
+  }
+
+  fetchSentFriendRequests() {
+    this.friendsService
+      .getSentRequests()
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error while fetching friend requests',
+          });
+          return error;
+        })
+      )
+      .subscribe((res: any) => {
+        this.sentFriendRequests = res;
+      });
   }
 
   fetchFriendRequests(): void {
@@ -72,7 +100,7 @@ export class UserSocialsComponent implements OnInit {
             summary: 'Error',
             detail: 'Error while fetching friend requests',
           });
-          throw error;
+          return error;
         })
       )
       .subscribe((res: any) => {
@@ -90,7 +118,7 @@ export class UserSocialsComponent implements OnInit {
             summary: 'Error',
             detail: 'Error while fetching users',
           });
-          throw error;
+          return error;
         })
       )
       .subscribe((res: any) => {
@@ -108,7 +136,7 @@ export class UserSocialsComponent implements OnInit {
             summary: 'Error',
             detail: 'Error while fetching friends',
           });
-          throw err;
+          return err;
         })
       )
       .subscribe((res: any) => {

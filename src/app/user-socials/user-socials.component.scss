@@ -31,3 +31,13 @@
     overflow-y: auto;
   }
 }
+
+.sent-request {
+  width: 100%;
+  background: #404040;
+  border-radius: 50px;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 5px;
+  padding-left: 15px;
+}
