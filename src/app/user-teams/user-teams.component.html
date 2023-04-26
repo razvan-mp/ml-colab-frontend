@@ -5,6 +5,15 @@
     <h3>Teams you're in</h3>
     <div class="teams-grid">
       <div *ngFor="let team of teams" class="team">
+        <div class="button-pair">
+          <p-button
+              icon="pi pi-eye"
+              styleClass="p-button-rounded p-button-text"
+              pTooltip="View team"
+              tooltipPosition="left"
+              (click)="viewSelectedTeam(team)"
+          ></p-button>
+        </div>
         <div class="team-info">
           <div class="flex flex-row justify-content-between">
             <p class="font-semibold pb-0 mb-0">{{ team.name }}</p>

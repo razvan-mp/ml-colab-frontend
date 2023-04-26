@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeamsService } from '../services/teams.service';
 import { MessageService } from 'primeng/api';
 import { StateManagerService } from '../services/state-manager.service';
@@ -120,7 +120,7 @@ export class UserTeamsComponent implements OnInit {
           throw error;
         })
       )
-      .subscribe((res) => {
+      .subscribe(() => {
         this.fetchTeams();
       });
   }
@@ -138,7 +138,7 @@ export class UserTeamsComponent implements OnInit {
           throw error;
         })
       )
-      .subscribe((res) => {
+      .subscribe(() => {
         this.fetchTeams();
       });
   }
@@ -156,7 +156,7 @@ export class UserTeamsComponent implements OnInit {
           throw error;
         })
       )
-      .subscribe((res) => {
+      .subscribe(() => {
         this.fetchTeams();
       });
   }
@@ -174,5 +174,13 @@ export class UserTeamsComponent implements OnInit {
     this.state.selectedTeamDescription = tmp[0].description as string;
     this.state.displaySidebar = false;
     this.state.displayManageTeamModal = true;
+  }
+
+  viewSelectedTeam(team: Team) {
+    this.state.selectedTeam = team.id;
+    this.state.selectedTeamName = team.name;
+    this.state.selectedTeamDescription = team.description as string;
+    this.state.selectedTeamUsers = team.users as User[];
+    this.state.display = 3;
   }
 }

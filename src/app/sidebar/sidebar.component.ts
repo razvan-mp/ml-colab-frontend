@@ -11,7 +11,6 @@ import { StateManagerService } from '../services/state-manager.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  display: number = 0;
   selectedItem: any = {
     color: '#7C8DE5FF',
     background: 'rgba(255, 255, 255, 0.1)',
@@ -19,6 +18,22 @@ export class SidebarComponent implements OnInit {
   yourNotes: any = {};
   yourTeams: any = {};
   yourSocial: any = {};
+
+  get display() {
+    return this.state.display;
+  }
+
+  set display(value: number) {
+    this.state.display = value;
+  }
+
+  get displayUserTeam(): boolean {
+    return this.state.displayUserTeam;
+  }
+
+  set displayUserTeam(value: boolean) {
+    this.state.displayUserTeam = value;
+  }
 
   get displaySidebar(): boolean {
     return this.state.displaySidebar;

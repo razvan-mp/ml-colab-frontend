@@ -11,6 +11,7 @@ import { Friend } from '../models/Friend';
 export class StateManagerService {
   public displaySidebar: boolean = true;
   public displayAuthModal: boolean = false;
+  public display: number = 0;
 
   public displayCreateNoteModal: boolean = false;
   public displayDeleteModal: boolean = false;
@@ -32,6 +33,7 @@ export class StateManagerService {
   public displayCreateTeamModal: boolean = false;
   public displayRemoveUserModal: boolean = false;
   public selectedTeamUser: any = null;
+  public displayUserTeam: boolean = false;
 
   public friendRequests: FriendRequest[] = [];
   public sentFriendRequests: FriendRequest[] = [];

@@ -24,8 +24,32 @@
   position: relative;
   padding: 10px 10px 10px 20px;
   border-radius: 10px;
+  overflow: hidden;
 }
 
+.button-pair {
+  border-radius: 10px;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 200ms, transform 200ms ease-in-out;
+  background: linear-gradient(
+                  -90deg,
+                  rgba(49, 49, 49, 1) 0%,
+                  rgba(49, 49, 49, 1) 80%,
+                  rgba(49, 49, 49, 0) 100%
+  );
+  transform: translateX(100%);
+}
+
+.team:hover .button-pair {
+  opacity: 1;
+  transform: translateX(0);
+}
 .user {
   display: flex;
   flex-direction: row;

@@ -272,9 +272,9 @@ export class UserTeamsModalsComponent {
   }
 
   showRemoveUserModal(user: any) {
+    this.displaySidebar = false;
     this.selectedTeamUser = user;
     this.displayRemoveUserModal = true;
-    this.displayManageTeamModal = false;
   }
 
   hideRemoveUserModal() {
