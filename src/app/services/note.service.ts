@@ -83,24 +83,4 @@ export class NoteService {
       options
     ) as Observable<any>;
   }
-
-  fetchTeamNotes(payload: any) {
-    this.authService.getCSRF();
-
-    const headers = {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
-    };
-
-    const options = {
-      headers,
-      withCredentials: true,
-    };
-
-    return this.httpClient.request(
-      'get',
-      'http://localhost:8000/api/team/team_notes/',
-      { body: payload, ...options }
-    ) as Observable<any>;
-  }
 }

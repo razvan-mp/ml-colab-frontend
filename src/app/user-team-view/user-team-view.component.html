@@ -58,6 +58,7 @@
               (click)="selectedTeamNote = note.id; showEditNoteModal()"
           ></p-button>
           <p-button
+              *ngIf="note.user === fetchUsername()"
               icon="pi pi-trash"
               styleClass="p-button-rounded p-button-text"
               pTooltip="Delete"

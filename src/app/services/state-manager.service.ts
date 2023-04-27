@@ -9,7 +9,7 @@ import { Friend } from '../models/Friend';
   providedIn: 'root',
 })
 export class StateManagerService {
-  public displaySidebar: boolean = true;
+  public displaySidebar: boolean = false;
   public displayAuthModal: boolean = false;
   public display: number = 0;
 
@@ -17,6 +17,8 @@ export class StateManagerService {
   public displayDeleteModal: boolean = false;
   public displayEditNoteModal: boolean = false;
   public createNoteCheckbox: boolean = false;
+  public displayEditTeamNoteModal: boolean = false;
+  public displayDeleteTeamNoteModal: boolean = false;
 
   public selectedNote: any = -1;
   public noteTitle: string = '';

@@ -7,6 +7,7 @@ import { FriendsService } from '../services/friends.service';
 import { catchError } from 'rxjs/operators';
 import { TeamsService } from '../services/teams.service';
 import { Note } from '../models/Note';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-user-team-view',
@@ -187,7 +188,7 @@ export class UserTeamViewComponent implements OnInit {
 
   showDeleteNoteModal(): void {
     this.state.displaySidebar = false;
-    this.state.displayDeleteModal = true;
+    this.state.displayDeleteTeamNoteModal = true;
   }
 
   showEditNoteModal(): void {
@@ -199,7 +200,7 @@ export class UserTeamViewComponent implements OnInit {
       }
     }
     this.state.displaySidebar = false;
-    this.state.displayEditNoteModal = true;
+    this.state.displayEditTeamNoteModal = true;
   }
 
   trimContent(content: any) {

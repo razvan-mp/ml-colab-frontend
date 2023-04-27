@@ -9,6 +9,6 @@ export interface Note {
   updated_at?: string;
   graph_data?: any;
   page?: string;
-  user?: User;
+  user?: string;
   team?: Team;
 }

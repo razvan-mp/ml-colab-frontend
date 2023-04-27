@@ -34,24 +34,12 @@ export class UserNotesModalsComponent {
     return this.state.displayCreateNoteModal;
   }
 
-  set displayCreateNoteModal(value: boolean) {
-    this.state.displayCreateNoteModal = value;
-  }
-
   get displayDeleteModal(): boolean {
     return this.state.displayDeleteModal;
   }
 
-  set displayDeleteModal(value: boolean) {
-    this.state.displayDeleteModal = value;
-  }
-
   get displayEditNoteModal(): boolean {
     return this.state.displayEditNoteModal;
-  }
-
-  set displayEditNoteModal(value: boolean) {
-    this.state.displayEditNoteModal = value;
   }
 
   get createNoteCheckbox(): boolean {
@@ -74,16 +62,8 @@ export class UserNotesModalsComponent {
     return this.state.noteTitle;
   }
 
-  set noteTitle(value: string) {
-    this.state.noteTitle = value;
-  }
-
   get noteContent(): string {
     return this.state.noteContent;
-  }
-
-  set noteContent(value: string) {
-    this.state.noteContent = value;
   }
 
   createNote($event: SubmitEvent, createNoteForm: HTMLFormElement): void {
@@ -97,7 +77,7 @@ export class UserNotesModalsComponent {
           window.location.pathname.split('/').length - 1
         ];
       let data = {};
-      let payload = {};
+      let payload: any = {};
       switch (page) {
         case 'id3':
           data = {
@@ -110,6 +90,9 @@ export class UserNotesModalsComponent {
             graph_data: JSON.stringify(data),
             page: page,
           };
+          if (this.state.selectedTeam !== -1) {
+            payload.team_id = this.state.selectedTeam;
+          }
           this.noteService.createNote(payload).subscribe((res: any) => {
             this.hideCreateNoteModal();
             this.messageService.add({
@@ -128,6 +111,9 @@ export class UserNotesModalsComponent {
             graph_data: data,
             page: page,
           };
+          if (this.state.selectedTeam !== -1) {
+            payload.team_id = this.state.selectedTeam;
+          }
           this.noteService.createNote(payload).subscribe((res: any) => {
             this.hideCreateNoteModal();
             setTimeout(() => {
@@ -147,6 +133,9 @@ export class UserNotesModalsComponent {
             graph_data: data,
             page: page,
           };
+          if (this.state.selectedTeam !== -1) {
+            payload.team_id = this.state.selectedTeam;
+          }
           this.noteService.createNote(payload).subscribe((res: any) => {
             this.hideCreateNoteModal();
             setTimeout(() => {
@@ -166,6 +155,9 @@ export class UserNotesModalsComponent {
             graph_data: data,
             page: page,
           };
+          if (this.state.selectedTeam !== -1) {
+            payload.team_id = this.state.selectedTeam;
+          }
           this.noteService.createNote(payload).subscribe((res: any) => {
             this.hideCreateNoteModal();
             setTimeout(() => {
