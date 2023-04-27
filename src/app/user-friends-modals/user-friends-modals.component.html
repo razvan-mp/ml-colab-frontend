@@ -23,7 +23,9 @@
   </ng-template>
 
   <ng-template pTemplate="content">
-    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
+    <p class="font-semibold">
+      You (or them) will have to make a friend request again.
+    </p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
@@ -73,7 +75,9 @@
   </ng-template>
 
   <ng-template pTemplate="content">
-    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
+    <p class="font-semibold">
+      You (or them) will have to make a friend request again.
+    </p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
@@ -100,19 +104,19 @@
 
 <!-- decline request modal -->
 <p-dialog
-    [style]="{
+  [style]="{
     width: '400px',
     height: 'auto',
     'min-height': '200px',
     overflow: 'auto'
   }"
-    [modal]="true"
-    [dismissableMask]="false"
-    [visible]="displayDeleteRequestModal"
-    [draggable]="false"
-    [resizable]="false"
-    [closable]="false"
-    [dismissableMask]="true"
+  [modal]="true"
+  [dismissableMask]="false"
+  [visible]="displayDeleteRequestModal"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">
@@ -122,26 +126,28 @@
   </ng-template>
 
   <ng-template pTemplate="content">
-    <p class="font-semibold">You (or them) will have to make a friend request again.</p>
+    <p class="font-semibold">
+      You (or them) will have to make a friend request again.
+    </p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
     <div class="button-pair justify-content-center">
       <button
-          pButton
-          pRipple
-          class="p-button p-button-danger p-button-outlined"
-          type="button"
-          (click)="hideDeclineRequestModal()"
-          label="No"
+        pButton
+        pRipple
+        class="p-button p-button-danger p-button-outlined"
+        type="button"
+        (click)="hideDeclineRequestModal()"
+        label="No"
       ></button>
       <button
-          pButton
-          pRipple
-          class="p-button p-button-success p-button-outlined"
-          type="button"
-          (click)="declineRequest()"
-          label="Yes"
+        pButton
+        pRipple
+        class="p-button p-button-success p-button-outlined"
+        type="button"
+        (click)="declineRequest()"
+        label="Yes"
       ></button>
     </div>
   </ng-template>

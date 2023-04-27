@@ -2,9 +2,9 @@
   <!-- team title & back button  -->
   <div class="flex flex-row align-items-center gap-2">
     <p-button
-        icon="pi pi-arrow-left"
-        (onClick)="setDisplay(1)"
-        styleClass="p-button-text p-button-rounded"
+      icon="pi pi-arrow-left"
+      (onClick)="setDisplay(1)"
+      styleClass="p-button-text p-button-rounded"
     >
     </p-button>
     <h2>{{ selectedTeamName }}</h2>
@@ -15,7 +15,66 @@
   <!-- team description -->
   <div class="flex flex-column">
     <p class="font-semibold text-lg pb-0 mb-0">Team description</p>
-    <p>{{ selectedTeamDescription }}</p>
+    <p *ngIf="selectedTeamDescription !== ''">{{ selectedTeamDescription }}</p>
+    <p *ngIf="selectedTeamDescription === ''" class="font-italic text-gray-200">
+      No description provided.
+    </p>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- team notes -->
+  <div class="flex flex-column gap-2">
+    <div class="flex flex-row gap-2 align-items-center">
+      <p class="font-semibold text-lg">Team notes</p>
+      <p-button
+        label="New"
+        icon="pi pi-plus"
+        pTooltip="New team note"
+        tooltipPosition="top"
+        styleClass="p-button-text p-button-rounded"
+        (click)="showCreateNoteModal()"
+      ></p-button>
+    </div>
+    <div *ngIf="selectedTeamNotes.length === 0">
+      <p class="font-italic text-gray-200">No team notes yet</p>
+    </div>
+    <div *ngIf="selectedTeamNotes.length !== 0" class="note-grid">
+      <div *ngFor="let note of selectedTeamNotes" id="note-{{ note.id }}" class="note relative">
+        <div class="button-pair">
+          <p-button
+              *ngIf="note.page !== ''"
+              icon="pi pi-eye"
+              styleClass="p-button-rounded p-button-text"
+              pTooltip="Load"
+              tooltipPosition="left"
+              (click)="selectedTeamNote = note.id; loadNote()"
+          ></p-button>
+          <p-button
+              icon="pi pi-pencil"
+              styleClass="p-button-rounded p-button-text"
+              pTooltip="Edit"
+              tooltipPosition="left"
+              (click)="selectedTeamNote = note.id; showEditNoteModal()"
+          ></p-button>
+          <p-button
+              icon="pi pi-trash"
+              styleClass="p-button-rounded p-button-text"
+              pTooltip="Delete"
+              tooltipPosition="left"
+              (click)="selectedTeamNote = note.id; showDeleteNoteModal()"
+          ></p-button>
+        </div>
+        <p class="note-title">{{ note.title }}</p>
+        <p-divider></p-divider>
+        <p class="p-0 m-0 note-desc">{{ trimContent(note.content) }}</p>
+        <div *ngIf="note.page !== ''" class="note-page bottom-0 absolute mb-3">
+          <p class="p-0 m-0 font-italic text-gray-400">
+            will redirect to /{{ note.page }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <p-divider></p-divider>
@@ -23,69 +82,74 @@
   <!-- team members -->
   <div class="flex flex-column gap-2">
     <p class="font-semibold text-lg pb-0 mb-0">Team members</p>
-    <div class="flex flex-column gap-2">
+    <p *ngIf="selectedTeamUsers.length === 0" class="font-italic text-gray-200">
+      No users in team.
+    </p>
+    <div class="flex flex-column gap-2" *ngIf="selectedTeamUsers.length !== 0">
       <div *ngFor="let user of selectedTeamUsers" class="w-full">
         <!--     if there is no request between the users       -->
         <div
-            *ngIf="!user.is_friend && user.request_status === 'none'"
-            class="user"
+          *ngIf="!user.is_friend && user.request_status === 'none'"
+          class="user"
         >
           <p>{{ user.username }}</p>
           <p-button
-              icon="pi pi-user-plus"
-              styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
-              pTooltip="Add Friend"
-              tooltipPosition="bottom"
-              (click)="sendRequest(user.username)"
+            icon="pi pi-user-plus"
+            styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+            pTooltip="Add Friend"
+            tooltipPosition="bottom"
+            (click)="sendRequest(user.username)"
           ></p-button>
         </div>
         <!--     if user is the sender of the request       -->
         <div
-            *ngIf="
-                !user.is_friend &&
-                user.request_status === 'pending' &&
-                user.request_sender === fetchUsername()
-              "
-            class="user bg-yellow-600"
+          *ngIf="
+            !user.is_friend &&
+            user.request_status === 'pending' &&
+            user.request_sender === fetchUsername()
+          "
+          class="user bg-yellow-600"
         >
           <p>{{ user.username }}</p>
           <p-button
-              icon="pi pi-times"
-              styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
-              pTooltip="Cancel Request"
-              tooltipPosition="bottom"
-              (click)="cancelRequest(user.username)"
+            icon="pi pi-times"
+            styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+            pTooltip="Cancel Request"
+            tooltipPosition="bottom"
+            (click)="cancelRequest(user.username)"
           ></p-button>
         </div>
         <!--     if user is the receiver of the request       -->
         <div
-            *ngIf="
-                !user.is_friend &&
-                user.request_status === 'pending' &&
-                user.request_sender !== fetchUsername()
-              "
-            class="user bg-yellow-600"
+          *ngIf="
+            !user.is_friend &&
+            user.request_status === 'pending' &&
+            user.request_sender !== fetchUsername()
+          "
+          class="user bg-yellow-600"
         >
           <p>{{ user.username }}</p>
-          <p-button
+          <div>
+            <p-button
               icon="pi pi-check"
               styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
               pTooltip="Accept Request"
               tooltipPosition="bottom"
               (click)="acceptRequest(user.username)"
-          ></p-button>
-          <p-button
+            ></p-button>
+            <p-button
               icon="pi pi-times"
               styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
               pTooltip="Decline Request"
               tooltipPosition="bottom"
-              (click)="cancelRequest(user.username)"
-          ></p-button>
+              (click)="declineRequest(user.username)"
+            ></p-button>
+          </div>
         </div>
         <!--     if the users are friends       -->
         <div
-            *ngIf="user.is_friend && user.request_status === 'none'"
-            class="user bg-green-600 pr-3"
+          *ngIf="user.is_friend && user.request_status === 'none'"
+          class="user bg-green-600 pr-3"
         >
           <p>{{ user.username }}</p>
         </div>

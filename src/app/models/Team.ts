@@ -1,4 +1,5 @@
 import { User } from './User';
+import { Note } from './Note';
 
 export interface Team {
   admin: string;
@@ -6,4 +7,5 @@ export interface Team {
   id: number;
   name: string;
   users?: User[];
+  notes?: Note[];
 }

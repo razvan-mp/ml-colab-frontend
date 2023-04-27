@@ -8,9 +8,8 @@ describe('UserTeamViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserTeamViewComponent ]
-    })
-    .compileComponents();
+      declarations: [UserTeamViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserTeamViewComponent);
     component = fixture.componentInstance;

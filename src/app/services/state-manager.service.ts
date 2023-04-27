@@ -26,6 +26,8 @@ export class StateManagerService {
   public teams: Team[] = [];
   public userTeams: Team[] = [];
   public selectedTeamUsers: User[] = [];
+  public selectedTeamNotes: Note[] = [];
+  public selectedTeamNote: number = -1;
   public selectedTeam: any = -1;
   public selectedTeamName: string = '';
   public selectedTeamDescription: string = '';

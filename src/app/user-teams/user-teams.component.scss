@@ -38,10 +38,10 @@
   flex-direction: column;
   transition: opacity 200ms, transform 200ms ease-in-out;
   background: linear-gradient(
-                  -90deg,
-                  rgba(49, 49, 49, 1) 0%,
-                  rgba(49, 49, 49, 1) 80%,
-                  rgba(49, 49, 49, 0) 100%
+    -90deg,
+    rgba(49, 49, 49, 1) 0%,
+    rgba(49, 49, 49, 1) 80%,
+    rgba(49, 49, 49, 0) 100%
   );
   transform: translateX(100%);
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppComponent } from '../app.component';
@@ -81,6 +81,26 @@ export class NoteService {
       `${this.BACKEND_API}/note/`,
       payload,
       options
+    ) as Observable<any>;
+  }
+
+  fetchTeamNotes(payload: any) {
+    this.authService.getCSRF();
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': AppComponent.csrfToken,
+    };
+
+    const options = {
+      headers,
+      withCredentials: true,
+    };
+
+    return this.httpClient.request(
+      'get',
+      'http://localhost:8000/api/team/team_notes/',
+      { body: payload, ...options }
     ) as Observable<any>;
   }
 }

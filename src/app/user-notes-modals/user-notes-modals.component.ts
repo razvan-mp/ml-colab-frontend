@@ -178,19 +178,22 @@ export class UserNotesModalsComponent {
           });
       }
     } else {
-      const payload = {
+      let payload: any = {
         title: formData['title'] as string,
         content: formData['content'] as string,
       };
+
+      if (this.state.selectedTeam !== -1) {
+        payload.team_id = this.state.selectedTeam;
+      }
+
       this.noteService.createNote(payload).subscribe((res: any) => {
         this.hideCreateNoteModal();
-        setTimeout(() => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Successfully created note',
-          });
-        }, 100);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successfully created note',
+        });
       });
     }
   }

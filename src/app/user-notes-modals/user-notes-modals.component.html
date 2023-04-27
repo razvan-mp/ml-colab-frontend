@@ -2,18 +2,18 @@
 
 <!-- delete note modal -->
 <p-dialog
-    [style]="{
-    'width': '400px',
-    'height': 'auto',
+  [style]="{
+    width: '400px',
+    height: 'auto',
     'min-height': '200px',
-    'overflow': 'auto'
-}"
+    overflow: 'auto'
+  }"
   [modal]="true"
   [dismissableMask]="false"
   [visible]="displayDeleteModal"
-    [draggable]="false"
-    [resizable]="false"
-    [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">
@@ -23,7 +23,9 @@
   </ng-template>
 
   <ng-template pTemplate="content">
-    <p class="font-semibold">Keep in mind that deleted notes cannot be recovered</p>
+    <p class="font-semibold">
+      Keep in mind that deleted notes cannot be recovered
+    </p>
   </ng-template>
   <ng-template pTemplate="footer">
     <p-divider></p-divider>
@@ -49,9 +51,12 @@
 </p-dialog>
 
 <!-- create note modal -->
-<p-dialog [visible]="displayCreateNoteModal" [modal]="true"    [draggable]="false"
-          [resizable]="false"
-          [closable]="false"
+<p-dialog
+  [visible]="displayCreateNoteModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">
@@ -60,7 +65,6 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-
     <form
       id="create-note-form"
       class="note-form"
@@ -120,9 +124,12 @@
 </p-dialog>
 
 <!-- edit note modal -->
-<p-dialog [visible]="displayEditNoteModal" [modal]="true"    [draggable]="false"
-          [resizable]="false"
-          [closable]="false"
+<p-dialog
+  [visible]="displayEditNoteModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">

@@ -7,6 +7,7 @@ import { Team } from '../models/Team';
 import { FriendsService } from '../services/friends.service';
 import { Friend } from '../models/Friend';
 import { User } from '../models/User';
+import { Note } from '../models/Note';
 
 @Component({
   selector: 'app-user-teams',
@@ -80,6 +81,7 @@ export class UserTeamsComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.teams = res;
+        console.log(this.teams);
       });
     this.teamsService
       .getUserTeams()
@@ -181,6 +183,7 @@ export class UserTeamsComponent implements OnInit {
     this.state.selectedTeamName = team.name;
     this.state.selectedTeamDescription = team.description as string;
     this.state.selectedTeamUsers = team.users as User[];
+    this.state.selectedTeamNotes = team.notes as Note[];
     this.state.display = 3;
   }
 }

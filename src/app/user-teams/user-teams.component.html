@@ -7,11 +7,11 @@
       <div *ngFor="let team of teams" class="team">
         <div class="button-pair">
           <p-button
-              icon="pi pi-eye"
-              styleClass="p-button-rounded p-button-text"
-              pTooltip="View team"
-              tooltipPosition="left"
-              (click)="viewSelectedTeam(team)"
+            icon="pi pi-eye"
+            styleClass="p-button-rounded p-button-text"
+            pTooltip="View team"
+            tooltipPosition="left"
+            (click)="viewSelectedTeam(team)"
           ></p-button>
         </div>
         <div class="team-info">
@@ -25,8 +25,8 @@
             </p>
           </div>
           <p-divider></p-divider>
-          <p *ngIf="team.description != null">{{ team.description }}</p>
-          <p *ngIf="team.description == null" class="font-italic text-gray-300">
+          <p *ngIf="team.description !== ''">{{ team.description }}</p>
+          <p *ngIf="team.description === ''" class="font-italic text-gray-300">
             No description provided.
           </p>
         </div>

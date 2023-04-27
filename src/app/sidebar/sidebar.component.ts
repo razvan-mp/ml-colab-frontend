@@ -62,6 +62,7 @@ export class SidebarComponent implements OnInit {
 
   updateDisplay(): void {
     if (this.display === 0) {
+      this.clearTeamInfoFromState();
       this.yourTeams = {};
       this.yourSocial = {};
       this.yourNotes = this.selectedItem;
@@ -70,10 +71,18 @@ export class SidebarComponent implements OnInit {
       this.yourSocial = {};
       this.yourTeams = this.selectedItem;
     } else {
+      this.clearTeamInfoFromState();
       this.yourNotes = {};
       this.yourTeams = {};
       this.yourSocial = this.selectedItem;
     }
+  }
+
+  clearTeamInfoFromState(): void {
+    this.state.selectedTeam = -1;
+    this.state.selectedTeamName = '';
+    this.state.selectedTeamDescription = '';
+    this.state.selectedTeamUsers = [];
   }
 
   logoutUser(): void {
