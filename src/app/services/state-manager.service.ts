@@ -47,5 +47,9 @@ export class StateManagerService {
   public displayAddFriendModal: boolean = false;
   public displayDeleteRequestModal: boolean = false;
 
+  public userSocialPolling: any;
+  public userTeamsPolling: any;
+  public userTeamViewPolling: any;
+
   constructor() {}
 }

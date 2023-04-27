@@ -64,7 +64,10 @@ export class UserSocialsComponent implements OnInit {
   }
 
   startPolling() {
-    setInterval(() => {
+    clearInterval(this.state.userTeamsPolling);
+    clearInterval(this.state.userSocialPolling);
+    clearInterval(this.state.userTeamViewPolling);
+    this.state.userSocialPolling = setInterval(() => {
       this.fetchFriendRequests();
       this.fetchUsers();
       this.fetchFriends();

@@ -15,8 +15,6 @@ import { Note } from '../models/Note';
   styleUrls: ['./user-team-view.component.scss'],
 })
 export class UserTeamViewComponent implements OnInit {
-  private polling: any;
-
   constructor(
     private messageService: MessageService,
     private state: StateManagerService,
@@ -30,7 +28,10 @@ export class UserTeamViewComponent implements OnInit {
   }
 
   startPolling() {
-    this.polling = setInterval(() => {
+    clearInterval(this.state.userTeamsPolling);
+    clearInterval(this.state.userSocialPolling);
+    clearInterval(this.state.userTeamViewPolling);
+    this.state.userTeamViewPolling = setInterval(() => {
       this.updateView();
     }, 5000);
   }
