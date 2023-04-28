@@ -3,6 +3,8 @@ import { Note } from '../models/Note';
 import { StateManagerService } from '../services/state-manager.service';
 import { NoteService } from '../services/note.service';
 import { catchError, of } from 'rxjs';
+import { User } from '../models/User';
+import { TeamsService } from '../services/teams.service';
 
 @Component({
   selector: 'app-user-team-view-modals',
@@ -12,7 +14,8 @@ import { catchError, of } from 'rxjs';
 export class UserTeamViewModalsComponent {
   constructor(
     private state: StateManagerService,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private teamsService: TeamsService,
   ) {}
 
   get displayDeleteTeamNoteModal() {
@@ -46,6 +49,28 @@ export class UserTeamViewModalsComponent {
     this.state.displaySidebar = true;
   }
 
+  updateView(): void {
+    this.teamsService
+      .getTeams()
+      .subscribe((res: any) => {
+        this.state.teams = res;
+        const team = this.state.teams.find(
+          (team) => team.id === this.state.selectedTeam
+        );
+        if (team) {
+          this.state.selectedTeamName = team.name;
+          this.state.selectedTeamDescription = team.description as string;
+          this.state.selectedTeamUsers = team.users as User[];
+          this.state.selectedTeamNotes = team.notes as Note[];
+        } else {
+          this.state.selectedTeamName = '';
+          this.state.selectedTeamDescription = '';
+          this.state.selectedTeamUsers = [];
+          this.state.selectedTeamNotes = [];
+        }
+      });
+  }
+
   editTeamNote($event: SubmitEvent, editNoteForm: HTMLFormElement): void {
     $event.preventDefault();
     const formData = Object.fromEntries(
@@ -65,6 +90,7 @@ export class UserTeamViewModalsComponent {
     };
 
     this.noteService.editNote(payload).subscribe(() => {
+      this.updateView();
       this.hideEditNoteModal();
     });
   }
@@ -77,6 +103,7 @@ export class UserTeamViewModalsComponent {
   deleteNote(noteId: any): void {
     this.noteService.deleteNote({ id: noteId }).subscribe((res: any) => {
       this.state.selectedTeamNote = -1;
+      this.updateView();
       this.hideDeleteNoteModal();
     });
   }

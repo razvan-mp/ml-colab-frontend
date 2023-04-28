@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { StateManagerService } from '../services/state-manager.service';
 import { catchError, of } from 'rxjs';
 import { Note } from '../models/Note';
+import { User } from '../models/User';
+import { TeamsService } from '../services/teams.service';
 
 @Component({
   selector: 'app-user-notes-modals',
@@ -15,6 +17,7 @@ export class UserNotesModalsComponent {
   constructor(
     private noteService: NoteService,
     private messageService: MessageService,
+    private teamsService: TeamsService,
     private state: StateManagerService
   ) {}
 
@@ -66,6 +69,26 @@ export class UserNotesModalsComponent {
     return this.state.noteContent;
   }
 
+  updateView(): void {
+    this.teamsService.getTeams().subscribe((res: any) => {
+      this.state.teams = res;
+      const team = this.state.teams.find(
+        (team) => team.id === this.state.selectedTeam
+      );
+      if (team) {
+        this.state.selectedTeamName = team.name;
+        this.state.selectedTeamDescription = team.description as string;
+        this.state.selectedTeamUsers = team.users as User[];
+        this.state.selectedTeamNotes = team.notes as Note[];
+      } else {
+        this.state.selectedTeamName = '';
+        this.state.selectedTeamDescription = '';
+        this.state.selectedTeamUsers = [];
+        this.state.selectedTeamNotes = [];
+      }
+    });
+  }
+
   createNote($event: SubmitEvent, createNoteForm: HTMLFormElement): void {
     $event.preventDefault();
     const formData = Object.fromEntries(
@@ -94,6 +117,7 @@ export class UserNotesModalsComponent {
             payload.team_id = this.state.selectedTeam;
           }
           this.noteService.createNote(payload).subscribe((res: any) => {
+            this.updateView();
             this.hideCreateNoteModal();
             this.messageService.add({
               severity: 'success',
@@ -104,7 +128,6 @@ export class UserNotesModalsComponent {
           break;
         case 'knn':
           data = localStorage.getItem('knn') as string;
-          console.log(data);
           payload = {
             title: formData['title'] as string,
             content: formData['content'] as string,
@@ -115,14 +138,13 @@ export class UserNotesModalsComponent {
             payload.team_id = this.state.selectedTeam;
           }
           this.noteService.createNote(payload).subscribe((res: any) => {
+            this.updateView();
             this.hideCreateNoteModal();
-            setTimeout(() => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Successfully created note',
-              });
-            }, 100);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Successfully created note',
+            });
           });
           break;
         case 'hclustering':
@@ -137,14 +159,13 @@ export class UserNotesModalsComponent {
             payload.team_id = this.state.selectedTeam;
           }
           this.noteService.createNote(payload).subscribe((res: any) => {
+            this.updateView();
             this.hideCreateNoteModal();
-            setTimeout(() => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Successfully created note',
-              });
-            }, 100);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Successfully created note',
+            });
           });
           break;
         case 'kmeans':
@@ -159,14 +180,13 @@ export class UserNotesModalsComponent {
             payload.team_id = this.state.selectedTeam;
           }
           this.noteService.createNote(payload).subscribe((res: any) => {
+            this.updateView();
             this.hideCreateNoteModal();
-            setTimeout(() => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Successfully created note',
-              });
-            }, 100);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Successfully created note',
+            });
           });
       }
     } else {
@@ -180,6 +200,7 @@ export class UserNotesModalsComponent {
       }
 
       this.noteService.createNote(payload).subscribe((res: any) => {
+        this.updateView();
         this.hideCreateNoteModal();
         this.messageService.add({
           severity: 'success',
