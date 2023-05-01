@@ -22,7 +22,8 @@
             (submit)="loginUser($event, loginForm)"
             class="flex flex-column"
           >
-            <span class="p-float-label">
+            <span class="p-float-label p-input-icon-left">
+              <i class="pi pi-user"></i>
               <input
                 id="username-input"
                 name="username"
@@ -31,7 +32,8 @@
               />
               <label for="username-input">Username</label>
             </span>
-            <span class="p-float-label">
+            <span class="p-float-label p-input-icon-left">
+              <i class="pi pi-lock"></i>
               <input
                 type="password"
                 name="password"
@@ -64,11 +66,13 @@
           (submit)="registerUser($event, registerForm)"
           class="flex flex-column"
         >
-          <span class="p-float-label">
+          <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-user"></i>
             <input id="name-input" name="username" type="text" pInputText />
             <label for="name-input">Username</label>
           </span>
-          <span class="p-float-label">
+          <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-envelope"></i>
             <input
               id="email-signup-input"
               name="email"
@@ -82,7 +86,9 @@
               id="password-input"
               [(ngModel)]="password"
               name="password"
-              inputId="password-input"
+              styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+              [toggleMask]="true"
+              [inputStyleClass]="password !== passwordConfirm && passwordConfirm.length > 0 && password.length > 0 ? 'ng-dirty ng-invalid text-red-500' : ''"
             ></p-password>
             <label for="password-input">Password</label>
           </span>
@@ -90,8 +96,10 @@
             <p-password
               name="password-confirm"
               id="password-confirm-input"
-              inputId="password-confirm-input"
               [(ngModel)]="passwordConfirm"
+              styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+              [toggleMask]="true"
+              [inputStyleClass]="password !== passwordConfirm && passwordConfirm.length > 0 && password.length > 0 ? 'ng-dirty ng-invalid text-red-500' : ''"
             ></p-password>
             <label for="password-input">Confirm Password</label>
           </span>

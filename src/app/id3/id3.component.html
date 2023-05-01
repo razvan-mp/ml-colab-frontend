@@ -1,114 +1,127 @@
 <p-toast position="bottom-left"></p-toast>
 
 <div class="content-wrapper">
-  <div class="graph-display" xmlns:svg="http://www.w3.org/1999/XSL/Transform">
-    <div class="buttons">
-      <button class="button" (click)="center$.next(true)">Center</button>
-      <button class="button" (click)="zoomToFit$.next(true)">
-        Zoom to fit
-      </button>
-    </div>
-    <ngx-graph
-      [links]="edges"
-      [nodes]="nodes"
-      [layout]="layout"
-      [layoutSettings]="layoutSettings"
-      [curve]="curve"
-      [draggingEnabled]="draggingEnabled"
-      [panningEnabled]="panningEnabled"
-      [enableZoom]="zoomEnabled"
-      [zoomSpeed]="zoomSpeed"
-      [minZoomLevel]="minZoomLevel"
-      [maxZoomLevel]="maxZoomLevel"
-      [panOnZoom]="panOnZoom"
-      [autoZoom]="autoZoom"
-      [autoCenter]="autoCenter"
-      [update$]="update$"
-      [center$]="center$"
-      [zoomToFit$]="zoomToFit$"
-      [showMiniMap]="true"
-    >
-      <ng-template #defsTemplate>
-        <svg:marker
-          id="arrow"
-          viewBox="0 -5 10 10"
-          refX="8"
-          refY="0"
-          markerWidth="4"
-          markerHeight="4"
-          orient="auto"
-          fill="rgba(255, 255, 255, 1)"
-        >
-          <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-        </svg:marker>
-      </ng-template>
+  <h1>The ID3 Algorithm</h1>
 
-      <ng-template #nodeTemplate let-node>
-        <svg:g class="node">
-          <svg:rect
-            [attr.width]="node.dimension.width"
-            [attr.height]="node.dimension.height"
-            fill="rgba(255, 255, 255, 0.3)"
-            stroke="rgba(255, 255, 255, 0.3)"
-            stroke-width="1"
-            rx="10"
-            ry="10"
-          />
-          <svg:text
-            alignment-baseline="central"
-            [attr.x]="node.dimension.width / 2"
-            [attr.y]="node.dimension.height / 2"
-            text-anchor="middle"
-            dominant-baseline="central"
+  <!-- graph section -->
+  <div class="flex flex-column lg:flex-row gap-4 h-30rem">
+    <div class="graph-display col-12 lg:col-7" xmlns:svg="http://www.w3.org/1999/XSL/Transform">
+      <div class="flex flex-row gap-2 p-3 absolute">
+        <p-button 
+         (click)="center$.next(true)"
+         label="Center"
+        ></p-button>
+        <p-button  
+          (click)="zoomToFit$.next(true)"
+          label="Zoom to fit"
+        ></p-button>
+      </div>
+      <ngx-graph
+        [links]="edges"
+        [nodes]="nodes"
+        [layout]="layout"
+        [layoutSettings]="layoutSettings"
+        [curve]="curve"
+        [draggingEnabled]="draggingEnabled"
+        [panningEnabled]="panningEnabled"
+        [enableZoom]="zoomEnabled"
+        [zoomSpeed]="zoomSpeed"
+        [minZoomLevel]="minZoomLevel"
+        [maxZoomLevel]="maxZoomLevel"
+        [panOnZoom]="panOnZoom"
+        [autoZoom]="autoZoom"
+        [autoCenter]="autoCenter"
+        [update$]="update$"
+        [center$]="center$"
+        [zoomToFit$]="zoomToFit$"
+        [showMiniMap]="true"
+      >
+        <ng-template #defsTemplate>
+          <svg:marker
+            id="arrow"
+            viewBox="0 -5 10 10"
+            refX="8"
+            refY="0"
+            markerWidth="4"
+            markerHeight="4"
+            orient="auto"
             fill="rgba(255, 255, 255, 1)"
           >
-            {{ node.label }}
-          </svg:text>
-        </svg:g>
-        <!--                <svg:text-->
-        <!--                    alignment-baseline="central"-->
-        <!--                    [attr.x]="node.dimension.width / 2"-->
-        <!--                    [attr.y]="node.dimension.height / 2 - 15"-->
-        <!--                    text-anchor="middle"-->
-        <!--                    dominant-baseline="central"-->
-        <!--                    fill="rgba(255, 255, 255, 1)"-->
-        <!--                    font-weight="600"-->
-        <!--                >-->
-        <!--                    [1+, 1-]-->
-        <!--                </svg:text>-->
-      </ng-template>
-
-      <ng-template #linkTemplate let-link>
-        <svg:g class="edge">
-          <svg:path
-            class="line"
-            stroke-width="2"
-            marker-end="url(#pointer)"
-          ></svg:path>
-          <svg:text class="edge-label" text-anchor="middle">
-            <textPath
-              class="text-path"
-              [attr.href]="'#' + link.id"
-              [style.dominant-baseline]="link.dominantBaseline"
-              startOffset="50%"
+            <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+          </svg:marker>
+        </ng-template>
+  
+        <ng-template #nodeTemplate let-node>
+          <svg:g class="node">
+            <svg:rect
+              [attr.width]="node.dimension.width"
+              [attr.height]="node.dimension.height"
+              fill="rgba(255, 255, 255, 0.3)"
+              stroke="rgba(255, 255, 255, 0.3)"
+              stroke-width="1"
+              rx="10"
+              ry="10"
+            />
+            <svg:text
+              alignment-baseline="central"
+              [attr.x]="node.dimension.width / 2"
+              [attr.y]="node.dimension.height / 2"
+              text-anchor="middle"
+              dominant-baseline="central"
               fill="rgba(255, 255, 255, 1)"
-              font-size="14"
             >
-              {{ link.label }}
-            </textPath>
-          </svg:text>
-        </svg:g>
-      </ng-template>
-    </ngx-graph>
+              {{ node.label }}
+            </svg:text>
+          </svg:g>
+        </ng-template>
+  
+        <ng-template #linkTemplate let-link>
+          <svg:g class="edge">
+            <svg:path
+              class="line"
+              stroke-width="2"
+              marker-end="url(#pointer)"
+            ></svg:path>
+            <svg:text class="edge-label" text-anchor="middle">
+              <textPath
+                class="text-path"
+                [attr.href]="'#' + link.id"
+                [style.dominant-baseline]="link.dominantBaseline"
+                startOffset="50%"
+                fill="rgba(255, 255, 255, 1)"
+                font-size="14"
+              >
+                {{ link.label }}
+              </textPath>
+            </svg:text>
+          </svg:g>
+        </ng-template>
+      </ngx-graph>
+    </div>
+  
+    <div class="graph-input w-full">
+      <div class="flex flex-column">
+        <h2>Enter your custom data</h2>
+        <p-fileUpload
+        #form
+        name="myfile[]"
+        [customUpload]="true"
+        (uploadHandler)="uploadHandler($event, form)"
+        accept=".csv"
+        ></p-fileUpload>
+      </div>
+      <form
+        #enterGraphValues
+        (submit)="submitGraphValues($event, enterGraphValues)"
+        class="lg:col-5 col-10 flex flex-column gap-2 w-full"
+      >
+        <textarea name="data" spellcheck="false"></textarea>
+        <p-button label="Submit" type="submit"></p-button>
+      </form>
+    </div>
   </div>
 
-  <div class="graph-input">
-    <form
-      #enterGraphValues
-      (submit)="submitGraphValues($event, enterGraphValues)"
-    >
-      <textarea name="data" id="id3-textarea" spellcheck="false"></textarea>
-      <button class="button" type="submit">Submit</button>
-    </form>
-  </div>
+  <p-divider></p-divider>
+
+  <!-- info section -->
 </div>

@@ -47,6 +47,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { UserSocialsModalsComponent } from './user-socials-modals/user-socials-modals.component';
 import { UserTeamViewComponent } from './user-team-view/user-team-view.component';
 import { UserTeamViewModalsComponent } from './user-team-view-modals/user-team-view-modals.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -100,6 +101,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     TooltipModule,
     MenuModule,
     MultiSelectModule,
+    FileUploadModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

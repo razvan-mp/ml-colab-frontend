@@ -13,45 +13,17 @@
   );
   background-position: 0 0;
   background-size: 2vmin 2vmin;
-  width: 75%;
-}
-
-.button {
-  padding: 5px;
-  color: white;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.buttons {
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 10px;
-  position: absolute;
-}
-
-form {
-  width: 45%;
-  height: 48vh;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: absolute;
 }
 
 .content-wrapper {
+  width: 90%;
+  padding: 1.25rem;
   display: flex;
-  flex-direction: column;
+  flex-wrap: nowrap;
   gap: 10px;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  margin: auto;
 }
 
 .node {

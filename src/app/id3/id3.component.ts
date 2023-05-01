@@ -47,6 +47,8 @@ export class Id3Component implements OnInit, OnDestroy {
     if (this.dataInLocalStorage()) {
       this.nodes = JSON.parse(localStorage.getItem('id3Nodes') as string);
       this.edges = JSON.parse(localStorage.getItem('id3Edges') as string);
+      this.center$.next(true);
+      this.zoomToFit$.next(true);
     } else {
       this.loadExampleData();
     }
@@ -90,7 +92,6 @@ export class Id3Component implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.zoomToFit$.next(true);
-          this.update$.next(true);
           this.center$.next(true);
         }, 500);
       });
@@ -99,6 +100,39 @@ export class Id3Component implements OnInit, OnDestroy {
   updateLocalStorage(): void {
     localStorage.setItem('id3Nodes', JSON.stringify(this.nodes));
     localStorage.setItem('id3Edges', JSON.stringify(this.edges));
+  }
+
+  uploadHandler($event: any, form: any): void {
+    for (const file of $event.files) {
+      this.readFile(file);
+    }
+    form.clear();
+  }
+
+  readFile(file: any): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = reader.result!.toString().replaceAll('\r', '');
+      if (!this.checkData(text)) {
+        return;
+      }
+      this.algorithmsService.updateId3Data(text).subscribe((res) => {
+        this.nodes = res['nodes'];
+        this.edges = res['edges'];
+        this.updateLocalStorage();
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Data loaded successfully. Updating graph...',
+        });
+        setTimeout(() => {
+          this.zoomToFit$.next(true);
+          this.update$.next(true);
+          this.center$.next(true);
+        }, 500);
+      });
+    };
+    reader.readAsText(file);
   }
 
   checkData(data: any): boolean {
@@ -122,7 +156,7 @@ export class Id3Component implements OnInit, OnDestroy {
     const dataArr = data.split('\n');
     const desiredLength = dataArr[0].split(',').length;
     for (let subarray of dataArr) {
-      if (subarray.split(',').length !== desiredLength) {
+      if (subarray.split(',').length !== desiredLength && subarray !== '') {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
