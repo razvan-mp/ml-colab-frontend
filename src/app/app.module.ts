@@ -48,6 +48,9 @@ import { UserSocialsModalsComponent } from './user-socials-modals/user-socials-m
 import { UserTeamViewComponent } from './user-team-view/user-team-view.component';
 import { UserTeamViewModalsComponent } from './user-team-view-modals/user-team-view-modals.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -102,6 +105,9 @@ PlotlyModule.plotlyjs = PlotlyJS;
     MenuModule,
     MultiSelectModule,
     FileUploadModule,
+    InputTextareaModule,
+    InputNumberModule,
+    DropdownModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

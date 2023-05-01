@@ -4,7 +4,7 @@
   <h1>The ID3 Algorithm</h1>
 
   <!-- graph section -->
-  <div class="flex flex-column lg:flex-row gap-4 h-30rem">
+  <div class="flex flex-column lg:flex-row gap-4 lg:h-30rem h-full">
     <div class="graph-display col-12 lg:col-7" xmlns:svg="http://www.w3.org/1999/XSL/Transform">
       <div class="flex flex-row gap-2 p-3 absolute">
         <p-button 
@@ -99,11 +99,16 @@
       </ngx-graph>
     </div>
   
+    <p-divider layout="vertical" styleClass="hidden lg:inline-block"></p-divider>
+
     <div class="graph-input w-full">
-      <div class="flex flex-column">
+      <div class="flex flex-row gap-2 align-items-center">
         <h2>Enter your custom data</h2>
         <p-fileUpload
         #form
+        mode="basic"
+        chooseLabel="or upload a CSV"
+        styleClass="p-button-rounded p-button-text"
         name="myfile[]"
         [customUpload]="true"
         (uploadHandler)="uploadHandler($event, form)"
@@ -113,9 +118,9 @@
       <form
         #enterGraphValues
         (submit)="submitGraphValues($event, enterGraphValues)"
-        class="lg:col-5 col-10 flex flex-column gap-2 w-full"
+        class="lg:col-5 col-10 flex flex-column gap-2 w-full h-full"
       >
-        <textarea name="data" spellcheck="false"></textarea>
+        <textarea pInputTextarea class="h-21rem max-w-full" name="data" spellcheck="false"></textarea>
         <p-button label="Submit" type="submit"></p-button>
       </form>
     </div>
@@ -124,4 +129,18 @@
   <p-divider></p-divider>
 
   <!-- info section -->
+  <div class="flex flex-column">
+    <h3>Description</h3>
+    <p>
+      The ID3 algorithm is a decision tree learning algorithm that uses a
+      greedy search to find the best attribute to split the data on at each
+      node. It is a top-down, recursive, divide-and-conquer algorithm. The
+      algorithm uses information gain to determine which attribute to split
+      on. The attribute with the highest information gain is chosen to split
+      the data on. The algorithm continues to split the data until all
+      instances in a node belong to the same class or there are no more
+      attributes to split on. The algorithm is guaranteed to find an optimal
+      solution.
+    </p>
+  </div>
 </div>

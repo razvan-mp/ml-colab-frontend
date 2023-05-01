@@ -19,7 +19,6 @@
   width: 90%;
   padding: 1.25rem;
   display: flex;
-  flex-wrap: nowrap;
   gap: 10px;
   flex-direction: column;
   align-self: center;
@@ -29,4 +28,9 @@
 .node {
   display: flex;
   flex-direction: column;
+}
+
+textarea {
+  font-family: 'Fira Code', monospace;
+  resize: none;
 }

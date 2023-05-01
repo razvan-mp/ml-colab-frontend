@@ -12,6 +12,39 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
   styleUrls: ['./knn.component.scss'],
 })
 export class KnnComponent implements OnInit, OnDestroy {
+  selectedWeight = 'uniform';
+  selectedMetric = 'euclidean';
+
+  weights = [
+    {
+      label: 'Uniform',
+      value: 'uniform',
+    },
+    {
+      label: 'Distance',
+      value: 'distance',
+    },
+  ]
+
+  metrics = [
+    {
+      label: 'L1 | Manhattan',
+      value: 'manhattan',
+    },
+    {
+      label: 'L2 | Euclidean',
+      value: 'euclidean',
+    },
+    {
+      label: 'L∞ | Chebyshev',
+      value: 'chebyshev',
+    },
+    {
+      label: 'Lₚ | Minkowski',
+      value: 'minkowski',
+    }
+  ];
+
   public graph = {
     data: [
       {
@@ -108,6 +141,8 @@ export class KnnComponent implements OnInit, OnDestroy {
       });
   }
 
+  uploadHandler($event: any, form: any): void {}
+
   updateGraphData(data: any) {
     this.graph.data[0].x = data.scatter_x;
     this.graph.data[0].y = data.scatter_y;
@@ -190,7 +225,7 @@ export class KnnComponent implements OnInit, OnDestroy {
     }
 
     this.algorithmsService
-      .updateKnnData(data)
+      .updateKnnData({...data, metric: this.selectedMetric, weight: this.selectedWeight})
       .pipe(
         catchError((err) => {
           this.messageService.add({
@@ -211,5 +246,13 @@ export class KnnComponent implements OnInit, OnDestroy {
         });
       });
     return;
+  }
+
+  onMetricChange($event: any): void {
+    this.selectedMetric = $event.value;
+  }
+
+  onWeightChange($event: any): void {
+    this.selectedWeight = $event.value;
   }
 }

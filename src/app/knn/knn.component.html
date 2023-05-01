@@ -1,15 +1,109 @@
 <p-toast position="bottom-left"></p-toast>
 
 <div class="content-wrapper">
-  <div class="graph-display">
-    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  <h1>The K-nn algorithm</h1>
+
+  <!-- graph section -->
+  <div class="flex flex-column xl:flex-row gap-4 xl:h-30rem h-full">
+    <div class="graph-display col-12 xl:col-7">
+      <plotly-plot
+        [useResizeHandler]="true"
+        [data]="graph.data"
+        [layout]="graph.layout"
+      ></plotly-plot>
+    </div>
+
+    <p-divider
+      layout="vertical"
+      styleClass="hidden xl:inline-block"
+    ></p-divider>
+
+    <div class="flex flex-column w-full">
+      <div class="flex flex-row gap-2 align-items-center">
+        <h2>Enter your custom data</h2>
+        <p-fileUpload
+          #form
+          mode="basic"
+          chooseLabel="or upload a CSV"
+          styleClass="p-button-rounded p-button-text"
+          name="myfile[]"
+          [customUpload]="true"
+          (uploadHandler)="uploadHandler($event, form)"
+          accept=".csv"
+        ></p-fileUpload>
+      </div>
+
+      <form
+        #kNNForm
+        (submit)="updateData($event, kNNForm)"
+        class="xl:col-5 col-10 flex flex-column gap-2 w-full h-full"
+      >
+        <div class="flex flex-row gap-2 w-full justify-content-between">
+          <span>
+            <label for="k">K</label>
+            <p-inputNumber
+              type="number"
+              placeholder="Choose k"
+              name="k"
+              inputId="k"
+              [min]="1"
+              [max]="20"
+              value="3"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              spinnerMode="horizontal"
+              decrementButtonClass="bg-red-300"
+              incrementButtonClass="bg-green-300"
+              styleClass="w-full"
+              style="width: 100%"
+            />
+          </span>
+          <span>
+            <label for="metric">Metric</label>
+            <p-dropdown
+              [options]="metrics"
+              [filter]="true"
+              [(ngModel)]="selectedMetric"
+              (onChange)="onMetricChange($event)"
+              styleClass="w-full"
+              inputId="metric"
+              style="width: 100%"
+            ></p-dropdown>
+          </span>
+          <span>
+            <label for="weight">Weight</label>
+            <p-dropdown
+              [options]="weights"
+              [(ngModel)]="selectedWeight"
+              (onChange)="onWeightChange($event)"
+              styleClass="w-full"
+              inputId="weight"
+              style="width: 100%"
+            ></p-dropdown>
+          </span>
+        </div>
+        <textarea
+          pInputTextarea
+          class="max-w-full h-16rem"
+          name="points"
+          id="hclustering-points"
+        ></textarea>
+        <p-button label="Submit" type="submit"></p-button>
+      </form>
+    </div>
   </div>
-  <div class="controls-display">
-    <form #kNNForm (submit)="updateData($event, kNNForm)">
-      <textarea name="points" id="hclustering-points"></textarea>
-      <label for="k">K</label>
-      <input type="number" name="k" id="k" min="1" max="10" value="3" />
-      <button class="button" type="submit">Submit</button>
-    </form>
+
+  <p-divider></p-divider>
+
+  <!-- info section -->
+  <div class="flex flex-column">
+    <h3>Description</h3>
+    <p>
+      The K-nn algorithm is a supervised learning algorithm that can be used for
+      both classification and regression problems. It is a non-parametric
+      algorithm, which means it does not make any assumptions about the
+      underlying data. In other words, the model structure is determined from
+      the data.
+    </p>
   </div>
 </div>

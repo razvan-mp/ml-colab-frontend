@@ -1,21 +1,22 @@
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 :host ::ng-deep {
   .p-toast {
     .p-toast-message {
       background: #9fa8da;
     }
   }
+}
+
+.content-wrapper {
+  width: 90%;
+  padding: 1.25rem;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-self: center;
+  margin: auto;
+}
+
+textarea {
+  resize: none;
+  font-family: 'Fira Code', monospace;
 }
