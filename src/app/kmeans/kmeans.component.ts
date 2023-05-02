@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 import { AppComponent } from '../app.component';
 import { AlgorithmsService } from '../services/algorithms.service';
@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-kmeans',
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './kmeans.component.html',
   styleUrls: ['./kmeans.component.scss'],
 })
@@ -27,7 +27,8 @@ export class KmeansComponent implements OnInit, OnDestroy {
 
   constructor(
     private messageService: MessageService,
-    private algorithmsService: AlgorithmsService
+    private algorithmsService: AlgorithmsService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +58,7 @@ export class KmeansComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: any) => {
         this.updateGraphData(JSON.parse(data));
+        console.log(JSON.parse(data));
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -64,6 +66,21 @@ export class KmeansComponent implements OnInit, OnDestroy {
         });
       });
     AppComponent.hidePlotly();
+  }
+
+  uploadHandler($event: any, form: any): void {
+    for (const file of $event.files) {
+      this.readFile(file);
+    }
+    form.clear();
+  }
+
+  readFile(file: any): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = reader.result!.toString().replaceAll('\r', '');
+    };
+    reader.readAsText(file);
   }
 
   updateGraphData(data: any) {
@@ -111,8 +128,29 @@ export class KmeansComponent implements OnInit, OnDestroy {
   updateData($event: SubmitEvent, kmeansInput: HTMLFormElement) {
     $event.preventDefault();
     const data = Object.fromEntries(new FormData(kmeansInput) as any) as any;
-    const centroids = data.centroids;
-    const points = data.points;
+
+    let payload: any = {points: data["points"]};
+
+    if (data["points"] === '') {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please enter points',
+      });
+      return;
+    }
+
+    if (this.customCentroids) {
+      payload["centroids"] = data["centroids"];
+      if (data["centroids"] === '') {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Please enter centroids',
+        });
+        return;
+      }
+    }
 
     this.algorithmsService
       .updateKmeansData(data)
@@ -121,7 +159,7 @@ export class KmeansComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error getting example data',
+            detail: 'Error running algorithm',
           });
           return error;
         })
@@ -188,6 +226,8 @@ export class KmeansComponent implements OnInit, OnDestroy {
   }
 
   runKmeans() {
+    let data: any = {};
+
     const points = this.graph.data
       .filter((data: any) => {
         return data.name.includes('Point');
@@ -206,10 +246,10 @@ export class KmeansComponent implements OnInit, OnDestroy {
       })
       .join('\n');
 
-    const data = {
-      centroids: centroids,
-      points: points,
-    };
+    data.points = points;
+    if (centroids.length > 0) {
+      data.centroids = centroids;
+    }
 
     this.algorithmsService
       .updateKmeansData(data)
@@ -225,11 +265,25 @@ export class KmeansComponent implements OnInit, OnDestroy {
       )
       .subscribe((data) => {
         this.updateGraphData(JSON.parse(data));
+        console.log(JSON.parse(data));
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Updated graph data',
         });
       });
+  }
+
+  showHelp(event: Event) {
+    event.preventDefault();
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message:
+        `Your data must be a newline separated list of points in the form x,y.\n
+        Your centroids must be a newline separated list of points in the form x,y.\n
+        You can also use the random buttons to generate random points and centroids.`,
+      acceptLabel: 'Ok',
+      rejectVisible: false,
+    });
   }
 }

@@ -1,62 +1,151 @@
 <p-toast position="bottom-left"></p-toast>
+<p-confirmPopup [style]="{ width: '300px', whiteSpace: 'pre-line' }">
+</p-confirmPopup>
 
-<div class="main-content">
-  <div class="graph">
-    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
-  </div>
+<div class="content-wrapper">
+  <h1>The K-Means Algorithm</h1>
 
-  <div class="options">
-    <div class="options-item">
-      <form
-        #kmeansInput
-        class="form"
-        (submit)="updateData($event, kmeansInput)"
-      >
-        <label class="p-checkbox-label">Points</label>
-        <textarea id="point-input" class="input" name="points"></textarea>
-        <div class="centroid-checkbox">
-          <input
-            type="checkbox"
-            name="centroid_option"
-            (change)="this.updateUseCentroidOption()"
-            checked
-          />
-          <label for="centroid_option">Use custom centroids</label>
-        </div>
-        <div class="centroids-label-group" *ngIf="this.customCentroids">
-          <label class="p-checkbox-label">Centroids</label>
-          <textarea
-            id="centroid-input"
-            class="input"
-            name="centroids"
-          ></textarea>
-        </div>
-        <button type="submit" class="button">Submit</button>
-      </form>
+  <!-- graph section -->
+  <div class="flex flex-column xl:flex-row gap-4 xl:h-30rem h-full">
+    <div class="graph-display xl:col-6">
+      <plotly-plot
+        [useResizeHandler]="true"
+        [data]="graph.data"
+        [layout]="graph.layout"
+      ></plotly-plot>
     </div>
 
-    <div class="random-kmeans">
-      <div class="options-item">
-        <div class="suboptions">
-          <label>Points</label>
-          <button class="button" (click)="addRandomPoints()">
-            Add random points
-          </button>
-          <button class="button" (click)="removeAllPoints()">
-            Remove all points
-          </button>
+    <p-divider
+      layout="vertical"
+      styleClass="hidden xl:inline-block"
+    ></p-divider>
+
+    <!-- controls sections -->
+    <div class="flex flex-column w-full">
+      <div
+        class="flex flex-row w-full justify-content-between align-items-center"
+      >
+        <div class="flex flex-row gap-2 align-items-center">
+          <h2>Enter your custom data</h2>
+          <p-fileUpload
+            #form
+            mode="basic"
+            chooseLabel="or upload a CSV"
+            styleClass="p-button-rounded p-button-text"
+            name="myfile[]"
+            [customUpload]="true"
+            (uploadHandler)="uploadHandler($event, form)"
+            accept=".csv"
+          ></p-fileUpload>
         </div>
-        <div class="suboptions">
-          <label>Centroids</label>
-          <button class="button" (click)="addRandomCentroids()">
-            Add random centroids
-          </button>
-          <button class="button" (click)="removeAllCentroids()">
-            Remove all centroids
-          </button>
+        <p-button
+          styleClass="p-button-text p-button-rounded"
+          icon="pi pi-info-circle"
+          (click)="showHelp($event)"
+        ></p-button>
+      </div>
+
+      <!-- controls -->
+      <div class="flex sm:flex-row flex-column gap-2 w-full h-full">
+        <div class="flex flex-row w-full">
+          <!-- form control -->
+          <form
+            #kmeansInput
+            class="flex flex-column gap-3 w-full"
+            (submit)="updateData($event, kmeansInput)"
+          >
+            <div class="flex flex-column gap-1">
+              <label class="p-checkbox-label">Points</label>
+              <textarea
+                pInputTextarea
+                id="point-input"
+                name="points"
+              ></textarea>
+            </div>
+            <div class="flex flex-row gap-1">
+              <input
+                type="checkbox"
+                name="centroid_option"
+                (change)="this.updateUseCentroidOption()"
+                checked
+              />
+              <label for="centroid_option">Use custom centroids</label>
+            </div>
+            <div class="flex flex-column gap-1" *ngIf="this.customCentroids">
+              <label class="p-checkbox-label">Centroids</label>
+              <textarea
+                pInputTextarea
+                id="centroid-input"
+                class="input"
+                name="centroids"
+              ></textarea>
+            </div>
+            <p-button type="submit" label="Submit"></p-button>
+          </form>
+        </div>
+
+        <p-divider
+          layout="vertical"
+          styleClass="hidden sm:inline-block"
+        ></p-divider>
+        <p-divider styleClass="sm:hidden"></p-divider>
+
+        <!-- playground -->
+        <div class="flex flex-column w-full">
+          <h3>Playground</h3>
+          <div class="flex flex-column gap-2">
+            <div class="flex flex-column gap-2">
+              <p-button
+                label="Add random points"
+                styleClass="w-full p-button-sm bg-green-300"
+                (click)="addRandomPoints()"
+              >
+              </p-button>
+              <p-button
+                label="Remove all points"
+                styleClass="w-full p-button-sm bg-red-300"
+                (click)="removeAllPoints()"
+              >
+              </p-button>
+            </div>
+            <div class="flex flex-column gap-2">
+              <p-button
+                label="Add random centroids"
+                styleClass="w-full p-button-sm bg-green-300"
+                (click)="addRandomCentroids()"
+              >
+              </p-button>
+              <p-button
+                label="Remove all centroids"
+                styleClass="w-full p-button-sm bg-red-300"
+                (click)="removeAllCentroids()"
+              >
+              </p-button>
+            </div>
+          </div>
+          <p-button
+            label="Run"
+            styleClass="mt-3"
+            (click)="runKmeans()"
+          ></p-button>
         </div>
       </div>
-      <button class="button" (click)="runKmeans()">Run K-Means</button>
     </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- info section -->
+  <div class="flex flex-column">
+    <h3>Description</h3>
+    <p>
+      The Hierarchical Clustering algorithm is a clustering algorithm that
+      builds a hierarchy of clusters. It begins with each point in its own
+      cluster. Then, it repeatedly merges the two closest clusters until only
+      one cluster remains. The algorithm is agglomerative, meaning that it
+      starts with the points as individual clusters and merges them together
+      until only one cluster remains. The algorithm is greedy, meaning that it
+      makes the best choice it can at each step.
+    </p>
   </div>
 </div>
