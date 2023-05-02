@@ -52,6 +52,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -110,6 +111,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     InputNumberModule,
     DropdownModule,
     ConfirmPopupModule,
+    ProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

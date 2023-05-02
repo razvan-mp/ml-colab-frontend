@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
+  isLoading: boolean = true;
   news: NewsItem[] = [];
 
   selectedButtonStyleClass: string = 'p-button-rounded bg-indigo-300';
@@ -39,6 +40,7 @@ export class NewsComponent implements OnInit {
         })
       )
       .subscribe((data: any) => {
+        this.isLoading = false;
         this.news = data;
         this.messageService.add({
           severity: 'success',

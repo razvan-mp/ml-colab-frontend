@@ -36,6 +36,16 @@
     </div>
   </div>
 
+  <div *ngIf="isLoading" class="align-self-center flex flex-column align-items-center">
+    <h3>Fetching the latest news ...</h3>
+    <p-progressSpinner
+      [style]="{ width: '50px', height: '50px' }"
+      strokeWidth="6"
+      animationDuration=".5s"
+      styleClass="custom-spinner"
+    ></p-progressSpinner>
+  </div>
+
   <div id="news-container" class="news-container">
     <div
       *ngFor="let newsItem of news"
