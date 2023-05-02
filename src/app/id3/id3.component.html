@@ -1,4 +1,6 @@
 <p-toast position="bottom-left"></p-toast>
+<p-confirmPopup [style]="{width: '300px', whiteSpace: 'pre-line'}">
+</p-confirmPopup>
 
 <div class="content-wrapper">
   <h1>The ID3 Algorithm</h1>
@@ -102,18 +104,27 @@
     <p-divider layout="vertical" styleClass="hidden lg:inline-block"></p-divider>
 
     <div class="graph-input w-full">
-      <div class="flex flex-row gap-2 align-items-center">
-        <h2>Enter your custom data</h2>
-        <p-fileUpload
-        #form
-        mode="basic"
-        chooseLabel="or upload a CSV"
-        styleClass="p-button-rounded p-button-text"
-        name="myfile[]"
-        [customUpload]="true"
-        (uploadHandler)="uploadHandler($event, form)"
-        accept=".csv"
-        ></p-fileUpload>
+      <div
+        class="flex flex-row w-full justify-content-between align-items-center"
+      >
+        <div class="flex flex-row gap-2 align-items-center">
+          <h2>Enter your custom data</h2>
+          <p-fileUpload
+            #form
+            mode="basic"
+            chooseLabel="or upload a CSV"
+            styleClass="p-button-rounded p-button-text"
+            name="myfile[]"
+            [customUpload]="true"
+            (uploadHandler)="uploadHandler($event, form)"
+            accept=".csv"
+          ></p-fileUpload>
+        </div>
+        <p-button
+          styleClass="p-button-text p-button-rounded"
+          icon="pi pi-info-circle"
+          (click)="showHelp($event)"
+        ></p-button>
       </div>
       <form
         #enterGraphValues

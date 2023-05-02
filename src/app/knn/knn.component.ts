@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
 import { AlgorithmsService } from '../services/algorithms.service';
@@ -7,13 +7,14 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 
 @Component({
   selector: 'app-knn',
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './knn.component.html',
   styleUrls: ['./knn.component.scss'],
 })
 export class KnnComponent implements OnInit, OnDestroy {
   selectedWeight = 'uniform';
   selectedMetric = 'euclidean';
+  kValue = 3;
 
   weights = [
     {
@@ -24,7 +25,7 @@ export class KnnComponent implements OnInit, OnDestroy {
       label: 'Distance',
       value: 'distance',
     },
-  ]
+  ];
 
   metrics = [
     {
@@ -42,7 +43,7 @@ export class KnnComponent implements OnInit, OnDestroy {
     {
       label: 'Lₚ | Minkowski',
       value: 'minkowski',
-    }
+    },
   ];
 
   public graph = {
@@ -102,7 +103,8 @@ export class KnnComponent implements OnInit, OnDestroy {
 
   constructor(
     private messageService: MessageService,
-    private algorithmsService: AlgorithmsService
+    private algorithmsService: AlgorithmsService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -141,7 +143,55 @@ export class KnnComponent implements OnInit, OnDestroy {
       });
   }
 
-  uploadHandler($event: any, form: any): void {}
+  uploadHandler($event: any, form: any): void {
+    for (const file of $event.files) {
+      this.readFile(file);
+    }
+    form.clear();
+  }
+
+  readFile(file: any): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = reader.result!.toString().replaceAll('\r', '');
+      if (!this.validateInput(text, this.kValue)) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Invalid input',
+        });
+        return;
+      }
+      const payload = {
+        points: text,
+        k: this.kValue,
+        weight: this.selectedWeight,
+        metric: this.selectedMetric,
+      };
+      this.algorithmsService
+        .updateKnnData(payload)
+        .pipe(
+          catchError((err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Invalid input',
+            });
+            return err;
+          })
+        )
+        .subscribe((data) => {
+          localStorage.setItem('knn', JSON.stringify(data));
+          this.updateGraphData(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Data updated',
+          });
+        });
+    };
+    reader.readAsText(file);
+  }
 
   updateGraphData(data: any) {
     this.graph.data[0].x = data.scatter_x;
@@ -206,16 +256,7 @@ export class KnnComponent implements OnInit, OnDestroy {
     $event.preventDefault();
     const data = Object.fromEntries(new FormData(kNNForm) as any);
 
-    if (!data['k']) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Please enter a value for k',
-      });
-      return;
-    }
-
-    if (!this.validateInput(data['points'], data['k'])) {
+    if (!this.validateInput(data['points'], this.kValue)) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -225,7 +266,12 @@ export class KnnComponent implements OnInit, OnDestroy {
     }
 
     this.algorithmsService
-      .updateKnnData({...data, metric: this.selectedMetric, weight: this.selectedWeight})
+      .updateKnnData({
+        ...data,
+        k: this.kValue,
+        metric: this.selectedMetric,
+        weight: this.selectedWeight,
+      })
       .pipe(
         catchError((err) => {
           this.messageService.add({
@@ -254,5 +300,18 @@ export class KnnComponent implements OnInit, OnDestroy {
 
   onWeightChange($event: any): void {
     this.selectedWeight = $event.value;
+  }
+
+  showHelp(event: Event) {
+    event.preventDefault();
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message:
+        `Your data should be a newline separated list of points. \n
+        Each point should be a comma separated list of numbers. \n 
+        The last number in each point should be the class of the point (0 or 1).`,
+      acceptLabel: 'Ok',
+      rejectVisible: false,
+    });
   }
 }

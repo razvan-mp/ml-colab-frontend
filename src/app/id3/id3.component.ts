@@ -2,20 +2,21 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as shape from 'd3-shape';
 import { Edge, Node, Layout } from '@swimlane/ngx-graph';
 import { Subject } from 'rxjs';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AlgorithmsService } from '../services/algorithms.service';
 import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-id3',
   templateUrl: './id3.component.html',
-  providers: [MessageService, AlgorithmsService],
+  providers: [MessageService, AlgorithmsService, ConfirmationService],
   styleUrls: ['./id3.component.scss'],
 })
 export class Id3Component implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
-    private algorithmsService: AlgorithmsService
+    private algorithmsService: AlgorithmsService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   nodes: Node[] = [];
@@ -206,5 +207,21 @@ export class Id3Component implements OnInit, OnDestroy {
           this.center$.next(true);
         }, 500);
       });
+  }
+
+  showHelp(event: Event) {
+    event.preventDefault();
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message:
+        `Your data should be a newline separated list of comma separated values.\n\n` + 
+        `The first line should be the names of the attributes.\n\n` +
+        `The last attribute should be the class attribute.\n\n` +
+        `The class attribute should be the last attribute in each line.\n\n` +
+        `The class attribute should be a binary attribute.\n`,
+      icon: 'pi',
+      acceptLabel: 'Ok',
+      rejectVisible: false,
+    });
   }
 }

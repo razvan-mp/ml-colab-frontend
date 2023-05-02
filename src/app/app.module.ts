@@ -51,6 +51,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -108,6 +109,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     InputTextareaModule,
     InputNumberModule,
     DropdownModule,
+    ConfirmPopupModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

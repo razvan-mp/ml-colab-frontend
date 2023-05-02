@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
 import { AlgorithmsService } from '../services/algorithms.service';
@@ -7,11 +7,84 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 
 @Component({
   selector: 'app-hclustering',
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './hclustering.component.html',
   styleUrls: ['./hclustering.component.scss'],
 })
 export class HclusteringComponent implements OnInit, OnDestroy {
+  selectedMetric = 'euclidean';
+  selectedMethod = 'single';
+
+  methods = [
+    {
+      label: 'SL | Single Linkage',
+      value: 'single',
+    },
+    {
+      label: 'CL | Complete Linkage',
+      value: 'complete',
+    },
+    {
+      label: 'AL | Average Linkage',
+      value: 'average',
+    },
+    {
+      label: 'WA | Ward',
+      value: 'ward',
+    },
+    {
+      label: 'MC | Median Centroid',
+      value: 'median',
+    },
+    {
+      label: 'CE | Centroid',
+      value: 'centroid',
+    },
+    {
+      label: 'ME | Median',
+      value: 'median',
+    },
+  ]
+
+  metrics = [
+    {
+      label: 'L1 | Manhattan',
+      value: 'cityblock',
+    },
+    {
+      label: 'L2 | Euclidean',
+      value: 'euclidean',
+    },
+    {
+      label: 'L∞ | Chebyshev',
+      value: 'chebyshev',
+    },
+    {
+      label: 'Lₚ | Minkowski',
+      value: 'minkowski',
+    },
+    {
+      label: 'Lₚ | Mahalanobis',
+      value: 'mahalanobis',
+    },
+    {
+      label: 'Lₚ | Hamming',
+      value: 'hamming',
+    },
+    {
+      label: 'Lₚ | Canberra',
+      value: 'canberra',
+    },
+    {
+      label: 'Lₚ | Braycurtis',
+      value: 'braycurtis',
+    },
+    {
+      label: 'Lₚ | Jaccard',
+      value: 'jaccard',
+    },
+  ];
+
   public graph = {
     data: [] as any,
     layout: {
@@ -37,7 +110,8 @@ export class HclusteringComponent implements OnInit, OnDestroy {
 
   constructor(
     private messageService: MessageService,
-    private algorithmsService: AlgorithmsService
+    private algorithmsService: AlgorithmsService,
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit() {
@@ -84,15 +158,47 @@ export class HclusteringComponent implements OnInit, OnDestroy {
     AppComponent.hidePlotly();
   }
 
-  updateData($event: SubmitEvent, HClusteringForm: HTMLFormElement) {
-    $event.preventDefault();
+  validateMetricMethod(): boolean {
+    if (this.selectedMethod === 'ward' && this.selectedMetric !== 'euclidean') {
+      return false;
+    }
+    if (this.selectedMethod === 'centroid' && this.selectedMetric !== 'euclidean') {
+      return false;
+    }
+    if (this.selectedMethod === 'median' && this.selectedMetric !== 'euclidean') {
+      return false;
+    }
+    return true;
+  }
 
-    const data = Object.fromEntries(
-      new FormData(HClusteringForm as any) as any
-    );
+  uploadHandler($event: any, form: any): void {
+    for (const file of $event.files) {
+      this.readFile(file);
+    }
+    form.clear();
+  }
 
-    this.algorithmsService
-      .updateHclusteringData(data)
+  readFile(file: any): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = reader.result!.toString().replaceAll('\r', '');
+      const payload = {
+        points: text,
+        method: this.selectedMethod,
+        metric: this.selectedMetric,
+      };
+
+      if (!this.validateMetricMethod()) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: `Method ${this.selectedMethod} is not compatible with metric ${this.metrics.find((metric) => metric.value === this.selectedMetric)?.label}. Use L2 | Euclidean instead.`,
+        });
+        return;
+      }
+
+      this.algorithmsService
+      .updateHclusteringData(payload)
       .pipe(
         catchError((error) => {
           this.messageService.add({
@@ -111,5 +217,51 @@ export class HclusteringComponent implements OnInit, OnDestroy {
           detail: 'Data updated successfully',
         });
       });
+    };
+    reader.readAsText(file);
+  }
+
+  updateData($event: SubmitEvent, HClusteringForm: HTMLFormElement) {
+    $event.preventDefault();
+
+    const data = Object.fromEntries(
+      new FormData(HClusteringForm as any) as any
+    );
+
+    this.algorithmsService
+      .updateHclusteringData({...data, method: this.selectedMethod, metric: this.selectedMetric})
+      .pipe(
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error updating data',
+          });
+          return error;
+        })
+      )
+      .subscribe((data) => {
+        this.updateGraphData(data);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Data updated successfully',
+        });
+      });
+  }
+
+  
+  showHelp(event: Event) {
+    event.preventDefault();
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message:
+        `Your data must be a newline separated list of points.\n
+        Each point must be a comma separated list of coordinates.\n
+        Please note that the number of coordinates must be the same for all points.\n
+        The first line will correspond to the letter A, the second to B, and so on.`,
+      acceptLabel: 'Ok',
+      rejectVisible: false,
+    });
   }
 }

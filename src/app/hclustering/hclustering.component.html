@@ -1,13 +1,107 @@
 <p-toast position="bottom-left"></p-toast>
+<p-confirmPopup [style]="{ width: '300px', whiteSpace: 'pre-line' }">
+</p-confirmPopup>
 
 <div class="content-wrapper">
-  <div class="graph-display">
-    <plotly-plot [data]="graph.data" [layout]="graph.layout"></plotly-plot>
+  <h1>The Hierarchical Clustering Algorithm</h1>
+
+  <!-- graph section -->
+  <div class="flex flex-column xl:flex-row gap-4 xl:h-30rem h-full">
+    <div class="graph-display xl:col-7">
+      <plotly-plot
+        [useResizeHandler]="true"
+        [data]="graph.data"
+        [layout]="graph.layout"
+      ></plotly-plot>
+    </div>
+
+    <p-divider
+      layout="vertical"
+      styleClass="hidden xl:inline-block"
+    ></p-divider>
+
+    <!-- controls section -->
+    <div class="flex flex-column w-full">
+      <div
+        class="flex flex-row w-full justify-content-between align-items-center"
+      >
+        <div class="flex flex-row gap-2 align-items-center">
+          <h2>Enter your custom data</h2>
+          <p-fileUpload
+            #form
+            mode="basic"
+            chooseLabel="or upload a CSV"
+            styleClass="p-button-rounded p-button-text"
+            name="myfile[]"
+            [customUpload]="true"
+            (uploadHandler)="uploadHandler($event, form)"
+            accept=".csv"
+          ></p-fileUpload>
+        </div>
+        <p-button
+          styleClass="p-button-text p-button-rounded"
+          icon="pi pi-info-circle"
+          (click)="showHelp($event)"
+        ></p-button>
+      </div>
+
+      <form
+        #HClusteringForm
+        (submit)="updateData($event, HClusteringForm)"
+        class="xl:col-5 flex flex-column gap-2 w-full h-full"
+      >
+        <div class="flex flex-row gap-2 align-items-center justify-content-between">
+          <span class="w-full">
+            <label for="metric">Metric</label>
+            <p-dropdown
+              inputId="metric"
+              [options]="metrics"
+              [(ngModel)]="selectedMetric"
+              [filter]="true"
+              filterBy="label"
+              name="metric"
+              placeholder="Select a metric"
+              styleClass="w-full"
+            ></p-dropdown>
+          </span>
+          <span class="w-full">
+            <label for="method">Method</label>
+            <p-dropdown
+              inputId="method"
+              [options]="methods"
+              [(ngModel)]="selectedMethod"
+              [filter]="true"
+              filterBy="label"
+              name="method"
+              placeholder="Select a method"
+              styleClass="w-full"
+            ></p-dropdown>
+          </span>
+        </div>
+        <textarea
+          pInputTextarea
+          name="points"
+          id="hclustering-points"
+          class="h-16rem max-w-full"
+        ></textarea>
+        <p-button label="Submit" type="submit"></p-button>
+      </form>
+    </div>
   </div>
-  <div class="controls-display">
-    <form #HClusteringForm (submit)="updateData($event, HClusteringForm)">
-      <textarea name="points" id="hclustering-points"></textarea>
-      <button class="button" type="submit">Submit</button>
-    </form>
+
+  <p-divider></p-divider>
+
+  <!-- info section -->
+  <div class="flex flex-column">
+    <h3>Description</h3>
+    <p>
+      The Hierarchical Clustering algorithm is a clustering algorithm that
+      builds a hierarchy of clusters. It begins with each point in its own
+      cluster. Then, it repeatedly merges the two closest clusters until only
+      one cluster remains. The algorithm is agglomerative, meaning that it
+      starts with the points as individual clusters and merges them together
+      until only one cluster remains. The algorithm is greedy, meaning that it
+      makes the best choice it can at each step.
+    </p>
   </div>
 </div>
