@@ -78,7 +78,50 @@ export class KmeansComponent implements OnInit, OnDestroy {
   readFile(file: any): void {
     const reader = new FileReader();
     reader.onload = (e) => {
-      const text = reader.result!.toString().replaceAll('\r', '');
+      let text: any = reader.result!.toString().replaceAll('\r', '');
+
+      let centroids = '';
+      let points = '';
+
+      if (text.includes(';')) {
+        text = text.split(';');
+        centroids = text[0];
+        points = text[1];
+      } else {
+        points = text;
+      }
+
+      let payload: any = {points: points};
+
+      if (centroids !== '') {
+        centroids = centroids.replace(/\n$/, '');
+        payload["centroids"] = centroids;
+      } else {
+        payload["options"] = "random";
+      }
+
+      console.log(payload);
+
+      this.algorithmsService
+        .updateKmeansData(payload)
+        .pipe(
+          catchError((error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error running algorithm',
+            });
+            return error;
+          })
+        )
+        .subscribe((data) => {
+          this.updateGraphData(JSON.parse(data));
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Example data loaded',
+          });
+        });
     };
     reader.readAsText(file);
   }
@@ -281,7 +324,8 @@ export class KmeansComponent implements OnInit, OnDestroy {
       message:
         `Your data must be a newline separated list of points in the form x,y.\n
         Your centroids must be a newline separated list of points in the form x,y.\n
-        You can also use the random buttons to generate random points and centroids.`,
+        You can also use the random buttons to generate random points and centroids.\n
+        Your CSV must have the centroids first (if used), a ; character, and then the points.`,
       acceptLabel: 'Ok',
       rejectVisible: false,
     });
