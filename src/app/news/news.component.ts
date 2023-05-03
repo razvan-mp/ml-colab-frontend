@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { NewsService } from '../services/news.service';
 import { NewsItem } from '../models/NewsItem';
 import { catchError } from 'rxjs/operators';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-news',
@@ -11,8 +12,12 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
+  @ViewChild('p1', { static: false }) firstPaginator: Paginator | undefined;
+  @ViewChild('p2', { static: false }) secondPaginator: Paginator | undefined;
+
   isLoading: boolean = true;
   news: NewsItem[] = [];
+  newsChunk: NewsItem[] = [];
 
   selectedButtonStyleClass: string = 'p-button-rounded bg-indigo-300';
   unselectedButtonStyleClass: string = 'p-button-rounded';
@@ -48,9 +53,13 @@ export class NewsComponent implements OnInit {
           detail: 'News fetched successfully',
         });
         const newsSort = localStorage.getItem('newsSort');
-        this.sortNewsBy(newsSort ? newsSort : 'newest');
+        this.sortNewsBy(
+          newsSort ? newsSort : 'newest',
+          document.createEvent('Event')
+        );
         const newsView = localStorage.getItem('newsView');
         this.changeViewTo(newsView ? newsView : 'list');
+        this.newsChunk = this.news.slice(0, 10);
       });
   }
 
@@ -58,7 +67,7 @@ export class NewsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  sortNewsBy(criteria: string): void {
+  sortNewsBy(criteria: string, $event: Event): void {
     if (criteria === 'newest') {
       this.news.sort((a, b) => {
         return b.id! - a.id!;
@@ -73,6 +82,8 @@ export class NewsComponent implements OnInit {
       this.oldestButton = this.selectedButtonStyleClass;
     }
     localStorage.setItem('newsSort', criteria);
+    this.firstPaginator?.changePageToNext($event);
+    this.firstPaginator?.changePageToPrev($event);
   }
 
   changeViewTo(name: string): void {
@@ -89,5 +100,14 @@ export class NewsComponent implements OnInit {
       this.listButton = this.selectedButtonStyleClass;
     }
     localStorage.setItem('newsView', name);
+  }
+
+  paginate($event: any, paginator: number): void {
+    this.newsChunk = this.news.slice($event.first, $event.first + $event.rows);
+    if (paginator == 1) {
+      this.secondPaginator?.changePage($event.page);
+    } else {
+      this.firstPaginator?.changePage($event.page);
+    }
   }
 }

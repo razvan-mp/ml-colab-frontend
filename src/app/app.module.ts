@@ -53,6 +53,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PaginatorModule } from 'primeng/paginator';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -112,6 +113,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     DropdownModule,
     ConfirmPopupModule,
     ProgressSpinnerModule,
+    PaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
