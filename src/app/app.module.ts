@@ -54,6 +54,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -80,6 +81,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserSocialsModalsComponent,
     UserTeamViewComponent,
     UserTeamViewModalsComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,7 @@
       <p-button
         icon="pi pi-cog"
         styleClass="p-button-rounded p-button-text"
+        (onClick)="displayUserSettingsModal()"
       ></p-button>
     </div>
   </ng-template>
@@ -71,4 +72,4 @@
 <app-user-socials-modals *ngIf="display === 2"></app-user-socials-modals>
 <app-user-teams-modals *ngIf="display === 1"></app-user-teams-modals>
 <app-user-team-view-modals *ngIf="display === 3"></app-user-team-view-modals>
-
+<app-user-settings></app-user-settings>

@@ -128,4 +128,9 @@ export class SidebarComponent implements OnInit {
         }
       });
   }
+
+  displayUserSettingsModal() {
+    this.state.displaySidebar = false;
+    this.state.displayUserSettingsModal = true;
+  }
 }

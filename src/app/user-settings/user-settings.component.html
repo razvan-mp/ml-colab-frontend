@@ -1,0 +1,169 @@
+<p-toast position="bottom-left"></p-toast>
+
+<!-- team management modal -->
+<p-dialog
+  [visible]="displayUserSettingsModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [dismissableMask]="true"
+  (onHide)="hideUserSettingsModal()"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column w-full">
+      <h2 class="modal-title" id="modal-title">Hi, {{ fetchUsername() }}!</h2>
+      <p-divider></p-divider>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="flex lg:flex-row flex-column w-full">
+      <div class="flex lg:flex-column flex-row gap-1 lg:col-2 col-12">
+        <p-button
+          icon="pi pi-user"
+          styleClass="p-button-text w-full"
+          label="Edit Account Details"
+          (onClick)="setDisplayItem(0)"
+        ></p-button>
+        <p-button
+          icon="pi pi-lock"
+          styleClass="p-button-text w-full"
+          label="Modify Password"
+          (onClick)="setDisplayItem(1)"
+        ></p-button>
+        <p-button
+          icon="pi pi-trash"
+          styleClass="p-button-text w-full"
+          label="Delete Account"
+          (onClick)="setDisplayItem(2)"
+        ></p-button>
+      </div>
+      <p-divider
+        layout="vertical"
+        styleClass="hidden lg:inline-block"
+      ></p-divider>
+      <!-- change username -->
+      <div *ngIf="displayItem === 0" class="team-details w-full">
+        <h3>
+          Write your new username below, alongside your password and hit 'Save'.
+        </h3>
+        <p>Don't worry, all your teams and notes will come with you.</p>
+        <form
+          #changeUsernameForm
+          (submit)="changeUsername($event, changeUsernameForm)"
+          class="flex flex-column gap-2"
+        >
+          <p-divider></p-divider>
+          <input
+            pInputText
+            name="new_username"
+            spellcheck="false"
+            placeholder="New username"
+          />
+          <input
+            pInputText
+            name="password"
+            type="password"
+            spellcheck="false"
+            placeholder="Password"
+          />
+          <div class="flex flex-row gap-2">
+            <p-button
+              label="Save"
+              styleClass="bg-green-400"
+              type="submit"
+            ></p-button>
+          </div>
+        </form>
+      </div>
+      <!-- change password -->
+      <div *ngIf="displayItem === 1" class="team-details w-full">
+        <h3>
+          Write your old password below, alongside your new password and hit
+          'Save'.
+        </h3>
+        <p>Just make sure you don't forget your new password.</p>
+        <form
+          #changePasswordForm
+          (submit)="changePassword($event, changePasswordForm)"
+          class="flex flex-column gap-2"
+        >
+          <p-divider></p-divider>
+          <input
+            id="old_password"
+            pInputText
+            name="old_password"
+            type="password"
+            spellcheck="false"
+            placeholder="Old password"
+          />
+          <input
+            pInputText
+            name="new_password"
+            type="password"
+            spellcheck="false"
+            placeholder="New password"
+          />
+          <input
+            pInputText
+            name="new_password_confirm"
+            type="password"
+            spellcheck="false"
+            placeholder="Confirm new password"
+          />
+          <div class="flex flex-row gap-2">
+            <p-button
+              label="Save"
+              styleClass="bg-green-400"
+              type="submit"
+            ></p-button>
+          </div>
+        </form>
+      </div>
+      <!-- delete user -->
+      <div *ngIf="displayItem === 2" class="team-details w-full">
+        <h3 class="text-red-500">
+          Please make sure you are absolutely sure you want to delete your account.
+        </h3>
+        <p class="text-red-500">No data can be recovered and all your notes and teams will be lost.</p>
+        <form
+          #deleteAccountForm
+          (submit)="deleteAccount($event, deleteAccountForm)"
+          class="flex flex-column gap-2"
+        >
+          <p-divider></p-divider>
+          <input
+            pInputText
+            name="password"
+            type="password"
+            spellcheck="false"
+            placeholder="Password"
+          />
+          <div class="flex flex-row gap-2">
+            <p-button
+              label="Delete"
+              styleClass="bg-red-500"
+              type="submit"
+            ></p-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div class="button-pair justify-content-end">
+      <div>
+        <button
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideUserSettingsModal()"
+          label="Exit"
+        ></button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
