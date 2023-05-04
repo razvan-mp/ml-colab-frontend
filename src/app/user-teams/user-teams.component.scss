@@ -16,7 +16,7 @@
 }
 
 .team {
-  background: #313131;
+  background: #fff;
   width: 350px;
   height: auto;
   display: flex;
@@ -39,9 +39,9 @@
   transition: opacity 200ms, transform 200ms ease-in-out;
   background: linear-gradient(
     -90deg,
-    rgba(49, 49, 49, 1) 0%,
-    rgba(49, 49, 49, 1) 80%,
-    rgba(49, 49, 49, 0) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 80%,
+    rgba(255, 255, 255, 0) 100%
   );
   transform: translateX(100%);
 }
@@ -55,7 +55,7 @@
   flex-direction: row;
   align-items: center;
   border-radius: 50px;
-  background-color: #404040;
+  background-color: #fff;
   padding-left: 15px;
   width: max-content;
 }

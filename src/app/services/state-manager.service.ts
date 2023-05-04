@@ -11,7 +11,7 @@ import { Friend } from '../models/Friend';
 export class StateManagerService {
   public displaySidebar: boolean = false;
   public displayAuthModal: boolean = false;
-  public displayUserSettingsModal: boolean = true;
+  public displayUserSettingsModal: boolean = false;
   public display: number = 0;
 
   public displayCreateNoteModal: boolean = false;

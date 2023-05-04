@@ -1,97 +1,118 @@
 <p-toast position="bottom-left"></p-toast>
 
-<div class="wrapper">
-  <section id="hero-section">
-    <div class="hero-grid">
-      <div class="hero-body">
-        <div class="app-title align-self-start">
-          <span id="ml">ML</span><span id="colab">Colab</span>
-        </div>
-
-        <ngx-typed-js
-          class="align-self-start"
-          [strings]="[
-            ' share their work.',
-            ' learn about algorithms.',
-            ' find answers together.'
-          ]"
-          [loop]="true"
-          [typeSpeed]="40"
-          [backDelay]="500"
-          [showCursor]="false"
-          [backSpeed]="50"
-        >
-          <div class="app-subtitle align-self-start">
-            ML Colab is a platform for machine learning enthusiasts to
-            collaborate and <span class="typing"></span>
-          </div>
-        </ngx-typed-js>
-      </div>
-
-      <div class="hero-image">
-        <img
-          width="1440"
-          height="950"
-          src="../../assets/images/homepage_anim.gif"
-          muted
-          autoplay
-          loop
-          playsinline
-          webkit-playsinline
-          alt="Animation"
-          class="hero-anim"
-        />
-      </div>
-    </div>
-
-    <div class="separator-link">
-      <div class="separator"></div>
-      <div
-        class="link-button pi pi-chevron-down"
-        (click)="scroll('detail-section')"
-      ></div>
-    </div>
-  </section>
-
-  <section id="detail-section">
-    <div class="news-container">
-      <p
-        class="carousel-title cursor-pointer"
-        routerLink="/news"
-        routerLinkActive="active"
-      >
-        Latest News from the ML Community
-      </p>
-      <div class="carousel-container">
-        <p-carousel
-          [value]="newsItems"
-          [numVisible]="1"
-          [numScroll]="1"
-          [circular]="true"
-          [responsiveOptions]="responsiveOptions"
-          [autoplayInterval]="5000"
-        >
-          <ng-template let-newsItem pTemplate="item">
-            <div
-              class="card"
-              [ngStyle]="{
-                backgroundImage:
-                  'linear-gradient(rgba(9, 9, 9, 0), rgba(9, 9, 9, 1)),url(' +
-                  newsItem.image +
-                  ')'
-              }"
-              (click)="openLink(newsItem.hyperlink)"
-            >
-              <div class="source">
-                <span class="source-name">{{ newsItem.source }}</span>
-              </div>
-              <div class="title">
-                {{ newsItem.title }}
-              </div>
-            </div>
-          </ng-template>
-        </p-carousel>
-      </div>
-    </div>
-  </section>
+<div class="site__circles">
+  <div class="site__circle">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+      <circle
+        vector-effect="non-scaling-stroke"
+        cx="50"
+        cy="50"
+        r="50"
+        stroke-dasharray="0 22.43994752564138"
+        stroke-linecap="round"
+        stroke-width="2"
+        stroke="#e87fd8"
+      ></circle>
+    </svg>
+  </div>
+  <div class="site__circle">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+      <circle
+        vector-effect="non-scaling-stroke"
+        cx="50"
+        cy="50"
+        r="50"
+        stroke-dasharray="0 20.943951023931955"
+        stroke-linecap="round"
+        stroke-width="2"
+        stroke="#e87fd8"
+      ></circle>
+    </svg>
+  </div>
+  <div class="site__circle">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+      <circle
+        vector-effect="non-scaling-stroke"
+        cx="50"
+        cy="50"
+        r="50"
+        stroke-dasharray="0 19.634954084936208"
+        stroke-linecap="round"
+        stroke-width="2"
+        stroke="#e87fd8"
+      ></circle>
+    </svg>
+  </div>
 </div>
+
+<section id="hero-section">
+  <div id="hero-content" class="w-full flex flex-column align-items-center">
+    <h1 class="hero-title">ML</h1>
+    <img
+      width="1440"
+      height="950"
+      src="../../assets/images/homepage_anim.gif"
+      muted
+      autoplay
+      loop
+      playsinline
+      webkit-playsinline
+      alt="Animation"
+      class="hero-image"
+    />
+    <h2 class="hero-subtitle">Colab</h2>
+  </div>
+
+  <div class="w-full align-self-center relative flex justify-content-center">
+    <p-button
+      styleClass="p-button-text p-button-rounded"
+      icon="pi pi-chevron-down"
+      (click)="scroll('detail-section')"
+    ></p-button>
+  </div>
+</section>
+
+<section id="detail-section">
+  <!-- news container -->
+  <div class="news-container">
+    <p
+      class="carousel-title cursor-pointer"
+      routerLink="/news"
+      routerLinkActive="active"
+    >
+      Latest News from the ML Community
+    </p>
+    <div class="carousel-container">
+      <p-carousel
+        [value]="newsItems"
+        [numVisible]="1"
+        [numScroll]="1"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [autoplayInterval]="5000"
+      >
+        <ng-template let-newsItem pTemplate="item">
+          <div
+            class="card"
+            [ngStyle]="{
+              backgroundImage:
+                'linear-gradient(rgba(9, 9, 9, 0), rgba(9, 9, 9, 1)),url(' +
+                newsItem.image +
+                ')'
+            }"
+            (click)="openLink(newsItem.hyperlink)"
+          >
+            <div class="source">
+              <span class="source-name">{{ newsItem.source }}</span>
+            </div>
+            <div class="title">
+              {{ newsItem.title }}
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+
+  <!-- about container -->
+</section>

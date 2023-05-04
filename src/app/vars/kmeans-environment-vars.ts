@@ -5,7 +5,7 @@ export class KmeansEnvironmentVars {
         {
           marker: {
             line: {
-              color: 'rgb(17,17,17)',
+              color: 'rgb(255,255,255)',
               width: 0.5,
             },
             pattern: {
@@ -27,7 +27,7 @@ export class KmeansEnvironmentVars {
           },
           marker: {
             line: {
-              color: 'rgb(17,17,17)',
+              color: 'rgb(255,255,255)',
               width: 0.5,
             },
             pattern: {
@@ -350,7 +350,7 @@ export class KmeansEnvironmentVars {
               color: '#506784',
             },
             line: {
-              color: 'rgb(17,17,17)',
+              color: 'rgb(255,255,255)',
             },
           },
           header: {
@@ -358,7 +358,7 @@ export class KmeansEnvironmentVars {
               color: '#2a3f5f',
             },
             line: {
-              color: 'rgb(17,17,17)',
+              color: 'rgb(255,255,255)',
             },
           },
           type: 'table',
@@ -430,12 +430,12 @@ export class KmeansEnvironmentVars {
         '#FECB52',
       ],
       font: {
-        color: '#f2f5fa',
+        color: '#000',
       },
       geo: {
-        bgcolor: 'rgb(17,17,17)',
-        lakecolor: 'rgb(17,17,17)',
-        landcolor: 'rgb(17,17,17)',
+        bgcolor: 'rgb(255,255,255)',
+        lakecolor: 'rgb(255,255,255)',
+        landcolor: 'rgb(255,255,255)',
         showlakes: true,
         showland: true,
         subunitcolor: '#506784',
@@ -447,15 +447,15 @@ export class KmeansEnvironmentVars {
       mapbox: {
         style: 'dark',
       },
-      paper_bgcolor: 'rgba(17,17,17,0.2)',
-      plot_bgcolor: 'rgba(17,17,17,0)',
+      paper_bgcolor: 'rgba(255,255,255,0.2)',
+      plot_bgcolor: 'rgba(255,255,255,0)',
       polar: {
         angularaxis: {
           gridcolor: '#506784',
           linecolor: '#506784',
           ticks: '',
         },
-        bgcolor: 'rgb(17,17,17)',
+        bgcolor: 'rgb(255,255,255)',
         radialaxis: {
           gridcolor: '#506784',
           linecolor: '#506784',
@@ -464,7 +464,7 @@ export class KmeansEnvironmentVars {
       },
       scene: {
         xaxis: {
-          backgroundcolor: 'rgb(17,17,17)',
+          backgroundcolor: 'rgb(255,255,255)',
           gridcolor: '#506784',
           gridwidth: 2,
           linecolor: '#506784',
@@ -473,7 +473,7 @@ export class KmeansEnvironmentVars {
           zerolinecolor: '#C8D4E3',
         },
         yaxis: {
-          backgroundcolor: 'rgb(17,17,17)',
+          backgroundcolor: 'rgb(255,255,255)',
           gridcolor: '#506784',
           gridwidth: 2,
           linecolor: '#506784',
@@ -482,7 +482,7 @@ export class KmeansEnvironmentVars {
           zerolinecolor: '#C8D4E3',
         },
         zaxis: {
-          backgroundcolor: 'rgb(17,17,17)',
+          backgroundcolor: 'rgb(255,255,255)',
           gridcolor: '#506784',
           gridwidth: 2,
           linecolor: '#506784',
@@ -498,7 +498,7 @@ export class KmeansEnvironmentVars {
       },
       sliderdefaults: {
         bgcolor: '#C8D4E3',
-        bordercolor: 'rgb(17,17,17)',
+        bordercolor: 'rgb(255,255,255)',
         borderwidth: 1,
         tickwidth: 0,
       },
@@ -513,7 +513,7 @@ export class KmeansEnvironmentVars {
           linecolor: '#506784',
           ticks: '',
         },
-        bgcolor: 'rgb(17,17,17)',
+        bgcolor: 'rgb(255,255,255)',
         caxis: {
           gridcolor: '#506784',
           linecolor: '#506784',
@@ -554,9 +554,6 @@ export class KmeansEnvironmentVars {
   static colors = [
     'aliceblue',
     'aqua',
-    'azure',
-    'beige',
-    'blanchedalmond',
     'blue',
     'blueviolet',
     'brown',

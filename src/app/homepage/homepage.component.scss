@@ -20,22 +20,6 @@
   }
 }
 
-.flex-gap-1 {
-  gap: 1rem;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
 .carousel-container {
   width: 600px;
 }
@@ -65,6 +49,7 @@
 }
 
 .card {
+  color: white;
   padding: 1rem;
   margin: 1rem;
   border-radius: 1rem;
@@ -77,36 +62,6 @@
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-}
-
-.app-title {
-  font-size: 7rem;
-  font-weight: 600;
-}
-
-#ml {
-  font-weight: 900;
-  color: #8900ac;
-}
-
-.hero-anim {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 7fr 4fr;
-  grid-column-gap: 1.875rem;
-  padding: 6rem;
-}
-
-.hero-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .link-button {
@@ -144,17 +99,6 @@
   box-shadow: inset 0 10px 10px #090909;
 }
 
-.app-subtitle {
-  font-size: 1.5rem;
-  margin-top: -1.5rem;
-  margin-left: 0;
-}
-
-.typing {
-  color: #8900ac;
-  font-weight: 600;
-}
-
 .news-container {
   margin-top: 80px;
 }
@@ -184,15 +128,74 @@
   height: 100vh;
 }
 
-@media (max-width: 1023px) {
-  .hero-grid {
-    grid-template-columns: 7fr 3fr;
-  }
+#hero-content {
+  height: 80%;
+  max-height: 80%;
 }
 
-@media (max-width: 767px) {
-  .hero-grid {
-    grid-template-columns: repeat(1, 1fr);
-    grid-row-gap: 2.5rem;
+.hero-image {
+  object-fit: contain;
+  max-height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.max-height-90 {
+  max-height: 90%;
+}
+
+.hero-title {
+  font-family: "Rubik", sans-serif;
+  position: absolute;
+  top: 15%;
+  font-size: 15vh;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  font-family: "Rubik", sans-serif;
+  position: absolute;
+  bottom: 27.5%;
+  font-size: 5vh;
+  font-weight: 600;
+}
+
+.site__circles {
+  height: 100svh;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90svw;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.site__circle {
+  animation: spin 120s linear infinite;
+  aspect-ratio: 1/1;
+  height: 85%;
+  left: 50%;
+  opacity: 0.9;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.site__circle:nth-child(2) {
+  animation-direction: reverse;
+  height: 110%;
+  opacity: 0.7;
+}
+
+.site__circle:nth-child(3) {
+  height: 150%;
+  opacity: 0.6;
+}
+
+@keyframes spin {
+  100% {
+    transform: translate(-50%, -50%) rotate(1turn);
   }
 }
