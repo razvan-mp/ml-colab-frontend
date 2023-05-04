@@ -55,6 +55,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { AnimateModule } from 'primeng/animate';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -116,6 +117,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     ConfirmPopupModule,
     ProgressSpinnerModule,
     PaginatorModule,
+    AnimateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
