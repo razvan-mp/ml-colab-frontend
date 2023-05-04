@@ -16,7 +16,7 @@
   <div class="flex flex-column">
     <p class="font-semibold text-lg pb-0 mb-0">Team description</p>
     <p *ngIf="selectedTeamDescription !== ''">{{ selectedTeamDescription }}</p>
-    <p *ngIf="selectedTeamDescription === ''" class="font-italic text-gray-200">
+    <p *ngIf="selectedTeamDescription === ''" class="font-italic text-gray-800">
       No description provided.
     </p>
   </div>
@@ -37,7 +37,7 @@
       ></p-button>
     </div>
     <div *ngIf="selectedTeamNotes.length === 0">
-      <p class="font-italic text-gray-200">No team notes yet</p>
+      <p class="font-italic text-gray-800">No team notes yet</p>
     </div>
     <div *ngIf="selectedTeamNotes.length !== 0" class="note-grid">
       <div *ngFor="let note of selectedTeamNotes" id="note-{{ note.id }}" class="note relative">
@@ -70,7 +70,7 @@
         <p-divider></p-divider>
         <p class="p-0 m-0 note-desc">{{ trimContent(note.content) }}</p>
         <div *ngIf="note.page !== ''" class="note-page bottom-0 absolute mb-3">
-          <p class="p-0 m-0 font-italic text-gray-400">
+          <p class="p-0 m-0 font-italic text-gray-800">
             will redirect to /{{ note.page }}
           </p>
         </div>
@@ -83,7 +83,7 @@
   <!-- team members -->
   <div class="flex flex-column gap-2">
     <p class="font-semibold text-lg pb-0 mb-0">Team members</p>
-    <p *ngIf="selectedTeamUsers.length === 0" class="font-italic text-gray-200">
+    <p *ngIf="selectedTeamUsers.length === 0" class="font-italic text-gray-800">
       No users in team.
     </p>
     <div class="flex flex-column gap-2" *ngIf="selectedTeamUsers.length !== 0">

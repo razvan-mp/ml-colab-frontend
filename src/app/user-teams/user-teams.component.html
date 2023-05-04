@@ -19,14 +19,14 @@
             <p class="font-semibold pb-0 mb-0">{{ team.name }}</p>
             <p
               *ngIf="team.admin !== fetchUsername()"
-              class="text-gray-200 pb-0 mb-0"
+              class="text-gray-800 pb-0 mb-0"
             >
               Admin: {{ team.admin }}
             </p>
           </div>
           <p-divider></p-divider>
           <p *ngIf="team.description !== ''">{{ team.description }}</p>
-          <p *ngIf="team.description === ''" class="font-italic text-gray-300">
+          <p *ngIf="team.description === ''" class="font-italic text-gray-800">
             No description provided.
           </p>
         </div>
@@ -40,7 +40,7 @@
               <p>{{ user.username }}</p>
               <p-button
                 icon="pi pi-user-plus"
-                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-black-alpha-20"
                 pTooltip="Add Friend"
                 tooltipPosition="bottom"
                 (click)="sendRequest(user.username)"
@@ -58,7 +58,7 @@
               <p>{{ user.username }}</p>
               <p-button
                 icon="pi pi-times"
-                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-white-alpha-20"
+                styleClass="p-button-text p-button-rounded p-button-sm hover:bg-black-alpha-20"
                 pTooltip="Cancel Request"
                 tooltipPosition="bottom"
                 (click)="cancelRequest(user.username)"
@@ -125,7 +125,7 @@
           </div>
           <p-divider></p-divider>
           <p *ngIf="team.description != ''">{{ team.description }}</p>
-          <p *ngIf="team.description == null" class="font-italic text-gray-300">
+          <p *ngIf="team.description == null" class="font-italic text-gray-800">
             No description provided.
           </p>
         </div>

@@ -1,20 +1,11 @@
-:host ::ng-deep {
-  .p-toast {
-    opacity: 1;
-    .p-toast-message {
-      background: #9fa8da;
-    }
-  }
-}
-
 .user-may-know {
   border-radius: 10px;
-  background-color: #404040;
+  background-color: #fff;
 }
 
 .friend-request {
   width: 100%;
-  background: #404040;
+  background: #fff;
   border-radius: 50px;
 }
 
@@ -29,7 +20,7 @@
 
 .sent-request {
   width: 100%;
-  background: #404040;
+  background: #fff;
   border-radius: 50px;
   justify-content: space-between;
   align-items: center;

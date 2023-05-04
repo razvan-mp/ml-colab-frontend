@@ -1,5 +1,5 @@
 <p-toast position="bottom-left"></p-toast>
-<p-confirmPopup [style]="{width: '300px', whiteSpace: 'pre-line'}">
+<p-confirmPopup [style]="{ width: '300px', whiteSpace: 'pre-line' }">
 </p-confirmPopup>
 
 <div class="content-wrapper">
@@ -7,15 +7,20 @@
 
   <!-- graph section -->
   <div class="flex flex-column lg:flex-row gap-4 lg:h-30rem h-full">
-    <div class="graph-display col-12 lg:col-6" xmlns:svg="http://www.w3.org/1999/XSL/Transform">
+    <div
+      class="graph-display col-12 lg:col-6"
+      xmlns:svg="http://www.w3.org/1999/XSL/Transform"
+    >
       <div class="flex flex-row gap-2 p-3 absolute">
-        <p-button 
-         (click)="center$.next(true)"
-         label="Center"
+        <p-button
+          (click)="center$.next(true)"
+          label="Center"
+          styleClass="bg-indigo-300"
         ></p-button>
-        <p-button  
+        <p-button
           (click)="zoomToFit$.next(true)"
           label="Zoom to fit"
+          styleClass="bg-indigo-300"
         ></p-button>
       </div>
       <ngx-graph
@@ -47,19 +52,19 @@
             markerWidth="4"
             markerHeight="4"
             orient="auto"
-            fill="rgba(255, 255, 255, 1)"
+            fill="rgba(0, 0, 0, 1)"
           >
             <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
           </svg:marker>
         </ng-template>
-  
+
         <ng-template #nodeTemplate let-node>
           <svg:g class="node">
             <svg:rect
               [attr.width]="node.dimension.width"
               [attr.height]="node.dimension.height"
-              fill="rgba(255, 255, 255, 0.3)"
-              stroke="rgba(255, 255, 255, 0.3)"
+              fill="rgba(0, 0, 0, 0.3)"
+              stroke="rgba(0, 0, 0, 0.3)"
               stroke-width="1"
               rx="10"
               ry="10"
@@ -76,7 +81,7 @@
             </svg:text>
           </svg:g>
         </ng-template>
-  
+
         <ng-template #linkTemplate let-link>
           <svg:g class="edge">
             <svg:path
@@ -90,7 +95,7 @@
                 [attr.href]="'#' + link.id"
                 [style.dominant-baseline]="link.dominantBaseline"
                 startOffset="50%"
-                fill="rgba(255, 255, 255, 1)"
+                fill="rgba(0, 0, 0, 1)"
                 font-size="14"
               >
                 {{ link.label }}
@@ -100,8 +105,11 @@
         </ng-template>
       </ngx-graph>
     </div>
-  
-    <p-divider layout="vertical" styleClass="hidden lg:inline-block"></p-divider>
+
+    <p-divider
+      layout="vertical"
+      styleClass="hidden lg:inline-block"
+    ></p-divider>
 
     <div class="graph-input w-full">
       <div
@@ -131,8 +139,17 @@
         (submit)="submitGraphValues($event, enterGraphValues)"
         class="lg:col-5 col-10 flex flex-column gap-2 w-full h-full"
       >
-        <textarea pInputTextarea class="h-21rem max-w-full" name="data" spellcheck="false"></textarea>
-        <p-button label="Submit" type="submit"></p-button>
+        <textarea
+          pInputTextarea
+          class="h-21rem max-w-full"
+          name="data"
+          spellcheck="false"
+        ></textarea>
+        <p-button
+          label="Submit"
+          styleClass="bg-indigo-300"
+          type="submit"
+        ></p-button>
       </form>
     </div>
   </div>
@@ -143,15 +160,14 @@
   <div class="flex flex-column">
     <h3>Description</h3>
     <p>
-      The ID3 algorithm is a decision tree learning algorithm that uses a
-      greedy search to find the best attribute to split the data on at each
-      node. It is a top-down, recursive, divide-and-conquer algorithm. The
-      algorithm uses information gain to determine which attribute to split
-      on. The attribute with the highest information gain is chosen to split
-      the data on. The algorithm continues to split the data until all
-      instances in a node belong to the same class or there are no more
-      attributes to split on. The algorithm is guaranteed to find an optimal
-      solution.
+      The ID3 algorithm is a decision tree learning algorithm that uses a greedy
+      search to find the best attribute to split the data on at each node. It is
+      a top-down, recursive, divide-and-conquer algorithm. The algorithm uses
+      information gain to determine which attribute to split on. The attribute
+      with the highest information gain is chosen to split the data on. The
+      algorithm continues to split the data until all instances in a node belong
+      to the same class or there are no more attributes to split on. The
+      algorithm is guaranteed to find an optimal solution.
     </p>
   </div>
 </div>

@@ -1,12 +1,4 @@
 :host ::ng-deep {
-  .p-toast {
-    opacity: 1;
-
-    .p-toast-message {
-      background: #9fa8da;
-    }
-  }
-
   .p-paginator {
     background: transparent;
 
@@ -20,13 +12,13 @@
   }
 
   .p-button {
-    background-color:rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 
 :host ::ng-deep .custom-spinner .p-progress-spinner-circle {
   animation: custom-progress-spinner-dash 1.5s ease-in-out infinite,
-  custom-progress-spinner-color 6s ease-in-out infinite;
+    custom-progress-spinner-color 6s ease-in-out infinite;
 }
 
 @keyframes custom-progress-spinner-color {
@@ -78,7 +70,7 @@
   gap: 15px;
 
   .news-item {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 15px;
     padding: 20px;
     display: flex;
@@ -134,7 +126,7 @@
   grid-template-columns: repeat(4, 1fr);
 
   .news-item {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 15px;
     padding: 20px;
     display: flex;
@@ -217,7 +209,7 @@
 
 .source {
   font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(31, 31, 31, 0.8);
 }
 
 @media screen and (max-width: 1600px) {

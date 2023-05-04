@@ -1,18 +1,9 @@
-:host ::ng-deep {
-  .p-toast {
-    opacity: 1;
-    .p-toast-message {
-      background: #9fa8da;
-    }
-  }
-}
-
 .user {
   display: flex;
   flex-direction: row;
   align-items: center;
   border-radius: 50px;
-  background-color: #404040;
+  background-color: #fff;
   padding-left: 15px;
   padding-right: 5px;
   justify-content: space-between;
@@ -28,7 +19,7 @@
 .note {
   overflow: hidden;
   position: relative;
-  background: #313131;
+  background: #fff;
   border-radius: 10px;
   height: 200px;
   padding: 10px 10px 10px 20px;
@@ -46,9 +37,9 @@
   transition: opacity 200ms, transform 200ms ease-in-out;
   background: linear-gradient(
                   -90deg,
-                  rgba(49, 49, 49, 1) 0%,
-                  rgba(49, 49, 49, 1) 80%,
-                  rgba(49, 49, 49, 0) 100%
+                  rgba(255, 255, 255, 1) 0%,
+                  rgba(255, 255, 255, 1) 80%,
+                  rgba(255, 255, 255, 0) 100%
   );
   transform: translateX(100%);
 }
@@ -61,7 +52,6 @@
 .note-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #fff;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

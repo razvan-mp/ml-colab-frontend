@@ -6,7 +6,7 @@
   >
     <div class="flex flex-column w-full gap-2">
       <h3>Your friends</h3>
-      <p *ngIf="friends.length === 0" class="font-italic text-gray-200">
+      <p *ngIf="friends.length === 0" class="font-italic text-gray-800">
         No friends yet
       </p>
       <div
@@ -32,7 +32,7 @@
     <p-divider layout="vertical" class="hidden md:inline-block"></p-divider>
     <div class="flex flex-column gap-2 w-full">
       <h3>Friend requests</h3>
-      <p *ngIf="friendRequests.length === 0" class="font-italic text-gray-200">
+      <p *ngIf="friendRequests.length === 0" class="font-italic text-gray-800">
         No friend requests
       </p>
       <div
@@ -81,7 +81,7 @@
       </p-button>
     </div>
     <div *ngIf="users.length === 0">
-      <p class="font-italic text-gray-200">No available suggestions.</p>
+      <p class="font-italic text-gray-800">No available suggestions.</p>
     </div>
     <div *ngIf="users.length !== 0" class="flex flex-column gap-3">
       <div
@@ -92,8 +92,8 @@
           <div class="flex flex-column">
             <p>{{ user.username }}</p>
             <div class="flex flex-row">
-              <p class="text-gray-200">Teams in common: &nbsp;</p>
-              <p class="text-gray-200">{{ user.teams_in_common }}</p>
+              <p class="text-gray-800">Teams in common: &nbsp;</p>
+              <p class="text-gray-800">{{ user.teams_in_common }}</p>
             </div>
           </div>
           <p-button
@@ -110,7 +110,7 @@
   <div class="flex flex-column">
     <h3>Sent requests</h3>
     <div *ngIf="sentFriendRequests.length === 0">
-      <p class="font-italic text-gray-200">
+      <p class="font-italic text-gray-800">
         You did not send any friend requests yet.
       </p>
     </div>
