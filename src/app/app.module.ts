@@ -56,6 +56,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AnimateModule } from 'primeng/animate';
+import { UserChatComponent } from './user-chat/user-chat.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -83,6 +84,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserTeamViewComponent,
     UserTeamViewModalsComponent,
     UserSettingsComponent,
+    UserChatComponent,
   ],
   imports: [
     BrowserModule,

@@ -215,4 +215,9 @@ export class UserSocialsComponent implements OnInit {
     this.state.displaySidebar = false;
     this.state.displayDeleteRequestModal = true;
   }
+
+  openChat(friend: string): any {
+    this.state.selectedFriend = friend;
+    this.state.display = 4;
+  }
 }

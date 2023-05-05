@@ -1,0 +1,32 @@
+<p-toast position="bottom-left"></p-toast>
+
+<div class="flex flex-column gap-1 w-full">
+  <!-- team title & back button  -->
+  <div class="flex flex-row align-items-center gap-2">
+    <p-button
+      icon="pi pi-arrow-left"
+      (onClick)="setDisplay(2)"
+      styleClass="p-button-text p-button-rounded"
+    >
+    </p-button>
+    <h2>{{ selectedFriend }}</h2>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- chat messages -->
+  <div class="flex flex-column">
+    <div *ngFor="let message of messages">
+        <p *ngIf="username === message.sender" class="bg-blue-300">
+            {{ message.content }}
+        </p>
+        <p *ngIf="username !== message.sender" class="bg-gray-300">
+            {{ message.content }}
+        </p>
+    </div>
+    <form #sendMessage (submit)="sendMessageToUser($event, sendMessage)">
+        <input name="message">
+        <button type="submit">Send</button>
+    </form>
+  </div>
+</div>

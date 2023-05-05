@@ -135,21 +135,4 @@ export class SidebarComponent implements OnInit {
     this.state.displaySidebar = false;
     this.state.displayUserSettingsModal = true;
   }
-
-  getMessages(): void {
-    this.chatService.getChatMessages('user1').subscribe((res: any) => {
-      console.log(res);
-    });
-  }
-
-  sendMessage(): void {
-    this.chatService
-      .sendMessage({
-        message: 'test',
-        username: 'mp-razvan',
-      })
-      .subscribe((res: any) => {
-        console.log(res);
-      });
-  }
 }

@@ -18,14 +18,24 @@
           class="flex flex-row align-items-center friend-request justify-content-between"
         >
           <p class="pl-3">{{ friend.username }}</p>
-          <p-button
-            icon="pi pi-user-minus"
-            class="pr-1"
-            styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
-            pTooltip="Remove friend"
-            tooltipPosition="bottom"
-            (click)="removeFriend(friend.username)"
-          ></p-button>
+          <div class="flex flex-row gap-1">
+            <p-button
+              icon="pi pi-comment"
+              class="pr-1"
+              styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
+              pTooltip="Chat"
+              tooltipPosition="bottom"
+              (click)="openChat(friend.username)"
+            ></p-button>
+            <p-button
+              icon="pi pi-user-minus"
+              class="pr-1"
+              styleClass="p-button-rounded p-button-text p-button-sm hover:bg-white-alpha-20"
+              pTooltip="Remove friend"
+              tooltipPosition="bottom"
+              (click)="removeFriend(friend.username)"
+            ></p-button>
+          </div>
         </div>
       </div>
     </div>

@@ -34,16 +34,11 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <button (click)="getMessages()">
-      Get
-    </button>
-    <button (click)="sendMessage()">
-      Send
-    </button>
     <app-user-notes *ngIf="display === 0"></app-user-notes>
     <app-user-teams *ngIf="display === 1"></app-user-teams>
     <app-user-socials *ngIf="display === 2"></app-user-socials>
     <app-user-team-view *ngIf="display === 3"></app-user-team-view>
+    <app-user-chat *ngIf="display === 4"></app-user-chat>
   </ng-template>
   <ng-template pTemplate="footer">
     <div class="sidebar-content">
