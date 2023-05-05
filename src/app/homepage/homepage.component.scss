@@ -316,6 +316,7 @@
 
   .arrow-container {
     transform: scale(12);
+    mix-blend-mode:exclusion;
 
     i {
       opacity: 1;
@@ -330,9 +331,14 @@
     color: white;
     top: 40px;
   }
+
+  .bg {
+    filter: saturate(1);
+  }
 }
 
 .bg {
+  filter: saturate(0);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -340,8 +346,20 @@
 }
 
 .id3 {
-  transform: translate(-100px, -45px) rotate(-225deg);
-  background-image: url('../../assets/images/homepage_id3.png');
+  transform: translateY(-20px);
+  background-image: url('../../assets/images/id3.svg');
+}
+
+.knn {
+  background-image: url('../../assets/images/knn.svg');
+}
+
+.kmeans {
+  background-image: url('../../assets/images/kmeans.svg');
+}
+
+.hclustering {
+  background-image: url('../../assets/images/hclustering.svg');
 }
 
 .vert-text {
