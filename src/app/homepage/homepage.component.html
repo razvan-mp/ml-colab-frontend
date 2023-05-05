@@ -67,7 +67,7 @@
     <p-button
       styleClass="p-button-text p-button-rounded"
       icon="pi pi-chevron-down"
-      (click)="scroll('detail-section')"
+      (click)="scroll('about-section')"
     ></p-button>
   </div>
 </section>
@@ -117,8 +117,15 @@
 
 <!-- about container -->
 <section id="about-section">
-  <div class="flex lg:flex-row flex-column gap-2 about-section-element">
-    <div class="flex flex-column">
+  <!-- what is ML Colab? -->
+  <div
+    class="flex xl:flex-row flex-column gap-2 about-section-element align-items-center gap-6"
+  >
+    <div class="flex flex-column xl:col-6 col-12 relative">
+      <img
+        src="../../assets/images/homepage_blob_2.svg"
+        class="what__does__it__offer"
+      />
       <p class="text-5xl font-bold">What is ML Colab?</p>
       <p class="text-2xl font-medium">
         <i>ML Colab</i> is a platform where you can connect with people, learn
@@ -127,9 +134,101 @@
         All while being one click away from the latest news in the ML community.
       </p>
     </div>
+    <div class="flex flex-column xl:col-6 col-12">
+      <img
+        class="homepage__image"
+        src="../../assets/images/homepage_team_2.png"
+      />
+    </div>
+  </div>
+  <div
+    class="xl:flex hidden justify-content-center align-items-center mt-3 mb-3 pt-6 pb-6"
+  >
     <div class="separator"></div>
-    <div class="flex flex-column">
-      <img src="https://placehold.co/500x600" />
+  </div>
+  <!-- what does it offer? -->
+  <div
+    class="flex xl:flex-row flex-column gap-2 about-section-element align-items-center"
+  >
+    <div class="xl:col-6 xl:inline-block hidden">
+      <img
+        class="homepage__image"
+        src="../../assets/images/homepage_team_1.png"
+      />
+    </div>
+    <div class="flex flex-column xl:col-6 col-12 relative">
+      <img
+        src="../../assets/images/homepage_blob_1.svg"
+        class="what__does__it__offer"
+      />
+      <p class="text-5xl font-bold">What does it offer?</p>
+      <p class="text-2xl font-medium">
+        It's a space where you can connect with people that share the same
+        passion as you, Machine Learning. <br /><br />
+        Add them, chat with them, create teams and share your notes with them.
+        <br /><br />
+        All within an easy to use interface, with every option at the click of a
+        button.
+      </p>
     </div>
   </div>
 </section>
+
+<!-- algorithms container -->
+<div class="flex flex-column">
+  <div class="flex relative">
+    <img src="../../assets/images/homepage_top.svg" class="w-full" />
+    <p id="the-algorithms" class="text-5xl font-bold">The algorithms</p>
+  </div>
+  <section class="p-0" id="algorithms-section">
+    <div class="wrapper pt-4">
+      <div class="grid gap-4 justify-content-center">
+        <!-- id3 -->
+        <div id="id3" class="col algo-card relative">
+          <div class="flex flex-row h-full">
+            <div class="col-10 bg id3"></div>
+            <div class="col-2 vert-text">go to page</div>
+          </div>
+          <p class="algo-card__text">ID3</p>
+          <div class="arrow-container bg-orange-300">
+            <i class="pi pi-arrow-right"></i>
+          </div>
+        </div>
+        <!-- knn -->
+        <div id="knn" class="col algo-card relative">
+          <div class="flex flex-row h-full">
+            <div class="col-10 bg knn"></div>
+            <div class="col-2 vert-text">go to page</div>
+          </div>
+          <p class="algo-card__text">K-NN</p>
+          <div class="arrow-container bg-red-300">
+            <i class="pi pi-arrow-right"></i>
+          </div>
+        </div>
+        <!-- kmeans -->
+        <div id="kmeans" class="col algo-card relative">
+          <div class="flex flex-row h-full">
+            <div class="col-10 bg kmeans"></div>
+            <div class="col-2 vert-text">go to page</div>
+          </div>
+          <p class="algo-card__text">K-Means</p>
+          <div class="arrow-container bg-green-300">
+            <i class="pi pi-arrow-right"></i>
+          </div>
+        </div>
+        <!-- hclustering -->
+        <div id="hclustering" class="col algo-card relative">
+          <div class="flex flex-row h-full">
+            <div class="col-10 bg hclustering"></div>
+            <div class="col-2 vert-text">go to page</div>
+          </div>
+          <p class="algo-card__text">H. Clustering</p>
+          <div class="arrow-container bg-blue-300">
+            <i class="pi pi-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br />
+  </section>
+</div>
