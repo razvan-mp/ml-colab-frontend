@@ -72,49 +72,6 @@
   </div>
 </section>
 
-<section id="detail-section" class="hidden">
-  <!-- news container -->
-  <div class="news-container">
-    <p
-      class="carousel-title cursor-pointer"
-      routerLink="/news"
-      routerLinkActive="active"
-    >
-      Latest News from the ML Community
-    </p>
-    <div class="carousel-container">
-      <p-carousel
-        [value]="newsItems"
-        [numVisible]="1"
-        [numScroll]="1"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        [autoplayInterval]="5000"
-      >
-        <ng-template let-newsItem pTemplate="item">
-          <div
-            class="card"
-            [ngStyle]="{
-              backgroundImage:
-                'linear-gradient(rgba(9, 9, 9, 0), rgba(9, 9, 9, 1)),url(' +
-                newsItem.image +
-                ')'
-            }"
-            (click)="openLink(newsItem.hyperlink)"
-          >
-            <div class="source">
-              <span class="source-name">{{ newsItem.source }}</span>
-            </div>
-            <div class="title">
-              {{ newsItem.title }}
-            </div>
-          </div>
-        </ng-template>
-      </p-carousel>
-    </div>
-  </div>
-</section>
-
 <!-- about container -->
 <section id="about-section">
   <!-- what is ML Colab? -->
@@ -142,9 +99,8 @@
     </div>
   </div>
   <div
-    class="xl:flex hidden justify-content-center align-items-center mt-3 mb-3 pt-6 pb-6"
+    class="xl:flex hidden justify-content-center align-items-center mt-3 mb-3 pt-3 pb-3"
   >
-    <div class="separator"></div>
   </div>
   <!-- what does it offer? -->
   <div
@@ -189,7 +145,7 @@
             <div class="col-10 bg id3"></div>
             <div class="col-2 vert-text">go to page</div>
           </div>
-          <p class="algo-card__text">ID3</p>
+          <p class="algo-card__text text-orange-300">ID3</p>
           <div class="arrow-container bg-orange-300">
             <i class="pi pi-arrow-right"></i>
           </div>
@@ -200,7 +156,7 @@
             <div class="col-10 bg knn"></div>
             <div class="col-2 vert-text">go to page</div>
           </div>
-          <p class="algo-card__text">K-NN</p>
+          <p class="algo-card__text text-red-300">K-NN</p>
           <div class="arrow-container bg-red-300">
             <i class="pi pi-arrow-right"></i>
           </div>
@@ -211,7 +167,7 @@
             <div class="col-10 bg kmeans"></div>
             <div class="col-2 vert-text">go to page</div>
           </div>
-          <p class="algo-card__text">K-Means</p>
+          <p class="algo-card__text text-green-300">K-Means</p>
           <div class="arrow-container bg-green-300">
             <i class="pi pi-arrow-right"></i>
           </div>
@@ -222,7 +178,7 @@
             <div class="col-10 bg hclustering"></div>
             <div class="col-2 vert-text">go to page</div>
           </div>
-          <p class="algo-card__text">H. Clustering</p>
+          <p class="algo-card__text text-blue-300">H. Clustering</p>
           <div class="arrow-container bg-blue-300">
             <i class="pi pi-arrow-right"></i>
           </div>

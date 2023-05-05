@@ -9,61 +9,11 @@ import { NewsService } from '../services/news.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
-export class HomepageComponent implements OnInit {
-  displayModal: boolean = false;
-
-  responsiveOptions: any = [
-    {
-      breakpoint: '1024px',
-      numVisible: 1,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 1,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
-
-  newsItems: NewsItem[] = [
-    {
-      title: 'Test',
-      hyperlink: 'https://www.google.com',
-      image:
-        'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
-      source: 'Google',
-    },
-    {
-      title: 'Test',
-      hyperlink: 'https://www.google.com',
-      image:
-        'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
-      source: 'Google',
-    },
-    {
-      title: 'Test',
-      hyperlink: 'https://www.google.com',
-      image:
-        'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png',
-      source: 'Google',
-    },
-  ];
-
+export class HomepageComponent {
   constructor(
     private messageService: MessageService,
     private newsService: NewsService
   ) {}
-
-  ngOnInit(): void {
-    this.newsService.fetchNews().subscribe((res: any) => {
-      this.newsItems = res;
-    });
-  }
 
   scroll(target: string) {
     const el = document.getElementById(target)!;
