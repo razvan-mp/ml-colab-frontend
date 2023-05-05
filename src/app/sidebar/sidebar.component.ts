@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../services/auth.service';
 import { StateManagerService } from '../services/state-manager.service';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -44,6 +45,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
+    private chatService: ChatService,
     private state: StateManagerService
   ) {}
 
@@ -132,5 +134,22 @@ export class SidebarComponent implements OnInit {
   displayUserSettingsModal() {
     this.state.displaySidebar = false;
     this.state.displayUserSettingsModal = true;
+  }
+
+  getMessages(): void {
+    this.chatService.getChatMessages('user1').subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  sendMessage(): void {
+    this.chatService
+      .sendMessage({
+        message: 'test',
+        username: 'mp-razvan',
+      })
+      .subscribe((res: any) => {
+        console.log(res);
+      });
   }
 }
