@@ -6,8 +6,52 @@
   float: right;
 }
 
+.float-right::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--indigo-200);
+  border-radius: 50%;
+  right: 1px;
+  top: -10px;
+}
+
+.float-right::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--indigo-200);
+  border-radius: 50%;
+  right: 2px;
+  top: -4px;
+}
+
 .float-left {
   float: left;
+}
+
+.float-left::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--gray-300);
+  border-radius: 50%;
+  left: 1px;
+  top: -10px;
+}
+
+.float-left::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--gray-300);
+  border-radius: 50%;
+  left: 2px;
+  top: -4px;
 }
 
 .bg-gradient {
