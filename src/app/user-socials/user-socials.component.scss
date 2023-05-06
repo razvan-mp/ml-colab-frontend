@@ -1,20 +1,24 @@
 .user-may-know {
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.25);
 }
 
 .friend-request {
   width: 100%;
   background: #fff;
   border-radius: 50px;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.25);
 }
 
 .friend-container {
+  padding: 3px;
   height: 260px;
 
   .friend-container-component {
     height: 100%;
     overflow-y: auto;
+    padding: 3px;
   }
 }
 
@@ -26,4 +30,5 @@
   align-items: center;
   padding-inline: 5px;
   padding-left: 15px;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.25);
 }

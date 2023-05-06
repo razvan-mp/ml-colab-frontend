@@ -4,8 +4,8 @@
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.65);
+    border-radius: 15px 0 0 15px;
+    background: rgba(255, 255, 255, 1);
     box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -48,7 +48,7 @@
   gap: 10px;
 }
 
-@media screen and (max-width: 1168px) {
+@media screen and (width < 1168px) {
   :host ::ng-deep {
     .p-sidebar {
       width: 100%;

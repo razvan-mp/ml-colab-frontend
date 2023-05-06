@@ -9,7 +9,7 @@ import { Friend } from '../models/Friend';
   providedIn: 'root',
 })
 export class StateManagerService {
-  public displaySidebar: boolean = false;
+  public displaySidebar: boolean = true;
   public displayAuthModal: boolean = false;
   public displayUserSettingsModal: boolean = false;
   public display: number = 0;

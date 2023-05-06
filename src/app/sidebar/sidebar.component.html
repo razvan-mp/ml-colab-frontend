@@ -41,24 +41,19 @@
     <app-user-chat *ngIf="display === 4"></app-user-chat>
   </ng-template>
   <ng-template pTemplate="footer">
-    <div class="sidebar-content">
-      <div class="button-pair">
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-warning p-button-outlined"
-          type="button"
-          (click)="whoAmI()"
-          label="Who am I?"
-        ></button>
-        <button
-          pButton
-          pRipple
-          class="p-button p-button-danger p-button-outlined"
-          type="button"
-          (click)="logoutUser()"
-          label="Log out"
-        ></button>
+    <div *ngIf="display !== 4">
+      <p-divider></p-divider>
+      <div class="sidebar-content">
+        <div class="button-pair">
+          <button
+            pButton
+            pRipple
+            class="p-button p-button-danger p-button-outlined"
+            type="button"
+            (click)="logoutUser()"
+            label="Log out"
+          ></button>
+        </div>
       </div>
     </div>
   </ng-template>
