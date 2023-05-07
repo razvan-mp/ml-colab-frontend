@@ -6,16 +6,26 @@
   [resizable]="false"
   class="dialog"
 >
-  <p-tabView [(activeIndex)]="tabViewIndex">
-    <p-tabPanel class="tab-panel" header="Log in">
+  <p-tabView [(activeIndex)]="tabViewIndex" class="relative">
+    <div class="bg-image indigo" [class]="bgImageIndigo"></div>
+    <div class="bg-image blue" [class]="bgImageBlue"></div>
+    <div class="bg-image red" [class]="bgImageRed"></div>
+    <p-tabPanel class="tab-panel">
       <div
-        class="content flex flex-row justify-content-between align-items-center"
+        [class]="showLoginBelow"
+        class="h-full min-h-full content flex flex-row justify-content-evenly align-items-center relative"
       >
-        <div class="graphic-section">ceva</div>
+        <div class="col-7 mr-6 xl:inline-block hidden">
+          <img
+            class="image-login"
+            src="../../assets/images/login.svg"
+            alt="Login"
+          />
+        </div>
         <div
-          class="form-section p-6 flex flex-column align-items-center justify-content-center"
+          class="login-form flex flex-column align-items-center justify-content-center"
         >
-          <p id="welcome-back">Welcome back!</p>
+          <p class="font-bold m-0 text-3xl">Welcome back!</p>
           <p>Please log in to continue.</p>
           <form
             #loginForm
@@ -42,79 +52,108 @@
               />
               <label for="password-input">Password</label>
             </span>
-            <button
-              pRipple
-              pButton
+            <p-button
               type="submit"
-              label="Login"
-              class="m-2"
-            ></button>
+              label="Log in"
+              class="mt-2 mb-2"
+              styleClass="w-full"
+            ></p-button>
           </form>
           <p class="mt-3">
             Are you new here?
-            <span class="signup-url" (click)="setIndex(1)">Sign up!</span>
+            <span class="signup-url" (click)="setIndex(1); slideToSignup()"
+              >Sign up!</span
+            >
           </p>
         </div>
       </div>
     </p-tabPanel>
+
     <p-tabPanel class="tab-panel" header="Sign up">
-      <div class="content flex flex-column align-items-center">
-        <p>Welcome aboard!</p>
-        <p>Fill out the form below to sign up.</p>
-        <form
-          #registerForm
-          (submit)="registerUser($event, registerForm)"
-          class="flex flex-column"
+      <div
+        [class]="showSignupBelow"
+        class="hidden-below h-full min-h-full content flex flex-row justify-content-evenly align-items-center relative"
+      >
+        <div
+          class="signup-form flex flex-column align-items-center justify-content-center"
         >
-          <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-user"></i>
-            <input id="name-input" name="username" type="text" pInputText />
-            <label for="name-input">Username</label>
-          </span>
-          <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-envelope"></i>
-            <input
-              id="email-signup-input"
-              name="email"
-              type="text"
-              pInputText
-            />
-            <label for="email-signup-input">E-mail</label>
-          </span>
-          <span class="p-float-label">
-            <p-password
-              id="password-input"
-              [(ngModel)]="password"
-              name="password"
-              styleClass="p-password p-component p-inputwrapper p-input-icon-right"
-              [toggleMask]="true"
-              [inputStyleClass]="password !== passwordConfirm && passwordConfirm.length > 0 && password.length > 0 ? 'ng-dirty ng-invalid text-red-500' : ''"
-            ></p-password>
-            <label for="password-input">Password</label>
-          </span>
-          <span class="p-float-label">
-            <p-password
-              name="password-confirm"
-              id="password-confirm-input"
-              [(ngModel)]="passwordConfirm"
-              styleClass="p-password p-component p-inputwrapper p-input-icon-right"
-              [toggleMask]="true"
-              [inputStyleClass]="password !== passwordConfirm && passwordConfirm.length > 0 && password.length > 0 ? 'ng-dirty ng-invalid text-red-500' : ''"
-            ></p-password>
-            <label for="password-input">Confirm Password</label>
-          </span>
-          <button
-            pRipple
-            pButton
-            type="submit"
-            label="Sign up"
-            class="m-2"
-          ></button>
-        </form>
-        <p>
-          Already have an account?
-          <span class="signup-url" (click)="setIndex(0)">Log in!</span>
-        </p>
+          <p class="font-bold m-0 text-3xl">Welcome aboard!</p>
+          <p>Fill out the form below to sign up.</p>
+          <form
+            #registerForm
+            (submit)="registerUser($event, registerForm)"
+            class="flex flex-column"
+          >
+            <span class="p-float-label p-input-icon-left">
+              <i class="pi pi-user"></i>
+              <input id="name-input" name="username" type="text" pInputText />
+              <label for="name-input">Username</label>
+            </span>
+            <span class="p-float-label p-input-icon-left">
+              <i class="pi pi-envelope"></i>
+              <input
+                id="email-signup-input"
+                name="email"
+                type="text"
+                pInputText
+              />
+              <label for="email-signup-input">E-mail</label>
+            </span>
+            <span class="p-float-label">
+              <p-password
+                id="password-input"
+                [(ngModel)]="password"
+                name="password"
+                styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                [toggleMask]="true"
+                [inputStyleClass]="
+                  password !== passwordConfirm &&
+                  passwordConfirm.length > 0 &&
+                  password.length > 0
+                    ? 'ng-dirty ng-invalid text-red-500'
+                    : ''
+                "
+              ></p-password>
+              <label for="password-input">Password</label>
+            </span>
+            <span class="p-float-label">
+              <p-password
+                name="password-confirm"
+                id="password-confirm-input"
+                [(ngModel)]="passwordConfirm"
+                styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                [toggleMask]="true"
+                [inputStyleClass]="
+                  password !== passwordConfirm &&
+                  passwordConfirm.length > 0 &&
+                  password.length > 0
+                    ? 'ng-dirty ng-invalid text-red-500'
+                    : ''
+                "
+              ></p-password>
+              <label for="password-input">Confirm Password</label>
+            </span>
+            <p-button
+              type="submit"
+              label="Sign up"
+              class="mt-2 mb-2"
+              styleClass="w-full"
+            ></p-button>
+          </form>
+          <p>
+            Already have an account?
+            <span class="signup-url" (click)="setIndex(0); slideToLogin()"
+              >Log in!</span
+            >
+          </p>
+        </div>
+        <div class="col-7 ml-6 xl:inline-block hidden">
+          <img
+            class="image-signup"
+            src="../../assets/images/signup.svg"
+            alt="Signup"
+          />
+        </div>
       </div>
     </p-tabPanel>
   </p-tabView>

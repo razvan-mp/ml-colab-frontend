@@ -15,6 +15,12 @@ export class AuthDialogComponent {
   password: string = '';
   passwordConfirm: string = '';
 
+  bgImageIndigo: string = '';
+  bgImageBlue: string = '';
+  bgImageRed: string = '';
+  showSignupBelow: string = '';
+  showLoginBelow: string = '';
+
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
@@ -80,6 +86,42 @@ export class AuthDialogComponent {
     const username = formData['username'] as string;
     const email = formData['email'] as string;
 
+    if (username === '' || email === '') {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please enter a username and email.',
+      });
+      return;
+    }
+
+    if (this.password === '' || this.passwordConfirm === '') {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please enter a password.',
+      });
+
+      return;
+    }
+
+    if (this.password.length < 8) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Password must be at least 8 characters long.',
+      });
+      passwordInput.classList.add('ng-invalid');
+      passwordInput.classList.add('ng-dirty');
+
+      setTimeout(() => {
+        passwordInput.classList.remove('ng-invalid');
+        passwordInput.classList.remove('ng-dirty');
+      }, 3500);
+
+      return;
+    }
+
     if (this.password !== this.passwordConfirm) {
       this.messageService.add({
         severity: 'error',
@@ -125,5 +167,19 @@ export class AuthDialogComponent {
           });
         }
       });
+  }
+
+  slideToSignup(): void {
+    this.bgImageIndigo = 'indigo-slide-to-signup';
+    this.bgImageBlue = 'blue-slide-to-signup';
+    this.bgImageRed = 'red-slide-to-signup';
+    this.showSignupBelow = 'show-below';
+  }
+
+  slideToLogin(): void {
+    this.bgImageIndigo = 'indigo-slide-to-login';
+    this.bgImageBlue = 'blue-slide-to-login';
+    this.bgImageRed = 'red-slide-to-login';
+    this.showLoginBelow = 'show-below';
   }
 }

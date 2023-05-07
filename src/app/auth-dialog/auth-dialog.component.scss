@@ -5,10 +5,12 @@
 
   .p-dialog .p-dialog-content {
     width: 100%;
+    height: 100%;
   }
 
   .p-dialog {
-    width: 80%;
+    width: 60%;
+    height: 70%;
     border-radius: 15px;
   }
 
@@ -26,15 +28,19 @@
     display: none;
   }
 
+  .p-tabview {
+    height: 100% !important;
+  }
+
   .p-tabview-panels {
     padding: 0 !important;
-  }
-}
+    height: 100% !important;
 
-#welcome-back {
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin: 0;
+    .p-tabview-panel {
+      height: 100% !important;
+      background: var(--orange-200);
+    }
+  }
 }
 
 form {
@@ -42,21 +48,160 @@ form {
 }
 
 .signup-url {
-  color: lightblue;
+  color: var(--indigo-900);
   text-decoration: underline dotted;
   text-underline-offset: 3px;
   cursor: pointer;
 }
 
-.login-button {
-  background-color: #f2c5ff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 350ms, color 350ms;
+.image-login {
+  padding: 20px;
+  padding-left: 80px;
+  width: 80%;
+  object-fit: contain;
 }
 
-.login-button:where(:hover, :focus-visible) {
-  background-color: rgba(255, 255, 255, 0.2);
+.image-signup {
+  padding: 20px;
+  float: right;
+  padding-right: 80px;
+  width: 80%;
+  object-fit: contain;
 }
+
+.login-form {
+  padding: 20px;
+  padding-right: 80px;
+  height: 100%;
+  width: 100%;
+}
+
+.signup-form {
+  padding: 20px;
+  padding-left: 80px;
+  height: 100%;
+  width: 100%;
+}
+
+.hidden-below {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.show-below {
+  animation: showBelow 1s forwards cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+@keyframes showBelow {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg-image {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: 200ms ease-in-out;
+}
+
+.indigo {
+  background: var(--indigo-300);
+  transform: skew(-15deg) translateX(35svw);
+}
+
+.blue {
+  background: var(--blue-300);
+  transform: skew(-15deg) translateX(37svw);
+}
+
+.red {
+  background: var(--red-300);
+  transform: skew(-15deg) translateX(60svw);
+}
+
+.red-slide-to-signup {
+  animation: redSlideToSignUp .5s forwards ease-in-out;
+}
+
+.indigo-slide-to-signup {
+  animation: indigoSlideToSignUp .5s forwards ease-in-out;
+}
+
+.blue-slide-to-signup {
+  animation: blueSlideToSignUp .5s forwards ease-in-out;
+}
+
+.red-slide-to-login {
+  animation: redSlideToLogIn .5s forwards ease-in-out;
+}
+
+.indigo-slide-to-login {
+  animation: indigoSlideToLogIn .5s forwards ease-in-out;
+}
+
+.blue-slide-to-login {
+  animation: blueSlideToLogIn .5s forwards ease-in-out;
+}
+
+@keyframes indigoSlideToSignUp {
+  0% {
+    transform: skew(-15deg) translateX(35svw);
+  }
+  100% {
+    transform: skew(15deg) translateX(-23svw);
+  }
+}
+
+@keyframes blueSlideToSignUp {
+  0% {
+    transform: skew(-15deg) translateX(37svw);
+  }
+  100% {
+    transform: skew(15deg) translateX(-24svw);
+  }
+}
+
+@keyframes redSlideToSignUp {
+  0% {
+    transform: skew(-15deg) translateX(60svw);
+  }
+  100% {
+    transform: skew(15deg) translateX(-48svw);
+  }
+}
+
+@keyframes indigoSlideToLogIn {
+  0% {
+    transform: skew(15deg) translateX(-23svw);
+  }
+  100% {
+    transform: skew(-15deg) translateX(35svw);
+  }
+}
+
+@keyframes blueSlideToLogIn {
+  0% {
+    transform: skew(15deg) translateX(-24svw);
+  }
+  100% {
+    transform: skew(-15deg) translateX(37svw);
+  }
+}
+
+@keyframes redSlideToLogIn {
+  0% {
+    transform: skew(15deg) translateX(-48svw);
+  }
+  100% {
+    transform: skew(-15deg) translateX(60svw);
+  }
+}
+
+
