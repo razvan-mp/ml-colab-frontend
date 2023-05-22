@@ -6,8 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent {
+  constructor() {}
+
   scroll(target: string) {
     const el = document.getElementById(target)!;
     el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  openLink(link: string) {
+    window.open(link, '_blank');
   }
 }

@@ -353,21 +353,3 @@
   writing-mode: vertical-rl;
   transition: 200ms;
 }
-
-#remote-video {
-  width: 200px;
-    height: 200px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 200000;
-}
-
-#local-video {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 100;
-}

@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    AppComponent.csrfToken = localStorage.getItem('csrfToken');
     this.primengConfig.ripple = true;
     this.authService.getSession();
 

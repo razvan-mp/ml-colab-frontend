@@ -22,7 +22,7 @@ export class AuthService {
         })
       )
       .subscribe((res: any) => {
-        if (res.body['isAuthenticated'] && localStorage.getItem('csrfToken')) {
+        if (res.body['isAuthenticated']) {
           AppComponent.loggedIn = true;
         } else {
           AppComponent.loggedIn = false;
@@ -43,9 +43,9 @@ export class AuthService {
         })
       )
       .subscribe((res: any) => {
+        console.log(res.headers)
         const csrfToken = res.headers.get('X-CSRFToken');
         AppComponent.csrfToken = csrfToken;
-        localStorage.setItem('csrfToken', csrfToken);
       });
   }
 
