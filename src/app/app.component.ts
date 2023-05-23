@@ -22,6 +22,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       AppComponent.loggedIn = true;
+    } else {
+      AppComponent.loggedIn = false;
+      localStorage.clear();
     }
     this.primengConfig.ripple = true;
 

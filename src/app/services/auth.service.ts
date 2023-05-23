@@ -52,7 +52,9 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.httpClient.get(`${this.BACKEND_URL}/logout/`, {
+    return this.httpClient.post(`${this.BACKEND_URL}/logout/`, {
+      refresh: localStorage.getItem('refresh_token'),
+    }, {
       headers,
 
       observe: 'response',

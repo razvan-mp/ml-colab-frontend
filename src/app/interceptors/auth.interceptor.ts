@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         } else {
-          return throwError(error);
+          throw(error);
         }
       })
     );
@@ -51,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
         })
       );
     } else {
-      console.log('in handle401Error else')
       return this.refreshTokenSubject.pipe(
         filter((token) => token != null),
         take(1),

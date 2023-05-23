@@ -109,6 +109,8 @@ export class UserSettingsComponent {
           });
           setTimeout(() => {
             this.authService.logout();
+            AppComponent.loggedIn = false;
+            localStorage.clear();
             window.location.reload();
           }, 1000);
         } else {
@@ -145,6 +147,8 @@ export class UserSettingsComponent {
           });
           setTimeout(() => {
             this.authService.logout();
+            AppComponent.loggedIn = false;
+            localStorage.clear();
             window.location.reload();
           }, 1000);
         } else {
