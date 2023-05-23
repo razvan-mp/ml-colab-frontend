@@ -15,9 +15,7 @@ export class TeamsService {
   ) {}
 
   getTeams(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}team/`,
@@ -26,9 +24,7 @@ export class TeamsService {
   }
 
   getUserTeams(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}team/get_user_teams/`,
@@ -45,9 +41,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.post(
@@ -61,9 +55,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.request('delete', `${this.BACKEND_API}team/`, {
@@ -76,9 +68,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.post(
@@ -92,9 +82,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.put(
@@ -108,9 +96,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.post(
@@ -124,9 +110,7 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.httpClient.post(

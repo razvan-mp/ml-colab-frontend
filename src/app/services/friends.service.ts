@@ -16,9 +16,7 @@ export class FriendsService {
   ) {}
 
   getFriendRequests(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}/get_requests/`,
@@ -27,9 +25,7 @@ export class FriendsService {
   }
 
   getUsers(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}/get_users/`,
@@ -38,9 +34,7 @@ export class FriendsService {
   }
 
   getUserFriends(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}/get_friends/`,
@@ -50,10 +44,8 @@ export class FriendsService {
 
   sendFriendRequest(username: string) {
     const options = {
-      
       headers: {
         'Content-Type': 'application/json',
-        
       },
     };
 
@@ -66,10 +58,8 @@ export class FriendsService {
 
   cancelFriendRequest(username: string) {
     const options = {
-      
       headers: {
         'Content-Type': 'application/json',
-        
       },
     };
 
@@ -82,10 +72,8 @@ export class FriendsService {
 
   acceptFriendRequest(username: string) {
     const options = {
-      
       headers: {
         'Content-Type': 'application/json',
-        
       },
     };
 
@@ -98,10 +86,8 @@ export class FriendsService {
 
   declineFriendRequest(username: string) {
     const options = {
-      
       headers: {
         'Content-Type': 'application/json',
-        
       },
     };
 
@@ -114,10 +100,8 @@ export class FriendsService {
 
   removeFriend(username: string) {
     const options = {
-      
       headers: {
         'Content-Type': 'application/json',
-        
       },
     };
 
@@ -129,9 +113,7 @@ export class FriendsService {
   }
 
   getSentRequests(): Observable<any> {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}/get_sent_requests/`,

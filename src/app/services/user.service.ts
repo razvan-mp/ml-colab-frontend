@@ -16,9 +16,7 @@ export class UserService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.http.post(
@@ -32,9 +30,7 @@ export class UserService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.http.post(
@@ -48,9 +44,7 @@ export class UserService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        
       },
-      
     };
 
     return this.http.post(

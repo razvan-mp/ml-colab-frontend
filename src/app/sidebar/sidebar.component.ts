@@ -14,7 +14,7 @@ import { ChatService } from '../services/chat.service';
 export class SidebarComponent implements OnInit {
   selectedItem: any = {
     color: '#7C8DE5FF',
-    background: 'rgba(255, 255, 255, 0.1)',
+    background: 'rgba(0, 0, 0, 0.05)',
   };
   yourNotes: any = {};
   yourTeams: any = {};

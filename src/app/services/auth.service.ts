@@ -34,31 +34,43 @@ export class AuthService {
   }
 
   refreshToken() {
-    console.log("in refresh token")
+    console.log('in refresh token');
     const headers = {
       'Content-Type': 'application/json',
     };
     const refreshToken = localStorage.getItem('refresh_token') as string;
-    return this.httpClient.post(`${this.BACKEND_URL}/token/refresh/`, {
-      refresh: refreshToken,
-    }, {headers: headers}).pipe(tap((token: any) => {
-      console.log(token.access)
-      localStorage.setItem('access_token', token.access);
-      console.log(localStorage.getItem('access_token'))
-    }));
+    return this.httpClient
+      .post(
+        `${this.BACKEND_URL}/token/refresh/`,
+        {
+          refresh: refreshToken,
+        },
+        { headers: headers }
+      )
+      .pipe(
+        tap((token: any) => {
+          console.log(token.access);
+          localStorage.setItem('access_token', token.access);
+          console.log(localStorage.getItem('access_token'));
+        })
+      );
   }
 
   logout(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.httpClient.post(`${this.BACKEND_URL}/logout/`, {
-      refresh: localStorage.getItem('refresh_token'),
-    }, {
-      headers,
+    return this.httpClient.post(
+      `${this.BACKEND_URL}/logout/`,
+      {
+        refresh: localStorage.getItem('refresh_token'),
+      },
+      {
+        headers,
 
-      observe: 'response',
-    }) as Observable<any>;
+        observe: 'response',
+      }
+    ) as Observable<any>;
   }
 
   register(username: string, email: string, password: string): Observable<any> {

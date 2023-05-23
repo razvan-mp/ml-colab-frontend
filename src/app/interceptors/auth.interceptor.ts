@@ -6,7 +6,15 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, filter, switchMap, take, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  filter,
+  switchMap,
+  take,
+  throwError,
+} from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -16,9 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     null
   );
 
-  constructor(
-    private authService: AuthService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     if (this.getAccessToken() !== '') {
@@ -30,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         } else {
-          throw(error);
+          throw error;
         }
       })
     );

@@ -16,9 +16,7 @@ export class NoteService {
   ) {}
 
   fetchNotes() {
-    const options = {
-      
-    };
+    const options = {};
 
     return this.httpClient.get(
       `${this.BACKEND_API}/note/`,
@@ -29,11 +27,9 @@ export class NoteService {
   createNote(payload: any) {
     const headers = {
       'Content-Type': 'application/json',
-      
     };
     const options = {
       headers,
-      
     };
 
     return this.httpClient.post(
@@ -46,11 +42,9 @@ export class NoteService {
   deleteNote(payload: any) {
     const headers = {
       'Content-Type': 'application/json',
-      
     };
     const options = {
       headers,
-      
     };
 
     return this.httpClient.request('delete', `${this.BACKEND_API}/note/`, {
@@ -62,11 +56,9 @@ export class NoteService {
   editNote(payload: any) {
     const headers = {
       'Content-Type': 'application/json',
-      
     };
     const options = {
       headers,
-      
     };
 
     return this.httpClient.put(
