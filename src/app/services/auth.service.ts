@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,78 +10,51 @@ export class AuthService {
   BACKEND_URL = AppComponent.BACKEND_URL + 'api/auth';
   constructor(private httpClient: HttpClient) {}
 
-  getSession(): void {
-    this.httpClient
-      .get(`${this.BACKEND_URL}/session/`, {
-        withCredentials: true,
-        observe: 'response',
-      })
-      .pipe(
-        catchError((error) => {
-          return error;
-        })
-      )
-      .subscribe((res: any) => {
-        if (res.body['isAuthenticated']) {
-          AppComponent.loggedIn = true;
-        } else {
-          AppComponent.loggedIn = false;
-          this.getCSRF();
-        }
-      });
-  }
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      return false;
+    }
 
-  getCSRF(): void {
-    this.httpClient
-      .get(`${this.BACKEND_URL}/csrf/`, {
-        withCredentials: true,
-        observe: 'response',
-      })
-      .pipe(
-        catchError((error) => {
-          return error;
-        })
-      )
-      .subscribe((res: any) => {
-        console.log(res.headers)
-        const csrfToken = res.headers.get('X-CSRFToken');
-        AppComponent.csrfToken = csrfToken;
-      });
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+    const expirationDate = new Date(tokenPayload.exp * 1000);
+    const now = new Date();
+    return expirationDate > now;
   }
 
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
     });
     const body = JSON.stringify({ username, password });
-    return this.httpClient.post(`${this.BACKEND_URL}/login/`, body, {
+    return this.httpClient.post(`${this.BACKEND_URL}/token/`, body, {
       headers,
-      withCredentials: true,
       observe: 'response',
     }) as Observable<any>;
+  }
+
+  refreshToken() {
+    console.log("in refresh token")
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const refreshToken = localStorage.getItem('refresh_token') as string;
+    return this.httpClient.post(`${this.BACKEND_URL}/token/refresh/`, {
+      refresh: refreshToken,
+    }, {headers: headers}).pipe(tap((token: any) => {
+      console.log(token.access)
+      localStorage.setItem('access_token', token.access);
+      console.log(localStorage.getItem('access_token'))
+    }));
   }
 
   logout(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
     });
     return this.httpClient.get(`${this.BACKEND_URL}/logout/`, {
       headers,
-      withCredentials: true,
-      observe: 'response',
-    }) as Observable<any>;
-  }
 
-  whoami(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
-    });
-    return this.httpClient.get(`${this.BACKEND_URL}/whoami/`, {
-      headers,
-      withCredentials: true,
       observe: 'response',
     }) as Observable<any>;
   }
@@ -89,12 +62,11 @@ export class AuthService {
   register(username: string, email: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
     });
     const body = JSON.stringify({ username, email, password });
     return this.httpClient.post(`${this.BACKEND_URL}/register/`, body, {
       headers,
-      withCredentials: true,
+
       observe: 'response',
     }) as Observable<any>;
   }

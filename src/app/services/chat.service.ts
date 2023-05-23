@@ -5,41 +5,42 @@ import { AuthService } from './auth.service';
 import { AppComponent } from '../app.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
   readonly BACKEND_API = 'http://localhost:8000/api';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-  ) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getChatMessages(username: string): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
-    }
+      
+    };
 
-    return this.http.post(`${this.BACKEND_API}/chat/get_messages/`, { username }, options) as Observable<any>;
+    return this.http.post(
+      `${this.BACKEND_API}/chat/get_messages/`,
+      { username },
+      options
+    ) as Observable<any>;
   }
 
   sendMessage(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
-    return this.http.post(`${this.BACKEND_API}/chat/send_message/`, payload, options) as Observable<any>;
+    return this.http.post(
+      `${this.BACKEND_API}/chat/send_message/`,
+      payload,
+      options
+    ) as Observable<any>;
   }
 }

@@ -8,9 +8,8 @@ describe('UserTeamViewModalsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserTeamViewModalsComponent ]
-    })
-    .compileComponents();
+      declarations: [UserTeamViewModalsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserTeamViewModalsComponent);
     component = fixture.componentInstance;

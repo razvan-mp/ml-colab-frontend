@@ -297,7 +297,7 @@
 
   .arrow-container {
     transform: scale(12);
-    mix-blend-mode:exclusion;
+    mix-blend-mode: exclusion;
 
     i {
       opacity: 1;
@@ -328,19 +328,19 @@
 
 .id3 {
   transform: translateY(-20px);
-  background-image: url('../../assets/images/id3.svg');
+  background-image: url("../../assets/images/id3.svg");
 }
 
 .knn {
-  background-image: url('../../assets/images/knn.svg');
+  background-image: url("../../assets/images/knn.svg");
 }
 
 .kmeans {
-  background-image: url('../../assets/images/kmeans.svg');
+  background-image: url("../../assets/images/kmeans.svg");
 }
 
 .hclustering {
-  background-image: url('../../assets/images/hclustering.svg');
+  background-image: url("../../assets/images/hclustering.svg");
 }
 
 .vert-text {

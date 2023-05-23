@@ -19,7 +19,7 @@ export class UserSettingsComponent {
     private messageService: MessageService,
     private state: StateManagerService,
     private userService: UserService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   get displayUserSettingsModal() {
@@ -42,35 +42,38 @@ export class UserSettingsComponent {
   changeUsername($event: SubmitEvent, form: HTMLFormElement): void {
     const data = Object.fromEntries(new FormData(form as any) as any);
 
-    this.userService.changeUsername(data)
-    .pipe(
-      catchError((err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error,
-        });
-        return err;
-      })
-    )
-    .subscribe((res: any) => {
-      if (res.detail === 'Username changed successfully.') {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: res.detail,
-        });
+    this.userService
+      .changeUsername(data)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error,
+          });
+          return err;
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.detail === 'Username changed successfully.') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: res.detail,
+          });
 
-        localStorage.setItem('username', data['new_username']);
-        document.getElementById('modal-title')!.innerText = `Hi, ${data['new_username']}!`;
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: res.detail,
-        });
-      }
-    });
+          localStorage.setItem('username', data['new_username']);
+          document.getElementById(
+            'modal-title'
+          )!.innerText = `Hi, ${data['new_username']}!`;
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: res.detail,
+          });
+        }
+      });
   }
 
   changePassword($event: SubmitEvent, form: HTMLFormElement): void {
@@ -85,71 +88,73 @@ export class UserSettingsComponent {
       return;
     }
 
-    this.userService.changePassword(data)
-    .pipe(
-      catchError((err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error,
-        });
-        return err;
-      })
-    )
-    .subscribe((res: any) => {
-      if (res.detail === 'Password changed successfully.') {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: res.detail + ' You will be logged out.',
-        });
-        setTimeout(() => {
-          this.authService.logout();
-          window.location.reload();
-        }, 1000);
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: res.detail,
-        });
-      }
-    });
+    this.userService
+      .changePassword(data)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error,
+          });
+          return err;
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.detail === 'Password changed successfully.') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: res.detail + ' You will be logged out.',
+          });
+          setTimeout(() => {
+            this.authService.logout();
+            window.location.reload();
+          }, 1000);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: res.detail,
+          });
+        }
+      });
   }
 
   deleteAccount($event: SubmitEvent, form: HTMLFormElement): void {
     const data = Object.fromEntries(new FormData(form as any) as any);
 
-    this.userService.deleteAccount(data)
-    .pipe(
-      catchError((err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: err.error,
-        });
-        return err;
-      })
-    )
-    .subscribe((res: any) => {
-      if (res.detail === 'Account deleted successfully.') {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: res.detail + ' You will be logged out.',
-        });
-        setTimeout(() => {
-          this.authService.logout();
-          window.location.reload();
-        }, 1000);
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: res.detail,
-        });
-      }
-    });
+    this.userService
+      .deleteAccount(data)
+      .pipe(
+        catchError((err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error,
+          });
+          return err;
+        })
+      )
+      .subscribe((res: any) => {
+        if (res.detail === 'Account deleted successfully.') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: res.detail + ' You will be logged out.',
+          });
+          setTimeout(() => {
+            this.authService.logout();
+            window.location.reload();
+          }, 1000);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: res.detail,
+          });
+        }
+      });
   }
 
   resetForm(): void {

@@ -28,7 +28,7 @@ export class KmeansComponent implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private algorithmsService: AlgorithmsService,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -91,13 +91,13 @@ export class KmeansComponent implements OnInit, OnDestroy {
         points = text;
       }
 
-      let payload: any = {points: points};
+      let payload: any = { points: points };
 
       if (centroids !== '') {
         centroids = centroids.replace(/\n$/, '');
-        payload["centroids"] = centroids;
+        payload['centroids'] = centroids;
       } else {
-        payload["options"] = "random";
+        payload['options'] = 'random';
       }
 
       console.log(payload);
@@ -172,9 +172,9 @@ export class KmeansComponent implements OnInit, OnDestroy {
     $event.preventDefault();
     const data = Object.fromEntries(new FormData(kmeansInput) as any) as any;
 
-    let payload: any = {points: data["points"]};
+    let payload: any = { points: data['points'] };
 
-    if (data["points"] === '') {
+    if (data['points'] === '') {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -184,8 +184,8 @@ export class KmeansComponent implements OnInit, OnDestroy {
     }
 
     if (this.customCentroids) {
-      payload["centroids"] = data["centroids"];
-      if (data["centroids"] === '') {
+      payload['centroids'] = data['centroids'];
+      if (data['centroids'] === '') {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -321,8 +321,7 @@ export class KmeansComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message:
-        `Your data must be a newline separated list of points in the form x,y.\n
+      message: `Your data must be a newline separated list of points in the form x,y.\n
         Your centroids must be a newline separated list of points in the form x,y.\n
         You can also use the random buttons to generate random points and centroids.\n
         Your CSV must have the centroids first (if used), a ; character, and then the points.`,

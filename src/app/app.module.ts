@@ -57,6 +57,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AnimateModule } from 'primeng/animate';
 import { UserChatComponent } from './user-chat/user-chat.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -121,7 +122,13 @@ PlotlyModule.plotlyjs = PlotlyJS;
     PaginatorModule,
     AnimateModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

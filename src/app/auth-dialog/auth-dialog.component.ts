@@ -58,8 +58,8 @@ export class AuthDialogComponent {
       .subscribe((res: any) => {
         if (res['status'] === 200) {
           AppComponent.loggedIn = true;
-          localStorage.setItem('username', formData['username'] as string);
-          localStorage.setItem('user_id', res.body['user_id']);
+          localStorage.setItem('access_token', res.body['access'])
+          localStorage.setItem('refresh_token', res.body['refresh'])
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

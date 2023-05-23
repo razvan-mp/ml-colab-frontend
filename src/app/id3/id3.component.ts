@@ -16,7 +16,7 @@ export class Id3Component implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private algorithmsService: AlgorithmsService,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService
   ) {}
 
   nodes: Node[] = [];
@@ -214,7 +214,7 @@ export class Id3Component implements OnInit, OnDestroy {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message:
-        `Your data should be a newline separated list of comma separated values.\n\n` + 
+        `Your data should be a newline separated list of comma separated values.\n\n` +
         `The first line should be the names of the attributes.\n\n` +
         `The last attribute should be the class attribute.\n\n` +
         `The class attribute should be the last attribute in each line.\n\n` +

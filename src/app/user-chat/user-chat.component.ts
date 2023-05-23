@@ -57,7 +57,7 @@ export class UserChatComponent implements OnInit {
           this.messageBox.nativeElement.scrollTo({
             top: this.messageBox.nativeElement.scrollHeight,
             behavior: 'smooth',
-          })
+          });
         }, 100);
       });
   }

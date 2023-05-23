@@ -16,10 +16,8 @@ export class FriendsService {
   ) {}
 
   getFriendRequests(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -29,10 +27,8 @@ export class FriendsService {
   }
 
   getUsers(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -42,10 +38,8 @@ export class FriendsService {
   }
 
   getUserFriends(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -55,13 +49,11 @@ export class FriendsService {
   }
 
   sendFriendRequest(username: string) {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
     };
 
@@ -73,13 +65,11 @@ export class FriendsService {
   }
 
   cancelFriendRequest(username: string) {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
     };
 
@@ -91,13 +81,11 @@ export class FriendsService {
   }
 
   acceptFriendRequest(username: string) {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
     };
 
@@ -109,13 +97,11 @@ export class FriendsService {
   }
 
   declineFriendRequest(username: string) {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
     };
 
@@ -127,13 +113,11 @@ export class FriendsService {
   }
 
   removeFriend(username: string) {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
     };
 
@@ -145,10 +129,8 @@ export class FriendsService {
   }
 
   getSentRequests(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(

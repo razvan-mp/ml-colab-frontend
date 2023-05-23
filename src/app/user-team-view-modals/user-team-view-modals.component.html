@@ -1,12 +1,11 @@
-
 <!-- edit team note modal -->
 <p-dialog
-    [visible]="displayEditTeamNoteModal"
-    [modal]="true"
-    [draggable]="false"
-    [resizable]="false"
-    [closable]="false"
-    appendTo="body"
+  [visible]="displayEditTeamNoteModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  appendTo="body"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">
@@ -16,27 +15,27 @@
   </ng-template>
   <ng-template pTemplate="content">
     <form
-        id="edit-note-form"
-        class="note-form"
-        #editNoteForm
-        (submit)="editTeamNote($event, editNoteForm)"
+      id="edit-note-form"
+      class="note-form"
+      #editNoteForm
+      (submit)="editTeamNote($event, editNoteForm)"
     >
       <div class="form-inputs p-5">
         <input
-            autocomplete="false"
-            class="note-edit-input note-edit-input-title"
-            type="text"
-            name="title"
-            placeholder="Note title"
-            [value]="noteTitle"
+          autocomplete="false"
+          class="note-edit-input note-edit-input-title"
+          type="text"
+          name="title"
+          placeholder="Note title"
+          [value]="noteTitle"
         />
         <p-divider></p-divider>
         <textarea
-            autocomplete="false"
-            class="note-edit-input note-edit-input-content"
-            name="content"
-            placeholder="Note content"
-            [value]="noteContent"
+          autocomplete="false"
+          class="note-edit-input note-edit-input-content"
+          name="content"
+          placeholder="Note content"
+          [value]="noteContent"
         ></textarea>
       </div>
     </form>
@@ -47,20 +46,20 @@
       <div></div>
       <div>
         <button
-            pButton
-            pRipple
-            class="p-button p-button-danger p-button-outlined"
-            type="button"
-            (click)="hideEditNoteModal()"
-            label="Discard"
+          pButton
+          pRipple
+          class="p-button p-button-danger p-button-outlined"
+          type="button"
+          (click)="hideEditNoteModal()"
+          label="Discard"
         ></button>
         <button
-            pButton
-            pRipple
-            class="p-button p-button-success p-button-outlined"
-            type="submit"
-            form="edit-note-form"
-            label="Save"
+          pButton
+          pRipple
+          class="p-button p-button-success p-button-outlined"
+          type="submit"
+          form="edit-note-form"
+          label="Save"
         ></button>
       </div>
     </div>
@@ -69,18 +68,18 @@
 
 <!-- delete note modal -->
 <p-dialog
-    [style]="{
+  [style]="{
     width: '400px',
     height: 'auto',
     'min-height': '200px',
     overflow: 'auto'
   }"
-    [modal]="true"
-    [dismissableMask]="false"
-    [visible]="displayDeleteTeamNoteModal"
-    [draggable]="false"
-    [resizable]="false"
-    [closable]="false"
+  [modal]="true"
+  [dismissableMask]="false"
+  [visible]="displayDeleteTeamNoteModal"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
 >
   <ng-template pTemplate="header">
     <div class="flex flex-column w-full">
@@ -98,20 +97,20 @@
     <p-divider></p-divider>
     <div class="button-pair justify-content-center">
       <button
-          pButton
-          pRipple
-          class="p-button p-button-danger p-button-outlined"
-          type="button"
-          (click)="hideDeleteNoteModal()"
-          label="Cancel"
+        pButton
+        pRipple
+        class="p-button p-button-danger p-button-outlined"
+        type="button"
+        (click)="hideDeleteNoteModal()"
+        label="Cancel"
       ></button>
       <button
-          pButton
-          pRipple
-          class="p-button p-button-success p-button-outlined"
-          type="button"
-          (click)="deleteNote(selectedTeamNote)"
-          label="Delete"
+        pButton
+        pRipple
+        class="p-button p-button-success p-button-outlined"
+        type="button"
+        (click)="deleteNote(selectedTeamNote)"
+        label="Delete"
       ></button>
     </div>
   </ng-template>

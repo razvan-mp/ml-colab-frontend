@@ -20,8 +20,10 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      AppComponent.loggedIn = true;
+    }
     this.primengConfig.ripple = true;
-    this.authService.getSession();
 
     const blob = document.getElementById('blob');
     window.onpointermove = (event) => {

@@ -16,10 +16,8 @@ export class NoteService {
   ) {}
 
   fetchNotes() {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -29,15 +27,13 @@ export class NoteService {
   }
 
   createNote(payload: any) {
-    this.authService.getCSRF();
-
     const headers = {
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
+      
     };
     const options = {
       headers,
-      withCredentials: true,
+      
     };
 
     return this.httpClient.post(
@@ -48,15 +44,13 @@ export class NoteService {
   }
 
   deleteNote(payload: any) {
-    this.authService.getCSRF();
-
     const headers = {
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
+      
     };
     const options = {
       headers,
-      withCredentials: true,
+      
     };
 
     return this.httpClient.request('delete', `${this.BACKEND_API}/note/`, {
@@ -66,15 +60,13 @@ export class NoteService {
   }
 
   editNote(payload: any) {
-    this.authService.getCSRF();
-
     const headers = {
       'Content-Type': 'application/json',
-      'X-CSRFToken': AppComponent.csrfToken,
+      
     };
     const options = {
       headers,
-      withCredentials: true,
+      
     };
 
     return this.httpClient.put(

@@ -306,8 +306,7 @@ export class KnnComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message:
-        `Your data should be a newline separated list of points. \n
+      message: `Your data should be a newline separated list of points. \n
         Each point should be a comma separated list of numbers. \n 
         The last number in each point should be the class of the point (0 or 1).`,
       acceptLabel: 'Ok',

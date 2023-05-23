@@ -89,7 +89,7 @@ form {
 }
 
 .show-below {
-  animation: showBelow 1s forwards cubic-bezier(0.215, 0.610, 0.355, 1);
+  animation: showBelow 1s forwards cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 @keyframes showBelow {
@@ -127,27 +127,27 @@ form {
 }
 
 .red-slide-to-signup {
-  animation: redSlideToSignUp .5s forwards ease-in-out;
+  animation: redSlideToSignUp 0.5s forwards ease-in-out;
 }
 
 .indigo-slide-to-signup {
-  animation: indigoSlideToSignUp .5s forwards ease-in-out;
+  animation: indigoSlideToSignUp 0.5s forwards ease-in-out;
 }
 
 .blue-slide-to-signup {
-  animation: blueSlideToSignUp .5s forwards ease-in-out;
+  animation: blueSlideToSignUp 0.5s forwards ease-in-out;
 }
 
 .red-slide-to-login {
-  animation: redSlideToLogIn .5s forwards ease-in-out;
+  animation: redSlideToLogIn 0.5s forwards ease-in-out;
 }
 
 .indigo-slide-to-login {
-  animation: indigoSlideToLogIn .5s forwards ease-in-out;
+  animation: indigoSlideToLogIn 0.5s forwards ease-in-out;
 }
 
 .blue-slide-to-login {
-  animation: blueSlideToLogIn .5s forwards ease-in-out;
+  animation: blueSlideToLogIn 0.5s forwards ease-in-out;
 }
 
 @keyframes indigoSlideToSignUp {
@@ -203,5 +203,3 @@ form {
     transform: skew(-15deg) translateX(60svw);
   }
 }
-
-

@@ -100,35 +100,8 @@ export class SidebarComponent implements OnInit {
           detail: 'You have successfully logged out!',
         });
         this.displaySidebar = false;
-        this.authService.getSession();
       }
     });
-  }
-
-  whoAmI(): void {
-    this.authService
-      .whoami()
-      .pipe(
-        catchError((error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Something went wrong. Please try again.',
-          });
-          return error;
-        })
-      )
-      .subscribe((res: any) => {
-        if (res['status'] === 200) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: `You are logged in as ${res.body['username']}`,
-          });
-          localStorage.setItem('username', res.body['username']);
-          localStorage.setItem('user_id', res.body['user_id']);
-        }
-      });
   }
 
   displayUserSettingsModal() {

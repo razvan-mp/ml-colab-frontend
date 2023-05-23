@@ -124,9 +124,12 @@
       <!-- delete user -->
       <div *ngIf="displayItem === 2" class="team-details w-full">
         <h3 class="text-red-500">
-          Please make sure you are absolutely sure you want to delete your account.
+          Please make sure you are absolutely sure you want to delete your
+          account.
         </h3>
-        <p class="text-red-500">No data can be recovered and all your notes and teams will be lost.</p>
+        <p class="text-red-500">
+          No data can be recovered and all your notes and teams will be lost.
+        </p>
         <form
           #deleteAccountForm
           (submit)="deleteAccount($event, deleteAccountForm)"

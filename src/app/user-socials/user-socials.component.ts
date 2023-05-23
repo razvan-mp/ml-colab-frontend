@@ -18,7 +18,7 @@ export class UserSocialsComponent implements OnInit {
     private messageService: MessageService,
     private friendsService: FriendsService,
     private socketService: SocketService,
-    private state: StateManagerService,
+    private state: StateManagerService
   ) {}
 
   get friends() {

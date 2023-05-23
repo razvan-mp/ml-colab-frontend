@@ -44,7 +44,7 @@ export class HclusteringComponent implements OnInit, OnDestroy {
       label: 'ME | Median',
       value: 'median',
     },
-  ]
+  ];
 
   metrics = [
     {
@@ -111,7 +111,7 @@ export class HclusteringComponent implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService,
     private algorithmsService: AlgorithmsService,
-    private confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -162,10 +162,16 @@ export class HclusteringComponent implements OnInit, OnDestroy {
     if (this.selectedMethod === 'ward' && this.selectedMetric !== 'euclidean') {
       return false;
     }
-    if (this.selectedMethod === 'centroid' && this.selectedMetric !== 'euclidean') {
+    if (
+      this.selectedMethod === 'centroid' &&
+      this.selectedMetric !== 'euclidean'
+    ) {
       return false;
     }
-    if (this.selectedMethod === 'median' && this.selectedMetric !== 'euclidean') {
+    if (
+      this.selectedMethod === 'median' &&
+      this.selectedMetric !== 'euclidean'
+    ) {
       return false;
     }
     return true;
@@ -192,31 +198,36 @@ export class HclusteringComponent implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: `Method ${this.selectedMethod} is not compatible with metric ${this.metrics.find((metric) => metric.value === this.selectedMetric)?.label}. Use L2 | Euclidean instead.`,
+          detail: `Method ${
+            this.selectedMethod
+          } is not compatible with metric ${
+            this.metrics.find((metric) => metric.value === this.selectedMetric)
+              ?.label
+          }. Use L2 | Euclidean instead.`,
         });
         return;
       }
 
       this.algorithmsService
-      .updateHclusteringData(payload)
-      .pipe(
-        catchError((error) => {
+        .updateHclusteringData(payload)
+        .pipe(
+          catchError((error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error updating data',
+            });
+            return error;
+          })
+        )
+        .subscribe((data) => {
+          this.updateGraphData(data);
           this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error updating data',
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Data updated successfully',
           });
-          return error;
-        })
-      )
-      .subscribe((data) => {
-        this.updateGraphData(data);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Data updated successfully',
         });
-      });
     };
     reader.readAsText(file);
   }
@@ -229,7 +240,11 @@ export class HclusteringComponent implements OnInit, OnDestroy {
     );
 
     this.algorithmsService
-      .updateHclusteringData({...data, method: this.selectedMethod, metric: this.selectedMetric})
+      .updateHclusteringData({
+        ...data,
+        method: this.selectedMethod,
+        metric: this.selectedMetric,
+      })
       .pipe(
         catchError((error) => {
           this.messageService.add({
@@ -250,13 +265,11 @@ export class HclusteringComponent implements OnInit, OnDestroy {
       });
   }
 
-  
   showHelp(event: Event) {
     event.preventDefault();
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message:
-        `Your data must be a newline separated list of points.\n
+      message: `Your data must be a newline separated list of points.\n
         Each point must be a comma separated list of coordinates.\n
         Please note that the number of coordinates must be the same for all points.\n
         The first line will correspond to the letter A, the second to B, and so on.`,

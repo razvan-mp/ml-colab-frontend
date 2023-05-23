@@ -12,7 +12,7 @@ export class SocketService {
 
   connect(): void {
     const options = {
-      withCredentials: true,
+      
       transports: ['websocket'],
     };
 

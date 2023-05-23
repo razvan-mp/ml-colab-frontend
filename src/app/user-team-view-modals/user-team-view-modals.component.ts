@@ -15,7 +15,7 @@ export class UserTeamViewModalsComponent {
   constructor(
     private state: StateManagerService,
     private noteService: NoteService,
-    private teamsService: TeamsService,
+    private teamsService: TeamsService
   ) {}
 
   get displayDeleteTeamNoteModal() {
@@ -50,25 +50,23 @@ export class UserTeamViewModalsComponent {
   }
 
   updateView(): void {
-    this.teamsService
-      .getTeams()
-      .subscribe((res: any) => {
-        this.state.teams = res;
-        const team = this.state.teams.find(
-          (team) => team.id === this.state.selectedTeam
-        );
-        if (team) {
-          this.state.selectedTeamName = team.name;
-          this.state.selectedTeamDescription = team.description as string;
-          this.state.selectedTeamUsers = team.users as User[];
-          this.state.selectedTeamNotes = team.notes as Note[];
-        } else {
-          this.state.selectedTeamName = '';
-          this.state.selectedTeamDescription = '';
-          this.state.selectedTeamUsers = [];
-          this.state.selectedTeamNotes = [];
-        }
-      });
+    this.teamsService.getTeams().subscribe((res: any) => {
+      this.state.teams = res;
+      const team = this.state.teams.find(
+        (team) => team.id === this.state.selectedTeam
+      );
+      if (team) {
+        this.state.selectedTeamName = team.name;
+        this.state.selectedTeamDescription = team.description as string;
+        this.state.selectedTeamUsers = team.users as User[];
+        this.state.selectedTeamNotes = team.notes as Note[];
+      } else {
+        this.state.selectedTeamName = '';
+        this.state.selectedTeamDescription = '';
+        this.state.selectedTeamUsers = [];
+        this.state.selectedTeamNotes = [];
+      }
+    });
   }
 
   editTeamNote($event: SubmitEvent, editNoteForm: HTMLFormElement): void {

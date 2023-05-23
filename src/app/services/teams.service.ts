@@ -15,10 +15,8 @@ export class TeamsService {
   ) {}
 
   getTeams(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -28,10 +26,8 @@ export class TeamsService {
   }
 
   getUserTeams(): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
-      withCredentials: true,
+      
     };
 
     return this.httpClient.get(
@@ -41,8 +37,6 @@ export class TeamsService {
   }
 
   addUserToTeam(username: string, teamId: number): Observable<any> {
-    this.authService.getCSRF();
-
     const payload = {
       username: username,
       id: teamId,
@@ -51,9 +45,9 @@ export class TeamsService {
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.post(
@@ -64,14 +58,12 @@ export class TeamsService {
   }
 
   deleteTeam(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.request('delete', `${this.BACKEND_API}team/`, {
@@ -81,14 +73,12 @@ export class TeamsService {
   }
 
   createTeam(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.post(
@@ -99,14 +89,12 @@ export class TeamsService {
   }
 
   updateTeam(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.put(
@@ -117,14 +105,12 @@ export class TeamsService {
   }
 
   removeUserFromTeam(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.post(
@@ -135,14 +121,12 @@ export class TeamsService {
   }
 
   addUsersToTeam(payload: any): Observable<any> {
-    this.authService.getCSRF();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': AppComponent.csrfToken,
+        
       },
-      withCredentials: true,
+      
     };
 
     return this.httpClient.post(
