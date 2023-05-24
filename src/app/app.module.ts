@@ -58,6 +58,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AnimateModule } from 'primeng/animate';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { VideoCallComponent } from './video-call/video-call.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -86,6 +87,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserTeamViewModalsComponent,
     UserSettingsComponent,
     UserChatComponent,
+    VideoCallComponent,
   ],
   imports: [
     BrowserModule,

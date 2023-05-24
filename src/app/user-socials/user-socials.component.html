@@ -5,16 +5,7 @@
     class="flex md:flex-row flex-column justify-content-between friend-container"
   >
     <div class="flex flex-column w-full gap-2">
-      <div class="flex flex-row gap-2 align-items-center">
-        <h3>Your friends</h3>
-        <p-button
-          icon="pi pi-video"
-          pTooltip="Talk to someone"
-          tooltipPosition="top"
-          styleClass="p-button-text p-button-rounded"
-          (click)="foo()"
-        ></p-button>
-      </div>
+      <h3>Your friends</h3>
       <p *ngIf="friends.length === 0" class="font-italic text-gray-800">
         No friends yet
       </p>

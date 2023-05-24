@@ -1,7 +1,7 @@
 <p-toast position="bottom-left"></p-toast>
 
 <!-- main toolbar -->
-<div class="toolbar select-none" id="header">
+<div class="toolbar select-none overflow-visible" id="header">
   <div class="start">ML Colab</div>
 
   <div class="center">
@@ -52,6 +52,7 @@
   </div>
 
   <div class="end">
+    <app-video-call></app-video-call>
     <p-button
       *ngIf="isLoggedIn"
       icon="pi pi-bars"

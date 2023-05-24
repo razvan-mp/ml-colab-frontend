@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 @Component({
   selector: 'app-id3',
   templateUrl: './id3.component.html',
-  providers: [MessageService, AlgorithmsService, ConfirmationService],
+  providers: [MessageService, ConfirmationService],
   styleUrls: ['./id3.component.scss'],
 })
 export class Id3Component implements OnInit, OnDestroy {
