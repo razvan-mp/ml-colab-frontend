@@ -95,4 +95,8 @@ export class SocketService {
       this.socket.on('room-created', (roomId: any) => observer.next(roomId));
     });
   }
+
+  endCall(roomId: string, userId: string) {
+    this.socket.emit('end-call', roomId, userId);
+  }
 }

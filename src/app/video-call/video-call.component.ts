@@ -18,17 +18,18 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class VideoCallComponent implements OnInit, OnDestroy {
   peerConnection!: RTCPeerConnection;
   displayHelp: boolean = false;
+  callStarted: boolean = false;
 
   @ViewChild('localVideo') localVideo!: ElementRef;
   @ViewChild('remoteVideo') remoteVideo!: ElementRef;
+  @ViewChild('videoCallWindow') videoCallWindowRef!: ElementRef;
   localStream!: MediaStream;
   remoteStream!: MediaStream;
   roomId: string = '';
 
   constructor(
     private socketService: SocketService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +64,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   }
 
   async joinRoom() {
+    this.callStarted = true;
+    this.videoCallWindowRef.nativeElement.classList.remove('hidden');
+
     this.localStream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
@@ -137,6 +141,35 @@ export class VideoCallComponent implements OnInit, OnDestroy {
 
   copyRoomId(): void {
     navigator.clipboard.writeText(this.roomId);
-    console.log('Room ID copied to clipboard');
+  }
+
+  async startCall() {
+    const offer = await this.peerConnection.createOffer();
+    await this.peerConnection.setLocalDescription(offer);
+    this.socketService.sendOffer(
+      this.roomId,
+      this.peerConnection.localDescription as any,
+      localStorage.getItem('username')!
+    );
+
+    this.peerConnection.ontrack = (event) => {
+      if (!this.remoteStream) {
+        this.remoteStream = new MediaStream();
+        this.remoteVideo.nativeElement.srcObject = this.remoteStream;
+      }
+      if (event.track.kind === 'video' || event.track.kind === 'audio') {
+        this.remoteStream.addTrack(event.track);
+      }
+    };
+  }
+
+  async endCall() {
+    this.socketService.endCall(
+      this.roomId,
+      localStorage.getItem('username')!
+    );
+    this.removeAllStreams();
+    this.callStarted = false;
+    this.videoCallWindowRef.nativeElement.classList.add('hidden');
   }
 }

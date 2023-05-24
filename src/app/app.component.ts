@@ -10,20 +10,27 @@ import { StateManagerService } from './services/state-manager.service';
 })
 export class AppComponent implements OnInit {
   title = 'front-end';
-  static readonly BACKEND_URL: string = 'http://localhost:8000/';
-  static loggedIn: boolean = false;
-  static csrfToken: any;
+  static readonly BACKEND_URL: string = 'http://192.168.1.3:8000/';
+
+  get isLoggedIn(): boolean {
+    return this.state.isLoggedIn;
+  }
+
+  set isLoggedIn(value: boolean) {
+    this.state.isLoggedIn = value;
+  }
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private authService: AuthService
+    private authService: AuthService,
+    private state: StateManagerService
   ) {}
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      AppComponent.loggedIn = true;
+      this.isLoggedIn = true;
     } else {
-      AppComponent.loggedIn = false;
+      this.isLoggedIn = false;
       localStorage.clear();
     }
     this.primengConfig.ripple = true;

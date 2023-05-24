@@ -109,7 +109,7 @@ export class UserSettingsComponent {
           });
           setTimeout(() => {
             this.authService.logout();
-            AppComponent.loggedIn = false;
+            this.state.isLoggedIn = false;
             localStorage.clear();
             window.location.reload();
           }, 1000);
@@ -147,7 +147,7 @@ export class UserSettingsComponent {
           });
           setTimeout(() => {
             this.authService.logout();
-            AppComponent.loggedIn = false;
+            this.state.isLoggedIn = false;
             localStorage.clear();
             window.location.reload();
           }, 1000);

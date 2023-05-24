@@ -1,21 +1,41 @@
-<p-toast
-  appendTo="body"
-  styleClass="absolute top-100 bottom-0"
-  position="top-right"
-></p-toast>
+<p-toast position="bottom-left"></p-toast>
 
 <p-button
-  appendTo="body"
+  style="z-index: 10000"
   icon="pi pi-video"
   styleClass="p-button-rounded p-button-text"
+  class="fixed top-0 left-0"
   pTooltip="Video call"
   tooltipPosition="bottom"
   (click)="showHelp($event)"
 ></p-button>
 
-<div style="position: absolute; top: 200px; left: 200px">
-  <video style="width: 50px; aspect-ratio: 1/1; position: absolute; top: 50px;" #localVideo autoplay muted></video>
-  <video style="width: 50px; aspect-ratio: 1/1; position: absolute; top: 200px;" #remoteVideo autoplay></video>
+<div class="drag-boundary" #dragBoundary>
+  <div #videoCallWindow class="drag-boundary__inner video-call-window hidden" [cdkDragBoundary]="dragBoundary" cdkDrag>
+    <div
+      class="w-full flex flex-row justify-content-between align-items-center"
+    >
+      <p>Ongoing call</p>
+      <div class="flex flex-row align-items-center">
+        <p-button
+          icon="pi pi-video"
+          styleClass="p-button-rounded p-button-text"
+          pTooltip="Start call"
+          tooltipPosition="bottom"
+          (click)="startCall()"
+        ></p-button>
+        <p-button
+          icon="pi pi-minus-circle"
+          styleClass="p-button-rounded p-button-text"
+          pTooltip="Start call"
+          tooltipPosition="bottom"
+          (click)="endCall()"
+        ></p-button>
+      </div>
+    </div>
+    <video class="local-video" #localVideo autoplay muted></video>
+    <video class="remote-video" #remoteVideo autoplay></video>
+  </div>
 </div>
 
 <p-dialog
@@ -25,7 +45,7 @@
   header="Start a video call"
   [(visible)]="displayHelp"
   [modal]="true"
-  [style]="{ width: '40vw' }"
+  [style]="{ width: '40vw', backgroundColor: 'white' }"
 >
   <div class="flex flex-column gap-2 w-full">
     <p-button
@@ -52,10 +72,7 @@
     </div>
   </div>
   <p-divider></p-divider>
-  <form
-    (submit)="joinRoom()"
-    class="flex flex-column gap-2 w-full"
-  >
+  <form (submit)="joinRoom()" class="flex flex-column gap-2 w-full">
     <input
       pInputText
       placeholder="Room ID"

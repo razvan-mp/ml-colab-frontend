@@ -59,6 +59,7 @@ import { AnimateModule } from 'primeng/animate';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { VideoCallComponent } from './video-call/video-call.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -123,6 +124,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     ProgressSpinnerModule,
     PaginatorModule,
     AnimateModule,
+    DragDropModule,
   ],
   providers: [
     {

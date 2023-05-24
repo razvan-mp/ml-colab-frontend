@@ -9,6 +9,8 @@ import { Friend } from '../models/Friend';
   providedIn: 'root',
 })
 export class StateManagerService {
+  public isLoggedIn: boolean = false;
+
   public displaySidebar: boolean = false;
   public displayAuthModal: boolean = false;
   public displayUserSettingsModal: boolean = false;

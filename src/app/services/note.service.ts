@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class NoteService {
-  BACKEND_API = 'http://localhost:8000/api/notes';
+  BACKEND_API = 'http://192.168.1.3:8000/api/notes';
 
   constructor(
     private httpClient: HttpClient,

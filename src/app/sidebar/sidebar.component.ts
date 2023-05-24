@@ -90,7 +90,7 @@ export class SidebarComponent implements OnInit {
   logoutUser(): void {
     this.authService.logout().subscribe((res: any) => {
       if (res['status'] === 200) {
-        AppComponent.loggedIn = false;
+        this.state.isLoggedIn = false;
         localStorage.removeItem('acess_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('username');

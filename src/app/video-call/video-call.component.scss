@@ -1,0 +1,45 @@
+.drag-boundary {
+  pointer-events: none;
+  z-index: 999;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  .drag-boundary__inner {
+    pointer-events: auto;
+  }
+}
+
+video.local-video {
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  width: 180px;
+  border-radius: 15px;
+  margin: 10px;
+  border: 3px solid var(--indigo-400);
+  z-index: 2;
+}
+
+video.remote-video {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  width: 380px;
+  z-index: 1;
+  margin: 5px;
+  border-radius: 15px;
+  border: 3px solid var(--indigo-400);
+}
+
+.video-call-window {
+  height: 325px;
+  width: 400px;
+  background-color: white;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 15px;
+  z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px 3px;
+}

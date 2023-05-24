@@ -10,14 +10,13 @@ import { StateManagerService } from '../services/state-manager.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean = false;
-
   constructor(private state: StateManagerService) {}
+  isLoggedIn: boolean = this.state.isLoggedIn;
 
   ngOnInit(): void {
     setInterval(() => {
-      this.isLoggedIn = AppComponent.loggedIn;
-    });
+      this.isLoggedIn = this.state.isLoggedIn;
+    }, 100);
 
     window.addEventListener('click', (event) => {
       const menu = document.getElementById('algo-menu');

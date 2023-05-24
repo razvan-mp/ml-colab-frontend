@@ -2,6 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;200;300;400;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira%20Code:wght@100;300;400;500;700;900&display=swap");
 
+:host ::ng-deep {
+  .p-dialog .p-dialog-header .p-dialog-header-close-icon {
+    display: none;
+  }
+}
+
 * {
   font-family: "Poppins", sans-serif;
   color: #181818;

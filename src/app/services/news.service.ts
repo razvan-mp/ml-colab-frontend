@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class NewsService {
-  BACKEND_API = 'http://localhost:8000/api/news';
+  BACKEND_API = 'http://192.168.1.3:8000/api/news';
 
   constructor(private httpClient: HttpClient) {}
 
