@@ -4,33 +4,73 @@
   style="z-index: 10000"
   icon="pi pi-video"
   styleClass="p-button-rounded p-button-text"
-  class="fixed top-0 left-0"
+  class="video-call-button"
   pTooltip="Video call"
   tooltipPosition="bottom"
   (click)="showHelp($event)"
 ></p-button>
 
 <div class="drag-boundary" #dragBoundary>
-  <div #videoCallWindow class="drag-boundary__inner video-call-window hidden" [cdkDragBoundary]="dragBoundary" cdkDrag>
+  <div
+    id="videoCallWindow"
+    #videoCallWindow
+    [cdkDragBoundary]="dragBoundary"
+    class="drag-boundary__inner video-call-window hidden"
+    cdkDrag
+  >
     <div
-      class="w-full flex flex-row justify-content-between align-items-center"
+      class="w-full flex flex-row justify-content-between align-items-center mr-1 ml-1"
     >
-      <p>Ongoing call</p>
+      <button
+        pRipple
+        class="video-call-control-button"
+        pTooltip="Hide"
+        tooltipPosition="bottom"
+        (click)="toggleCallWindow()"
+      >
+        <ng-icon *ngIf="!callWindowHidden" name="featherChevronDown"></ng-icon>
+        <ng-icon *ngIf="callWindowHidden" name="featherChevronUp"></ng-icon>
+      </button>
+      <p class="font-semibold">Ongoing call</p>
       <div class="flex flex-row align-items-center">
-        <p-button
-          icon="pi pi-video"
-          styleClass="p-button-rounded p-button-text"
-          pTooltip="Start call"
+        <button
+          pRipple
+          class="video-call-control-button"
+          pTooltip="Start Call"
           tooltipPosition="bottom"
-          (click)="startCall()"
-        ></p-button>
-        <p-button
-          icon="pi pi-minus-circle"
-          styleClass="p-button-rounded p-button-text"
-          pTooltip="Start call"
+          (click)="joinRoom()"
+        >
+          <ng-icon name="featherPhone"></ng-icon>
+        </button>
+        <button
+          pRipple
+          class="video-call-control-button"
+          pTooltip="End Call"
           tooltipPosition="bottom"
           (click)="endCall()"
-        ></p-button>
+        >
+          <ng-icon name="featherPhoneOff"></ng-icon>
+        </button>
+        <button
+          pRipple
+          class="video-call-control-button"
+          pTooltip="Toggle Audio"
+          tooltipPosition="bottom"
+          (click)="toggleAudio()"
+        >
+          <ng-icon *ngIf="audioOn" name="featherMic"></ng-icon>
+          <ng-icon *ngIf="!audioOn" name="featherMicOff"></ng-icon>
+        </button>
+        <button
+          pRipple
+          class="video-call-control-button"
+          pTooltip="Toggle Video"
+          tooltipPosition="bottom"
+          (click)="toggleVideo()"
+        >
+          <ng-icon *ngIf="videoOn" name="featherVideo"></ng-icon>
+          <ng-icon *ngIf="!videoOn" name="featherVideoOff"></ng-icon>
+        </button>
       </div>
     </div>
     <video class="local-video" #localVideo autoplay muted></video>

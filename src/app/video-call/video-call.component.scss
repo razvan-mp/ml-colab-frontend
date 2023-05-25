@@ -33,7 +33,7 @@ video.remote-video {
 }
 
 .video-call-window {
-  height: 325px;
+  height: 350px;
   width: 400px;
   background-color: white;
   position: fixed;
@@ -42,4 +42,34 @@ video.remote-video {
   border-radius: 15px;
   z-index: 1000;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 5px 3px;
+  transition: height 400ms;
+}
+
+.video-call-button {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+}
+
+.video-call-control-button {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: 200ms ease-in-out;
+  margin: 5px;
+}
+
+.video-call-control-button:hover {
+  background-color: var(--indigo-50);
+}
+
+.controls-only {
+  height: 60px;
+  transition: height 200ms ease-in-out;
 }

@@ -60,6 +60,17 @@ import { UserChatComponent } from './user-chat/user-chat.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { VideoCallComponent } from './video-call/video-call.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgIconsModule } from '@ng-icons/core';
+import {
+  featherPhone,
+  featherPhoneOff,
+  featherVideo,
+  featherVideoOff,
+  featherMic,
+  featherMicOff,
+  featherChevronDown,
+  featherChevronUp,
+} from '@ng-icons/feather-icons';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -125,6 +136,16 @@ PlotlyModule.plotlyjs = PlotlyJS;
     PaginatorModule,
     AnimateModule,
     DragDropModule,
+    NgIconsModule.withIcons({
+      featherPhone,
+      featherPhoneOff,
+      featherVideo,
+      featherVideoOff,
+      featherMic,
+      featherMicOff,
+      featherChevronDown,
+      featherChevronUp,
+    }),
   ],
   providers: [
     {

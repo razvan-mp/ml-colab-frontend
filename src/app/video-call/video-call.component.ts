@@ -19,6 +19,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   peerConnection!: RTCPeerConnection;
   displayHelp: boolean = false;
   callStarted: boolean = false;
+  audioOn: boolean = true;
+  videoOn: boolean = true;
+  callWindowHidden: boolean = false;
 
   @ViewChild('localVideo') localVideo!: ElementRef;
   @ViewChild('remoteVideo') remoteVideo!: ElementRef;
@@ -135,7 +138,9 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   removeAllStreams() {
     this.localStream.getTracks().forEach((track) => track.stop());
     this.localVideo.nativeElement.srcObject = null;
-    this.remoteStream.getTracks().forEach((track) => track.stop());
+    if (this.remoteStream) {
+      this.remoteStream.getTracks().forEach((track) => track.stop());
+    }
     this.remoteVideo.nativeElement.srcObject = null;
   }
 
@@ -143,33 +148,41 @@ export class VideoCallComponent implements OnInit, OnDestroy {
     navigator.clipboard.writeText(this.roomId);
   }
 
-  async startCall() {
-    const offer = await this.peerConnection.createOffer();
-    await this.peerConnection.setLocalDescription(offer);
-    this.socketService.sendOffer(
-      this.roomId,
-      this.peerConnection.localDescription as any,
-      localStorage.getItem('username')!
-    );
-
-    this.peerConnection.ontrack = (event) => {
-      if (!this.remoteStream) {
-        this.remoteStream = new MediaStream();
-        this.remoteVideo.nativeElement.srcObject = this.remoteStream;
-      }
-      if (event.track.kind === 'video' || event.track.kind === 'audio') {
-        this.remoteStream.addTrack(event.track);
-      }
-    };
+  async endCall() {
+    this.socketService.endCall(this.roomId, localStorage.getItem('username')!);
+    this.removeAllStreams();
+    setTimeout(() => {
+      this.callStarted = false;
+      this.videoCallWindowRef.nativeElement.classList.add('hidden');
+      this.videoCallWindowRef.nativeElement.classList.remove('controls-only');
+      this.callWindowHidden = false;
+    }, 500);
   }
 
-  async endCall() {
-    this.socketService.endCall(
-      this.roomId,
-      localStorage.getItem('username')!
-    );
-    this.removeAllStreams();
-    this.callStarted = false;
-    this.videoCallWindowRef.nativeElement.classList.add('hidden');
+  toggleAudio(): void {
+    if (this.localStream) {
+      this.localStream
+        .getAudioTracks()
+        .forEach((track) => (track.enabled = !track.enabled));
+      this.audioOn = !this.audioOn;
+    }
+  }
+
+  toggleVideo(): void {
+    if (this.localStream) {
+      this.localStream
+        .getVideoTracks()
+        .forEach((track) => (track.enabled = !track.enabled));
+      this.videoOn = !this.videoOn;
+    }
+  }
+
+  toggleCallWindow(): void {
+    this.videoCallWindowRef.nativeElement.classList.toggle('controls-only');
+    this.callWindowHidden = !this.callWindowHidden;
+    setTimeout(() => {
+      this.localVideo.nativeElement.classList.toggle('hidden');
+      this.remoteVideo.nativeElement.classList.toggle('hidden');
+    }, 100);
   }
 }
