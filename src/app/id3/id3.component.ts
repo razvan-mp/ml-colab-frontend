@@ -22,7 +22,6 @@ import * as d3 from 'd3';
 })
 export class Id3Component implements OnInit, OnDestroy {
   private zoom: any;
-  @ViewChild('graphContainer', { static: false }) container!: ElementRef;
 
   constructor(
     private messageService: MessageService,
@@ -31,13 +30,22 @@ export class Id3Component implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loadExampleData();
+    if (this.dataInLocalStorage()) {
+      document.getElementById('container')!.innerHTML = localStorage.getItem(
+        'id3_data'
+      )! as string;
+      this.initializePanAndZoom();
+    } else {
+      this.loadExampleData();
+    }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    localStorage.setItem('id3_data', '');
+  }
 
   initializePanAndZoom(): void {
-    const container = d3.select(this.container.nativeElement);
+    const container = d3.select(document.getElementById('container')!);
     const element = document.getElementById('content')!;
     const content = d3.select(element);
 
@@ -64,8 +72,8 @@ export class Id3Component implements OnInit, OnDestroy {
   }
 
   resetView(): void {
-    const container = d3.select(this.container.nativeElement);
-    const containerRect = container.node().getBoundingClientRect();
+    const container = d3.select(document.getElementById('container')!);
+    const containerRect = container.node()!.getBoundingClientRect();
     const scale = 0.95;
 
     const initialTransform = d3.zoomIdentity
@@ -83,8 +91,7 @@ export class Id3Component implements OnInit, OnDestroy {
 
   dataInLocalStorage(): boolean {
     return (
-      localStorage.getItem('id3Nodes') !== '[]' &&
-      localStorage.getItem('id3Edges') !== '[]'
+      localStorage.getItem('id3_data') !== ''
     );
   }
 
@@ -102,7 +109,7 @@ export class Id3Component implements OnInit, OnDestroy {
         })
       )
       .subscribe((data: any) => {
-        this.container.nativeElement.innerHTML = data.graph;
+        document.getElementById('container')!.innerHTML = data.graph;
         this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',
@@ -127,7 +134,8 @@ export class Id3Component implements OnInit, OnDestroy {
         return;
       }
       this.algorithmsService.updateId3Data(text).subscribe((res) => {
-        this.container.nativeElement.innerHTML = res.graph;
+        document.getElementById('container')!.innerHTML = res.graph;
+        localStorage.setItem('id3_data', res.graph);
         this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',
@@ -196,7 +204,8 @@ export class Id3Component implements OnInit, OnDestroy {
         })
       )
       .subscribe((res) => {
-        this.container.nativeElement.innerHTML = res.graph;
+        document.getElementById('container')!.innerHTML = res.graph;
+        localStorage.setItem('id3_data', res.graph);
         this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',

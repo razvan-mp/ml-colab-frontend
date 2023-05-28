@@ -104,8 +104,7 @@ export class UserNotesModalsComponent {
       switch (page) {
         case 'id3':
           data = {
-            edges: localStorage.getItem('id3Edges') as string,
-            nodes: localStorage.getItem('id3Nodes') as string,
+            graph: localStorage.getItem('id3_data') as string,
           };
           payload = {
             title: formData['title'] as string,

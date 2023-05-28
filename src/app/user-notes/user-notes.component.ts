@@ -59,8 +59,7 @@ export class UserNotesComponent implements OnInit {
     let graphData = JSON.parse(selectedNoteObject.graph_data);
     switch (page) {
       case 'id3':
-        localStorage.setItem('id3Edges', graphData['edges']);
-        localStorage.setItem('id3Nodes', graphData['nodes']);
+        localStorage.setItem('id3_data', graphData['graph']);
         window.location.href = '/id3';
         break;
       case 'knn':
