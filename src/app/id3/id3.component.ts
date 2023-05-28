@@ -1,10 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import * as shape from 'd3-shape';
 import { Edge, Node, Layout } from '@swimlane/ngx-graph';
 import { Subject } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AlgorithmsService } from '../services/algorithms.service';
 import { catchError } from 'rxjs/operators';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-id3',
@@ -13,52 +21,64 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./id3.component.scss'],
 })
 export class Id3Component implements OnInit, OnDestroy {
+  private zoom: any;
+  @ViewChild('graphContainer', { static: false }) container!: ElementRef;
+
   constructor(
     private messageService: MessageService,
     private algorithmsService: AlgorithmsService,
     private confirmationService: ConfirmationService
   ) {}
 
-  nodes: Node[] = [];
-  edges: Edge[] = [];
-  data: any = {};
-
-  layoutSettings = {
-    orientation: 'TB',
-    nodePadding: '10',
-  };
-  layout: string | Layout = 'dagre';
-  curve: any = shape.curveBundle.beta(1);
-  draggingEnabled: boolean = true;
-  panningEnabled: boolean = true;
-  zoomEnabled: boolean = true;
-  zoomSpeed: number = 0.1;
-  minZoomLevel: number = 0.1;
-  maxZoomLevel: number = 4.0;
-  panOnZoom: boolean = true;
-
-  autoZoom: boolean = true;
-  autoCenter: boolean = false;
-
-  update$: Subject<boolean> = new Subject();
-  center$: Subject<boolean> = new Subject();
-  zoomToFit$: Subject<boolean> = new Subject();
-
   ngOnInit(): void {
-    if (this.dataInLocalStorage()) {
-      this.nodes = JSON.parse(localStorage.getItem('id3Nodes') as string);
-      this.edges = JSON.parse(localStorage.getItem('id3Edges') as string);
-      this.center$.next(true);
-      this.zoomToFit$.next(true);
-    } else {
-      this.loadExampleData();
-    }
+    this.loadExampleData();
   }
 
-  ngOnDestroy(): void {
-    this.nodes = [];
-    this.edges = [];
-    this.updateLocalStorage();
+  ngOnDestroy(): void {}
+
+  initializePanAndZoom(): void {
+    const container = d3.select(this.container.nativeElement);
+    const element = document.getElementById('content')!;
+    const content = d3.select(element);
+
+    container.on('zoom', null);
+
+    element.style.position = 'absolute';
+    element.style.top = '0';
+    element.style.left = '0';
+    element.style.right = '0';
+    element.style.bottom = '0';
+    element.style.width = '95%';
+    element.style.height = '95%';
+    element.style.margin = 'auto';
+    element.style.objectFit = 'contain';
+
+
+    this.zoom = d3.zoom().on('zoom', (event) => {
+      const { x, y, k } = event.transform;
+      content.style('transform', `translate(${x}px, ${y}px) scale(${k})`);
+    });
+
+    container.call(this.zoom, d3.zoomIdentity.scale(0.95));
+    this.resetView();
+  }
+
+  resetView(): void {
+    const container = d3.select(this.container.nativeElement);
+    const containerRect = container.node().getBoundingClientRect();
+    const scale = 0.95;
+
+    const initialTransform = d3.zoomIdentity
+      .scale(scale)
+      .translate(
+        (containerRect.width - containerRect.width) / 2,
+        (containerRect.height - containerRect.height) / 2
+      );
+
+    container
+      .transition()
+      .duration(750)
+      .call(this.zoom.transform, initialTransform);
   }
 
   dataInLocalStorage(): boolean {
@@ -82,25 +102,14 @@ export class Id3Component implements OnInit, OnDestroy {
         })
       )
       .subscribe((data: any) => {
-        this.nodes = data['nodes'];
-        this.edges = data['edges'];
-        this.updateLocalStorage();
+        this.container.nativeElement.innerHTML = data.graph;
+        this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Example data loaded successfully',
         });
-
-        setTimeout(() => {
-          this.zoomToFit$.next(true);
-          this.center$.next(true);
-        }, 500);
       });
-  }
-
-  updateLocalStorage(): void {
-    localStorage.setItem('id3Nodes', JSON.stringify(this.nodes));
-    localStorage.setItem('id3Edges', JSON.stringify(this.edges));
   }
 
   uploadHandler($event: any, form: any): void {
@@ -118,19 +127,13 @@ export class Id3Component implements OnInit, OnDestroy {
         return;
       }
       this.algorithmsService.updateId3Data(text).subscribe((res) => {
-        this.nodes = res['nodes'];
-        this.edges = res['edges'];
-        this.updateLocalStorage();
+        this.container.nativeElement.innerHTML = res.graph;
+        this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Data loaded successfully. Updating graph...',
         });
-        setTimeout(() => {
-          this.zoomToFit$.next(true);
-          this.update$.next(true);
-          this.center$.next(true);
-        }, 500);
       });
     };
     reader.readAsText(file);
@@ -193,19 +196,13 @@ export class Id3Component implements OnInit, OnDestroy {
         })
       )
       .subscribe((res) => {
-        this.nodes = res['nodes'];
-        this.edges = res['edges'];
-        this.updateLocalStorage();
+        this.container.nativeElement.innerHTML = res.graph;
+        this.initializePanAndZoom();
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Data loaded successfully. Updating graph...',
         });
-        setTimeout(() => {
-          this.zoomToFit$.next(true);
-          this.update$.next(true);
-          this.center$.next(true);
-        }, 500);
       });
   }
 

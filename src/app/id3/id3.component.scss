@@ -26,3 +26,25 @@ textarea {
   font-family: "Fira Code", monospace;
   resize: none;
 }
+
+#container {
+  width: 50%;
+  overflow: hidden;
+  border: 2px dashed dodgerblue;
+  border-radius: 5px;
+  margin: 0 auto;
+  position: relative;
+  cursor: move;
+}
+
+.content {
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  bottom: 0;
+  right: 0;
+  height: 95%;
+  width: 95%;
+  margin: auto;
+  object-fit: contain;
+}
