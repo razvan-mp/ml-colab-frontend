@@ -6,9 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import * as shape from 'd3-shape';
-import { Edge, Node, Layout } from '@swimlane/ngx-graph';
-import { Subject } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AlgorithmsService } from '../services/algorithms.service';
 import { catchError } from 'rxjs/operators';
