@@ -39,9 +39,10 @@
     <app-user-socials *ngIf="display === 2"></app-user-socials>
     <app-user-team-view *ngIf="display === 3"></app-user-team-view>
     <app-user-chat *ngIf="display === 4"></app-user-chat>
+    <app-team-chat *ngIf="display === 5"></app-team-chat>
   </ng-template>
   <ng-template pTemplate="footer">
-    <div *ngIf="display !== 4">
+    <div *ngIf="display !== 4 && display !== 5">
       <p-divider></p-divider>
       <div class="sidebar-content">
         <div class="button-pair">

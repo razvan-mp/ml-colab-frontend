@@ -56,5 +56,7 @@ export class StateManagerService {
   public userTeamsPolling: any;
   public userTeamViewPolling: any;
 
+  public cameFromTeam: boolean = false;
+
   constructor() {}
 }

@@ -1,39 +1,40 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { StateManagerService } from '../services/state-manager.service';
 import { ChatService } from '../services/chat.service';
+import { StateManagerService } from '../services/state-manager.service';
 import { PrivateMessage } from '../models/PrivateMessage';
 import { catchError } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-user-chat',
-  providers: [MessageService],
-  templateUrl: './user-chat.component.html',
-  styleUrls: ['./user-chat.component.scss'],
+  selector: 'app-team-chat',
+  templateUrl: './team-chat.component.html',
+  styleUrls: ['./team-chat.component.scss'],
 })
-export class UserChatComponent implements OnInit, OnDestroy {
+export class TeamChatComponent implements OnInit {
   @ViewChild('messageBox') messageBox: any;
   messages: PrivateMessage[] = [];
-  username: string = '';
+
+  get username() {
+    return localStorage.getItem('username');
+  }
+
+  get selectedTeamName() {
+    return this.state.selectedTeamName;
+  }
+
+  get selectedTeamId() {
+    return this.state.selectedTeam;
+  }
 
   constructor(
     private messageService: MessageService,
-    private state: StateManagerService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private state: StateManagerService
   ) {}
 
-  get selectedFriend(): string {
-    return this.state.selectedFriend;
-  }
-
   ngOnInit(): void {
-    this.username = localStorage.getItem('username') as string;
     this.initialFetch();
     this.startPolling();
-  }
-
-  ngOnDestroy(): void {
-    this.state.cameFromTeam = false;
   }
 
   startPolling(): void {
@@ -44,7 +45,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
 
   initialFetch(): void {
     this.chatService
-      .getChatMessages(this.selectedFriend)
+      .getTeamMessages(this.selectedTeamId)
       .pipe(
         catchError((error) => {
           this.messageService.add({
@@ -68,17 +69,7 @@ export class UserChatComponent implements OnInit, OnDestroy {
 
   fetchMessages(): void {
     this.chatService
-      .getChatMessages(this.selectedFriend)
-      .pipe(
-        catchError((error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.message,
-          });
-          return error;
-        })
-      )
+      .getTeamMessages(this.selectedTeamId)
       .subscribe((res: PrivateMessage[]) => {
         this.messages = res;
         if (this.isScrolledToBottom()) {
@@ -91,31 +82,18 @@ export class UserChatComponent implements OnInit, OnDestroy {
     this.state.display = value;
   }
 
-  sendMessageToUser($event: SubmitEvent, form: HTMLFormElement): void {
-    $event.preventDefault();
-
-    const data = Object.fromEntries(new FormData(form as any) as any);
-
-    if (data['message'] === '') return;
-
+  sendMessageToTeam(event: SubmitEvent, form: HTMLFormElement): void {
+    event.preventDefault();
+    const message = Object.fromEntries(new FormData(form) as any)['message'];
+    if (message === '') return;
     this.chatService
-      .sendMessage({
-        message: data['message'],
-        username: this.selectedFriend,
+      .sendTeamMessage({
+        team_id: this.selectedTeamId,
+        message: message,
       })
-      .pipe(
-        catchError((error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.message,
-          });
-          return error;
-        })
-      )
-      .subscribe((res) => {
+      .subscribe(() => {
         this.fetchMessages();
-        this.scrollToBottom();
+        form.reset();
       });
     form.reset();
   }
@@ -137,12 +115,9 @@ export class UserChatComponent implements OnInit, OnDestroy {
     );
   }
 
-  goBack(): void {
-    if (this.state.cameFromTeam) {
-      this.state.cameFromTeam = false;
-      this.setDisplay(5);
-    } else {
-      this.setDisplay(2);
-    }
+  messageUserPrivately(username: string): void {
+    this.state.cameFromTeam = true;
+    this.state.selectedFriend = username;
+    this.state.display = 4;
   }
 }

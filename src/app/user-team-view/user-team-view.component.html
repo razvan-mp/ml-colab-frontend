@@ -8,6 +8,13 @@
     >
     </p-button>
     <h2>{{ selectedTeamName }}</h2>
+    <p-button
+      icon="pi pi-comment"
+      (onClick)="setDisplay(5)"
+      styleClass="p-button-text p-button-rounded"
+      pTooltip="Team chat"
+      tooltipPosition="right"
+    ></p-button>
   </div>
 
   <p-divider></p-divider>

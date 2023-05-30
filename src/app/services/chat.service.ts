@@ -39,4 +39,32 @@ export class ChatService {
       options
     ) as Observable<any>;
   }
+
+  getTeamMessages(teamId: number): Observable<any> {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    return this.http.post(
+      `${this.BACKEND_API}/chat/get_team_messages/`,
+      { team_id: teamId },
+      options
+    ) as Observable<any>;
+  }
+
+  sendTeamMessage(payload: any): Observable<any> {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    return this.http.post(
+      `${this.BACKEND_API}/chat/send_team_message/`,
+      payload,
+      options
+    ) as Observable<any>;
+  }
 }

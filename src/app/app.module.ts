@@ -68,6 +68,7 @@ import {
   featherChevronDown,
   featherChevronUp,
 } from '@ng-icons/feather-icons';
+import { TeamChatComponent } from './team-chat/team-chat.component';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -97,6 +98,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     UserSettingsComponent,
     UserChatComponent,
     VideoCallComponent,
+    TeamChatComponent,
   ],
   imports: [
     BrowserModule,

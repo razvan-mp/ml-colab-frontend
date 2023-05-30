@@ -5,7 +5,6 @@ import { FriendsService } from '../services/friends.service';
 import { catchError } from 'rxjs/operators';
 import { User } from '../models/User';
 import { Friend } from '../models/Friend';
-import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-user-socials',
@@ -17,7 +16,6 @@ export class UserSocialsComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private friendsService: FriendsService,
-    private socketService: SocketService,
     private state: StateManagerService
   ) {}
 
@@ -218,14 +216,8 @@ export class UserSocialsComponent implements OnInit {
   }
 
   openChat(friend: string): any {
+    this.state.cameFromTeam = false;
     this.state.selectedFriend = friend;
     this.state.display = 4;
-  }
-
-  peerConnection!: RTCPeerConnection;
-
-  foo(): void {
-    this.peerConnection = new RTCPeerConnection();
-    this.socketService.connect();
   }
 }
