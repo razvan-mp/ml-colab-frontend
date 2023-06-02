@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
@@ -12,6 +12,8 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
   styleUrls: ['./hclustering.component.scss'],
 })
 export class HclusteringComponent implements OnInit, OnDestroy {
+  @ViewChild('algorithmData') algorithmData!: ElementRef;
+
   selectedMetric = 'euclidean';
   selectedMethod = 'single';
 
@@ -93,7 +95,10 @@ export class HclusteringComponent implements OnInit, OnDestroy {
         ticktext: [] as any,
         tickvals: [
           5.0, 15.0, 25.0, 35.0, 45.0, 55.0, 65.0, 75.0, 85.0, 95.0, 105.0,
-          115.0,
+          115.0, 125.0, 135.0, 145.0, 155.0, 165.0, 175.0, 185.0, 195.0,
+          205.0, 215.0, 225.0, 235.0, 245.0, 255.0, 265.0, 275.0, 285.0,
+          295.0, 305.0, 315.0, 325.0, 335.0, 345.0, 355.0, 365.0, 375.0,
+          385.0, 395.0, 405.0, 415.0, 425.0, 435.0, 445.0, 455.0, 465.0,
         ],
       },
       yaxis: {
@@ -276,5 +281,39 @@ export class HclusteringComponent implements OnInit, OnDestroy {
       acceptLabel: 'Ok',
       rejectVisible: false,
     });
+  }
+
+  private randomIntBetween(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max + 1 - min) + min);
+  }
+
+  private randomBetween(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  private rounded(num: number): number {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
+  }
+
+  getRandomData() {
+    let data = '';
+    let maxIndex = this.randomIntBetween(4, 26);
+    let maxDimension = this.randomIntBetween(1, 4);
+
+    for (let i = 0; i < maxIndex; i++) {
+      for (let j = 0; j < maxDimension; j++) {
+        data += this.rounded(this.randomBetween(0, 100));
+        if (j !== maxDimension - 1) {
+          data += ',';
+        }
+      }
+      if (i !== maxIndex - 1) {
+        data += '\n';
+      }
+    }
+
+    this.algorithmData.nativeElement.value = data;
   }
 }

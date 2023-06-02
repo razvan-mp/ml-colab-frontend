@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
@@ -12,6 +18,8 @@ import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
   styleUrls: ['./knn.component.scss'],
 })
 export class KnnComponent implements OnInit, OnDestroy {
+  @ViewChild('algorithmData') algorithmData!: ElementRef;
+
   selectedWeight = 'uniform';
   selectedMetric = 'euclidean';
   kValue = 3;
@@ -307,10 +315,38 @@ export class KnnComponent implements OnInit, OnDestroy {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Your data should be a newline separated list of points. \n
-        Each point should be a comma separated list of numbers. \n 
-        The last number in each point should be the class of the point (0 or 1).`,
+        Each point should be a comma separated list of numbers. \n
+        The last number in each point should be the class of the point (0 or 1).\n
+        Do note that using the uniform weight function with the Manhattan metric is not recommended and it will take a long time to compute.`,
       acceptLabel: 'Ok',
       rejectVisible: false,
     });
+  }
+
+  private randomIntBetween(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max + 1 - min) + min);
+  }
+
+  private randomBetween(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  private rounded(num: number): number {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
+  }
+
+  getRandomData() {
+    let randomData = '';
+    let maxIndex = this.randomIntBetween(5, 15);
+
+    for (let i = 0; i < maxIndex; i++) {
+      randomData += `${this.rounded(this.randomBetween(-4, 4))},${this.rounded(
+        this.randomBetween(-4, 4)
+      )},${this.randomIntBetween(0, 1)}\n`;
+    }
+
+    this.algorithmData.nativeElement.value = randomData.replace(/\n$/, '');
   }
 }

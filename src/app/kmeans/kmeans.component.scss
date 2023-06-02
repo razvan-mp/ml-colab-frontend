@@ -17,3 +17,24 @@ textarea {
   font-family: "Fira Code", monospace;
   resize: none;
 }
+
+
+.random-data-button {
+  font-size: 1rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  padding: 12px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: 200ms ease-in-out;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.random-data-button:hover {
+  background-color: var(--indigo-500);
+}

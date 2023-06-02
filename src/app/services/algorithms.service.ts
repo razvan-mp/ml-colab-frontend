@@ -53,4 +53,10 @@ export class AlgorithmsService {
       payload
     ) as Observable<any>;
   }
+
+  getRandomData(algorithm: string) {
+    return this.httpClient.post(`${this.BACKEND_API}/get_random_data/`, {
+      algorithm,
+    }) as Observable<any>;
+  }
 }

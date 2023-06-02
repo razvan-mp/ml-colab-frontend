@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { KmeansEnvironmentVars } from '../vars/kmeans-environment-vars';
 import { AppComponent } from '../app.component';
@@ -12,6 +18,9 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./kmeans.component.scss'],
 })
 export class KmeansComponent implements OnInit, OnDestroy {
+  @ViewChild('pointInput') pointInput!: ElementRef;
+  @ViewChild('centroidInput') centroidInput!: ElementRef;
+
   public graph = {
     data: [] as any,
     layout: {
@@ -232,7 +241,11 @@ export class KmeansComponent implements OnInit, OnDestroy {
         r: 10,
         type: 'scatter',
         mode: 'markers',
-        marker: { color: 'white', size: 10 },
+        marker: {
+          color: 'white',
+          size: 10,
+          line: { color: 'black', width: 2 },
+        },
         name: 'Point',
       });
     }
@@ -328,5 +341,48 @@ export class KmeansComponent implements OnInit, OnDestroy {
       acceptLabel: 'Ok',
       rejectVisible: false,
     });
+  }
+
+  private randomIntBetween(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max + 1 - min) + min);
+  }
+
+  private randomBetween(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  private rounded(num: number): number {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
+  }
+
+  getRandomData() {
+    let points = '';
+    let centroids = '';
+    let maxPointIndex = this.randomIntBetween(5, 50);
+
+    for (let index = 0; index < maxPointIndex; index++) {
+      points += this.rounded(this.randomBetween(-100, 100)) + ',';
+      points += this.rounded(this.randomBetween(-100, 100)) + '\n';
+    }
+
+    let maxCentroidIndex = this.randomIntBetween(
+      1,
+      Math.floor(maxPointIndex / 2)
+    );
+
+    for (let index = 0; index < maxCentroidIndex; index++) {
+      centroids += this.rounded(this.randomBetween(-40, 40)) + ',';
+      centroids += this.rounded(this.randomBetween(-100, 100)) + '\n';
+    }
+
+    this.pointInput.nativeElement.value = points;
+
+    if (this.customCentroids) {
+      this.centroidInput.nativeElement.value = centroids;
+    } else {
+      this.centroidInput.nativeElement.value = '';
+    }
   }
 }

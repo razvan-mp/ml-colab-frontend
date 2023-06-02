@@ -26,7 +26,7 @@
         class="flex flex-row w-full justify-content-between align-items-center"
       >
         <div class="flex flex-row gap-2 align-items-center">
-          <h2>Enter your custom data</h2>
+          <h2>Enter your data</h2>
           <p-fileUpload
             #form
             mode="basic"
@@ -37,6 +37,10 @@
             (uploadHandler)="uploadHandler($event, form)"
             accept=".csv"
           ></p-fileUpload>
+          <button class="random-data-button" (click)="getRandomData()">
+            <ng-icon name="feather-shuffle"></ng-icon>
+            or get some random data
+          </button>
         </div>
         <p-button
           styleClass="p-button-text p-button-rounded"
@@ -81,6 +85,7 @@
           </span>
         </div>
         <textarea
+          #algorithmData
           pInputTextarea
           name="points"
           id="hclustering-points"

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -19,6 +18,8 @@ import * as d3 from 'd3';
 })
 export class Id3Component implements OnInit, OnDestroy {
   private zoom: any;
+
+  @ViewChild('algorithmData') algorithmData!: ElementRef;
 
   constructor(
     private messageService: MessageService,
@@ -58,7 +59,6 @@ export class Id3Component implements OnInit, OnDestroy {
     element.style.margin = 'auto';
     element.style.objectFit = 'contain';
 
-
     this.zoom = d3.zoom().on('zoom', (event) => {
       const { x, y, k } = event.transform;
       content.style('transform', `translate(${x}px, ${y}px) scale(${k})`);
@@ -87,9 +87,7 @@ export class Id3Component implements OnInit, OnDestroy {
   }
 
   dataInLocalStorage(): boolean {
-    return (
-      localStorage.getItem('id3_data') !== ''
-    );
+    return localStorage.getItem('id3_data') !== '';
   }
 
   loadExampleData(): void {
@@ -225,6 +223,12 @@ export class Id3Component implements OnInit, OnDestroy {
       icon: 'pi',
       acceptLabel: 'Ok',
       rejectVisible: false,
+    });
+  }
+
+  getRandomData(): void {
+    this.algorithmsService.getRandomData('id3').subscribe((res) => {
+      this.algorithmData.nativeElement.value = res.data;
     });
   }
 }

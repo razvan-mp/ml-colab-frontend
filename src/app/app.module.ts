@@ -67,6 +67,7 @@ import {
   featherMicOff,
   featherChevronDown,
   featherChevronUp,
+  featherShuffle,
 } from '@ng-icons/feather-icons';
 import { TeamChatComponent } from './team-chat/team-chat.component';
 
@@ -142,6 +143,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
       featherMicOff,
       featherChevronDown,
       featherChevronUp,
+      featherShuffle,
     }),
   ],
   providers: [

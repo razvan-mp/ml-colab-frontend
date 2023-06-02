@@ -7,7 +7,15 @@
 
   <!-- graph section -->
   <div class="flex flex-column lg:flex-row gap-4 lg:h-30rem h-full">
-    <div #graphContainer id="container" class="w-full h-30rem">
+    <div class="relative w-full">
+      <p-button
+        (click)="resetView()"
+        styleClass="p-button-rounded bg-indigo-200"
+        label="Reset View"
+        class="absolute z-5"
+      >
+      </p-button>
+      <div #graphContainer id="container" class="w-full h-30rem"></div>
     </div>
 
     <p-divider
@@ -19,19 +27,23 @@
       <div
         class="flex flex-row w-full justify-content-between align-items-center"
       >
-        <div class="flex flex-row gap-2 align-items-center">
-          <h2>Enter your custom data</h2>
-          <p-fileUpload
-            #form
-            mode="basic"
-            chooseLabel="or upload a CSV"
-            styleClass="p-button-rounded p-button-text"
-            name="myfile[]"
-            [customUpload]="true"
-            (uploadHandler)="uploadHandler($event, form)"
-            accept=".csv"
-          ></p-fileUpload>
-        </div>
+          <div class="flex flex-row gap-2 align-items-center">
+            <h2>Enter your data</h2>
+            <p-fileUpload
+              #form
+              mode="basic"
+              chooseLabel="or upload a CSV"
+              styleClass="p-button-rounded p-button-text"
+              name="myfile[]"
+              [customUpload]="true"
+              (uploadHandler)="uploadHandler($event, form)"
+              accept=".csv"
+            ></p-fileUpload>
+            <button class="random-data-button" (click)="getRandomData()">
+              <ng-icon name="feather-shuffle"></ng-icon>
+              or get some random data
+            </button>
+          </div>
         <p-button
           styleClass="p-button-text p-button-rounded"
           icon="pi pi-info-circle"
@@ -44,6 +56,7 @@
         class="lg:col-5 col-10 flex flex-column gap-2 w-full h-full"
       >
         <textarea
+          #algorithmData
           pInputTextarea
           class="h-21rem max-w-full"
           name="data"
