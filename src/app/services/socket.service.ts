@@ -48,7 +48,9 @@ export class SocketService {
 
   onUserDisconnected(): Observable<any> {
     return new Observable((observer) => {
-      this.socket.on('user-disconnected', (userId: any) => observer.next(userId));
+      this.socket.on('user-disconnected', (userId: any) =>
+        observer.next(userId)
+      );
     });
   }
 

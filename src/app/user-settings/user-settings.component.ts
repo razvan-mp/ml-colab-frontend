@@ -109,6 +109,10 @@ export class UserSettingsComponent {
           });
           setTimeout(() => {
             this.authService.logout();
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('user_id');
             this.state.isLoggedIn = false;
             localStorage.clear();
             window.location.reload();

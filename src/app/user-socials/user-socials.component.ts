@@ -60,6 +60,7 @@ export class UserSocialsComponent implements OnInit {
     this.fetchUsers();
     this.fetchFriends();
     this.fetchSentFriendRequests();
+    this.startPolling();
   }
 
   startPolling() {

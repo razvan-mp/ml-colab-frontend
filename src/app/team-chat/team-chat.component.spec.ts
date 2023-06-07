@@ -8,9 +8,8 @@ describe('TeamChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeamChatComponent ]
-    })
-    .compileComponents();
+      declarations: [TeamChatComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeamChatComponent);
     component = fixture.componentInstance;
