@@ -33,3 +33,16 @@
   z-index: -1;
   backdrop-filter: blur(120px);
 }
+
+@media screen and (max-width: 600px) {
+  #blob {
+    height: 100svh;
+    width: 100svw;
+    animation: none;
+    display: none;
+  }
+
+  #blur {
+    display: none;
+  }
+}

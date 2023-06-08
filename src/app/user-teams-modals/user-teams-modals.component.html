@@ -24,7 +24,7 @@
       #createTeamForm
       (submit)="createTeam($event, createTeamForm)"
     >
-      <div class="h-full flex justify-content-between p-5">
+      <div class="h-full flex flex-column sm:flex-row justify-content-between p-5">
         <div class="sm:col-9 col-12 h-full">
           <input
             autocomplete="false"
@@ -41,7 +41,8 @@
             placeholder="Team description"
           ></textarea>
         </div>
-        <p-divider layout="vertical"></p-divider>
+        <p-divider styleClass="sm:inline-block hidden" layout="vertical"></p-divider>
+        <p-divider styleClass="inline-block sm:hidden" layout="horizontal"></p-divider>
         <div class="sm:col-3 col-12">
           <div class="flex flex-column w-full">
             <h3>Add users to your team</h3>

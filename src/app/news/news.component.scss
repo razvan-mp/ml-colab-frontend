@@ -229,3 +229,38 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+@media screen and (width < 391px) {
+  .toolbar {
+    flex-direction: column;
+    gap: 10px;
+
+    .group {
+      .right {
+        text-align: left;
+      }
+
+      .center {
+        text-align: left;
+      }
+    }
+  }
+
+  :host ::ng-deep {
+    .p-paginator {
+      margin: 0 auto;
+      display: flex;
+
+      .p-paginator-pages {
+        display: flex;
+        flex-wrap: nowrap;
+
+        .p-paginator-page {
+          margin: 0;
+          padding: 0;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

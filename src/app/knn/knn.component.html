@@ -24,7 +24,7 @@
       <div
         class="flex flex-row w-full justify-content-between align-items-center"
       >
-        <div class="flex flex-row gap-2 align-items-center">
+        <div class="flex flex-column sm:flex-row gap-2 align-items-baseline sm:align-items-center">
           <h2>Enter your data</h2>
           <p-fileUpload
             #form
@@ -53,7 +53,7 @@
         (submit)="updateData($event, kNNForm)"
         class="xl:col-5 flex flex-column gap-2 w-full h-full"
       >
-        <div class="flex flex-row gap-2 w-full justify-content-between">
+        <div class="flex flex-column sm:flex-row gap-2 w-full justify-content-between">
           <span>
             <label for="k">K</label>
             <p-inputNumber

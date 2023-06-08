@@ -4,7 +4,7 @@
   <h1>Latest ML News</h1>
 
   <div class="toolbar">
-    <div class="group">
+    <div *ngIf="!isLoading" class="group">
       <div class="title">Sorting</div>
       <div class="content">
         <p-button
@@ -32,7 +32,7 @@
         ></p-paginator>
       </div>
     </div>
-    <div class="group">
+    <div *ngIf="!isLoading" class="group">
       <div class="title right">View</div>
       <div class="content">
         <p-button
