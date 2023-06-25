@@ -203,3 +203,13 @@ form {
     transform: skew(-15deg) translateX(60svw);
   }
 }
+
+@media screen and (width < 768px) {
+  :host ::ng-deep {
+    .p-dialog {
+      width: 80%;
+      height: 70%;
+      border-radius: 15px;
+    }
+  }
+}

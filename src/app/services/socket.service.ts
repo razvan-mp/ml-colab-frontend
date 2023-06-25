@@ -21,7 +21,7 @@ export class SocketService {
       },
     };
 
-    this.socket = io.connect('http://192.168.1.3:3000', options);
+    this.socket = io.connect('http://192.168.0.102:3000', options);
   }
 
   joinRoom(roomId: string, userId: string) {

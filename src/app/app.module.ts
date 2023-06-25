@@ -53,6 +53,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PaginatorModule } from 'primeng/paginator';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AnimateModule } from 'primeng/animate';
+import { ScrollTopModule } from 'primeng/scrolltop';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { VideoCallComponent } from './video-call/video-call.component';
@@ -134,6 +135,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     PaginatorModule,
     AnimateModule,
     DragDropModule,
+    ScrollTopModule,
     NgIconsModule.withIcons({
       featherPhone,
       featherPhoneOff,

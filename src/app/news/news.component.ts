@@ -106,8 +106,10 @@ export class NewsComponent implements OnInit {
     this.newsChunk = this.news.slice($event.first, $event.first + $event.rows);
     if (paginator == 1) {
       this.secondPaginator?.changePage($event.page);
+      return;
     } else {
       this.firstPaginator?.changePage($event.page);
+      return;
     }
   }
 }

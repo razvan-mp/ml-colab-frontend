@@ -8,7 +8,7 @@ import { AppComponent } from '../app.component';
   providedIn: 'root',
 })
 export class FriendsService {
-  readonly BACKEND_API = 'http://192.168.1.3:8000/api/friends';
+  readonly BACKEND_API = 'http://192.168.0.102:8000/api/friends';
 
   constructor(
     private httpClient: HttpClient,

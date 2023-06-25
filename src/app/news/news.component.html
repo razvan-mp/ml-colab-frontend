@@ -1,5 +1,7 @@
 <p-toast position="bottom-left"></p-toast>
 
+<p-scrollTop icon="pi pi-arrow-up" styleClass="bg-indigo-300"></p-scrollTop>
+
 <div class="content-wrapper">
   <h1>Latest ML News</h1>
 
@@ -81,22 +83,6 @@
           styleClass="p-button-rounded"
           (onClick)="redirectTo(newsItem.hyperlink)"
         ></p-button>
-      </div>
-    </div>
-  </div>
-
-  <div class="toolbar align-self-center">
-    <div *ngIf="!isLoading" class="group">
-      <div class="title center">Page options</div>
-      <div class="content">
-        <p-paginator
-          #p2
-          [showFirstLastIcon]="false"
-          [rows]="10"
-          [rowsPerPageOptions]="[10, 20, 30]"
-          [totalRecords]="news.length"
-          (onPageChange)="paginate($event, 2)"
-        ></p-paginator>
       </div>
     </div>
   </div>

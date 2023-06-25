@@ -10,7 +10,7 @@ import { StateManagerService } from './services/state-manager.service';
 })
 export class AppComponent implements OnInit {
   title = 'front-end';
-  static readonly BACKEND_URL: string = 'http://192.168.1.3:8000/';
+  static readonly BACKEND_URL: string = 'http://192.168.0.102:8000/';
 
   get isLoggedIn(): boolean {
     return this.state.isLoggedIn;
